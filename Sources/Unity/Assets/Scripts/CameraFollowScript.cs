@@ -1,17 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollowScript : MonoBehaviour
 {
-    public Transform player;
-    public GameObject camera;
+    public GameObject player;
+    public Vector3 offset;
+    public float timeOffset;
+    public Rigidbody body;
+    
+    private Vector3 velocity;
 
-    // Update is called once per frame
-    void Update()
+    void Start()
     {
-        camera.transform.position = new Vector3(player.position.x, 
-                                                player.position.y,
-                                                player.position.z);
+        offset = transform.position - player.transform.position;
+    }
+
+    void LateUpdate()
+    {
+        transform.position = Vector3.SmoothDamp(transform.position, Mathf.Cos(player.transform.rotation.y) * player.transform.position + offset, ref velocity, timeOffset);
+        transform.LookAt(player.transform);
     }
 }
