@@ -4,47 +4,50 @@ using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
 {
-    public float runSpeed;
+    public float runSpeed = 20;
+    public float turnSpeed = 1;
+    public Transform playerTransform;
     public Rigidbody playerRigidbody;
+    public float floatDistance = 2;
 
-    private bool moveRight;
-    private bool moveLeft;
-    private bool moveForward;
-    private bool moveBackward;
+    private bool _moveRight;
+    private bool _moveLeft;
+    private bool _moveForward;
+    private bool _moveBackward;
     
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            moveLeft = true;
+            _moveLeft = true;
         }
         if (Input.GetKeyUp(KeyCode.Q))
         {
-            moveLeft = false;
+            _moveLeft = false;
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            moveRight = true;
+            _moveRight = true;
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
-            moveRight = false;
+            _moveRight = false;
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            moveForward = true;
+            _moveForward = true;
         }
         if (Input.GetKeyUp(KeyCode.Z))
         {
-            moveForward = false;
+            _moveForward = false;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            moveBackward = true;
+            _moveBackward = true;
         }
         if (Input.GetKeyUp(KeyCode.S))
         {
-            moveBackward = false;
+            _moveBackward = false;
         }
     }
     
@@ -56,24 +59,54 @@ public class PlayerMovementScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (moveLeft)
+        if (_moveLeft)
         {
-            float axis = Input.GetAxis("Horizontal");
-            playerRigidbody.AddTorque(Vector3.left * axis * 2000);
+            Vector3 force = playerTransform.right * -turnSpeed;
+            Vector3 position = transform.position;
+            position.z += .5f;
+            
+            playerRigidbody.AddForceAtPosition(force, position, ForceMode.Force);
+        }
+        if (_moveRight)
+        {
+            Vector3 force = playerTransform.right * turnSpeed;
+            Vector3 position = transform.position;
+            position.z += .5f;
+            
+            playerRigidbody.AddForceAtPosition(force, position, ForceMode.Force);
+        }
+        if (_moveForward)
+        {
+            playerRigidbody.AddForce(playerTransform.forward * runSpeed, ForceMode.Force);
+        }
+        if (_moveBackward)
+        {
+            playerRigidbody.AddForce(playerTransform.forward * -runSpeed, ForceMode.Force);
+        }
+        
+        // Make the body float above the ground
+        // Bit shift the index of the layer (8) to get a bit mask
+        int layerMask = 1 << 8;
 
-        }
-        if (moveRight)
+        // This would cast rays only against colliders in layer 8.
+        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+        layerMask = ~layerMask;
+
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, floatDistance, layerMask))
         {
-            playerRigidbody.AddTorque(0.0f,-5.0f,0.0f);
-            //playerRigidbody.AddTorque(Vector3.right * runSpeed,ForceMode.Force);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * hit.distance, Color.yellow);
+            
+            playerRigidbody.AddForce(Vector3.up * runSpeed, ForceMode.Force);
         }
-        if (moveForward)
+        else
         {
-            playerRigidbody.AddForce(Vector3.forward * runSpeed, ForceMode.Force);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 1000, Color.white);
         }
-        if (moveBackward)
-        {
-            playerRigidbody.AddForce(Vector3.back * runSpeed, ForceMode.Force);
-        }
+        
+        // Try to make the body to stand up
+        var rot = Quaternion.FromToRotation(transform.up, Vector3.up);
+        playerRigidbody.AddTorque(new Vector3(rot.x, rot.y, rot.z) * 10);
     }
 }
