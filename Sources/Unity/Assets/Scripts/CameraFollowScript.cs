@@ -6,6 +6,7 @@ public class CameraFollowScript : MonoBehaviour
     public Vector3 offset;
     public float timeOffset;
     public Rigidbody body;
+    public float cameraDistance = 10.0f;
     
     private Vector3 velocity;
 
@@ -16,7 +17,9 @@ public class CameraFollowScript : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, Mathf.Cos(player.transform.rotation.y) * player.transform.position + offset, ref velocity, timeOffset);
+        Vector3 position = player.transform.position - player.transform.forward * cameraDistance;
+
+        transform.position = Vector3.SmoothDamp(transform.position, position, ref velocity, timeOffset);
         transform.LookAt(player.transform);
     }
 }
