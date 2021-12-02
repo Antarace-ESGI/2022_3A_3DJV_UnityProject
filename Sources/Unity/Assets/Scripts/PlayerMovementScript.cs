@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
 {
-    public float runSpeed;
     public Rigidbody playerRigidbody;
+
+    public float rotationSpeed = 20f;
+    public float speed = 2f;
 
     private bool moveRight;
     private bool moveLeft;
@@ -47,33 +49,23 @@ public class PlayerMovementScript : MonoBehaviour
             moveBackward = false;
         }
     }
-    
-    //Prendre en compte la masse (Addforce)= Impulse
-    //Ignorer la masse = VelocityChange
-    
-    //Ignorer la masse = Accélaration (Dans une vitesse)
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (moveLeft)
         {
-            float axis = Input.GetAxis("Horizontal");
-            playerRigidbody.AddTorque(Vector3.left * axis * 2000);
-
+            transform.Rotate(-Vector3.up, Time.fixedDeltaTime * rotationSpeed);
         }
         if (moveRight)
         {
-            playerRigidbody.AddTorque(0.0f,-5.0f,0.0f);
-            //playerRigidbody.AddTorque(Vector3.right * runSpeed,ForceMode.Force);
+            transform.Rotate(Vector3.up, Time.fixedDeltaTime * rotationSpeed);
         }
         if (moveForward)
         {
-            playerRigidbody.AddForce(Vector3.forward * runSpeed, ForceMode.Force);
+            playerRigidbody.AddForce(transform.forward * speed, ForceMode.Force);
         }
         if (moveBackward)
         {
-            playerRigidbody.AddForce(Vector3.back * runSpeed, ForceMode.Force);
+            playerRigidbody.AddForce(-transform.forward * speed, ForceMode.Force);
         }
     }
 }
