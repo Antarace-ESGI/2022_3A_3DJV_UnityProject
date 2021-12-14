@@ -13,8 +13,38 @@ public class PlayerMovementScript : MonoBehaviour
     private bool moveLeft;
     private bool moveForward;
     private bool moveBackward;
-    
-    void Update()
+
+    private void controllerMovement()
+    {
+        if (Input.GetAxisRaw("Vertical") <= 1 && Input.GetAxisRaw("Vertical") > 0)
+        {
+            moveForward = true;
+        }
+        if (Input.GetAxisRaw("Vertical") >= -1 && Input.GetAxisRaw("Vertical") < 0)
+        {
+            moveBackward = true;
+        }
+        if (Input.GetAxisRaw("Vertical") == 0)
+        {
+            moveForward = false;
+            moveBackward = false;
+        }
+        if (Input.GetAxisRaw("Horizontal") >= -1 && Input.GetAxisRaw("Horizontal") < 0)
+        {
+            moveLeft = true;
+        }
+        if (Input.GetAxisRaw("Horizontal") <= 1 && Input.GetAxisRaw("Horizontal") > 0)
+        {
+            moveRight = true;
+        }
+        if (Input.GetAxisRaw("Horizontal") == 0)
+        {
+            moveLeft = false;
+            moveRight = false;
+        }
+    }
+
+    private void keyboardMovement()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -48,6 +78,20 @@ public class PlayerMovementScript : MonoBehaviour
         {
             moveBackward = false;
         }
+    }
+    
+    void Update()
+    {
+
+        if (Input.GetJoystickNames().Length > 0)
+        {
+            controllerMovement();
+        }
+        else
+        {
+            keyboardMovement();
+        }
+        
     }
     void FixedUpdate()
     {
