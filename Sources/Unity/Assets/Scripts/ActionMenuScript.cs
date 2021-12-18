@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class ActionMenuScript : MonoBehaviour
     
     public GameObject inPausePanel;
     public GameObject inGamePanel;
+
+    private bool activatePause = false;
 
     private void switchPanel(GameObject currentPanel, GameObject nextPanel)
     {
@@ -30,5 +33,29 @@ public class ActionMenuScript : MonoBehaviour
             UnityEditor.EditorApplication.isPlaying = false;
         #endif
             Application.Quit();
+    }
+    
+    private void controllerActionButton()
+    {
+        if (Input.GetButtonDown("Start"))
+        {
+            if (inPausePanel.activeInHierarchy)
+            {
+                disablePause();
+            }
+            else
+            {
+                enablePause();
+            }
+            
+        }
+    }
+
+    public void Update()
+    {
+        if (Input.GetJoystickNames().Length > 0)
+        {
+            controllerActionButton();
+        }
     }
 }

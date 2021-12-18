@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRigidbody: {fileID: 292397124}
+  myMenuScript: {fileID: 0}
   rotationSpeed: 2
   speed: 5
 --- !u!1 &1437172703 stripped
