@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -155,11 +155,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &292397124 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 1026720673131024937, guid: b4e72bcacd40771458014916280adcd3, type: 3}
-  m_PrefabInstance: {fileID: 704484047}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &704484047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -203,21 +198,25 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d83bf6e5582dab4489678c251c185ad7, type: 2}
+    - target: {fileID: 7588042344133611328, guid: b4e72bcacd40771458014916280adcd3, type: 3}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9134706486025080111, guid: b4e72bcacd40771458014916280adcd3, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9134706486025080111, guid: b4e72bcacd40771458014916280adcd3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.1202583
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9134706486025080111, guid: b4e72bcacd40771458014916280adcd3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.9229026
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9134706486025080111, guid: b4e72bcacd40771458014916280adcd3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.7639675
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9134706486025080111, guid: b4e72bcacd40771458014916280adcd3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -225,15 +224,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9134706486025080111, guid: b4e72bcacd40771458014916280adcd3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9134706486025080111, guid: b4e72bcacd40771458014916280adcd3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9134706486025080111, guid: b4e72bcacd40771458014916280adcd3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9134706486025080111, guid: b4e72bcacd40771458014916280adcd3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -470,8 +469,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1820424576}
   m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 35.1, y: 0, z: 27.5}
-  m_LocalScale: {x: 75, y: 1, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 75, y: 1, z: 75}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -502,13 +501,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935311386}
-  m_LocalRotation: {x: 0.123947844, y: 0, z: 0, w: 0.99228877}
-  m_LocalPosition: {x: 4.15, y: 5.86, z: 6.2}
+  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 6, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 139481197}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 14.24, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!81 &1935311388
 AudioListener:
   m_ObjectHideFlags: 0
@@ -572,8 +571,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa71b71b0c96f0409f208fd6bc65ab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2143650251}
-  camera: {fileID: 1935311386}
+  player: {fileID: 1072921359}
+  offset: {x: 0, y: 0, z: 0}
+  timeOffset: 0.3
+  body: {fileID: 0}
+  cameraDistance: 5
+  floatDistance: 2
 --- !u!1 &2005564942
 GameObject:
   m_ObjectHideFlags: 0

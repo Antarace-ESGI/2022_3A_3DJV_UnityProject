@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerMovementScript : MonoBehaviour
 {
+    public float runSpeed = 20;
+    public float turnSpeed = 1;
+    public Transform playerTransform;
     public Rigidbody playerRigidbody;
+    public float floatDistance = 2;
 
     public float rotationSpeed = 20f;
     public float speed = 2f;
@@ -44,39 +48,44 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
 
+    private bool _moveRight;
+    private bool _moveLeft;
+    private bool _moveForward;
+    private bool _moveBackward;
+    
     private void keyboardMovement()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            moveLeft = true;
+            _moveLeft = true;
         }
         if (Input.GetKeyUp(KeyCode.Q))
         {
-            moveLeft = false;
+            _moveLeft = false;
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            moveRight = true;
+            _moveRight = true;
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
-            moveRight = false;
+            _moveRight = false;
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            moveForward = true;
+            _moveForward = true;
         }
         if (Input.GetKeyUp(KeyCode.Z))
         {
-            moveForward = false;
+            _moveForward = false;
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            moveBackward = true;
+            _moveBackward = true;
         }
         if (Input.GetKeyUp(KeyCode.S))
         {
-            moveBackward = false;
+            _moveBackward = false;
         }
     }
     
@@ -95,21 +104,40 @@ public class PlayerMovementScript : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (moveLeft)
+        if (_moveLeft)
         {
             transform.Rotate(-Vector3.up, Time.fixedDeltaTime * rotationSpeed);
         }
-        if (moveRight)
+        if (_moveForward)
         {
             transform.Rotate(Vector3.up, Time.fixedDeltaTime * rotationSpeed);
         }
-        if (moveForward)
+        if (_moveBackward)
+        {
+            playerRigidbody.AddForce(playerTransform.forward * -runSpeed, ForceMode.Force);
+        }
+        
+        // Make the body float above the ground
+        // Bit shift the index of the layer (8) to get a bit mask
+        int layerMask = 1 << 8;
+
+        // This would cast rays only against colliders in layer 8.
+        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+        layerMask = ~layerMask;
+
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, floatDistance, layerMask))
         {
             playerRigidbody.AddForce(transform.forward * speed, ForceMode.Force);
         }
-        if (moveBackward)
+        else
         {
             playerRigidbody.AddForce(-transform.forward * speed, ForceMode.Force);
         }
+        
+        // Try to make the body to stand up
+        var rot = Quaternion.FromToRotation(transform.up, Vector3.up);
+        playerRigidbody.AddTorque(new Vector3(rot.x, rot.y, rot.z) * 10);
     }
 }
