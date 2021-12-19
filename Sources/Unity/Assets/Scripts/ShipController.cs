@@ -1,10 +1,9 @@
 using UnityEngine;
-using System.Collections;
 using Unity.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 
-/**
+/*
  * ShipController.cs - A Unity3D player controller inspired by Elite: Dangerous.
  * 
  * This is a physics based controller and as such, requires a RigidBody component.
@@ -14,77 +13,61 @@ using Unity.Collections;
  **/
 public class ShipController : MonoBehaviour
 {
-    Rigidbody ship;
+    Rigidbody _ship;
 
-    float qtrScreenH;
-    float qtrScreenW;
+    float _qtrScreenH;
+    float _qtrScreenW;
 
-    bool adjustPitch = false;
-    bool adjustYaw = false;
-    bool adjustRoll = false;
-    bool adjustThrustX = false;
-    bool adjustThrustY = false;
-    bool adjustThrustZ = false;
+    bool _adjustYaw;
+    bool _adjustThrustX;
+    bool _adjustThrustY;
+    bool _adjustThrustZ;
 
-    [ReadOnly]
-    public Vector3 mousePosition;
-    public float mouseDeadZone = 0.1f;
-    Vector3 centerScreen;
+    [ReadOnly] public Vector3 mousePosition;
+    public float mouseDeadZone = 1.0f;
+    Vector3 _centerScreen;
 
-    float pitch = 0.0f;
-    float yaw = 0.0f;
-    float roll = 0.0f;
-
-    float pitchDiff = 0.0f;
-    float yawDiff = 0.0f;
+    float _yaw;
+    float _yawDiff;
 
     public Vector3 thrust = Vector3.zero;
-    
+
     // THROTTLE
     public float throttle = 100f;
-    [Range(0,50)]
-    public float throttleAmount = 0.25f;
-    [Range(0,500f)]
-    public float maxThrottle = 4f;
-    [Range(-500,100f)]
-    public float minThrottle = -2f;
+    [Range(0, 50)] public float throttleAmount = 0.25f;
+    [Range(0, 500f)] public float maxThrottle = 4f;
+    [Range(-500, 100f)] public float minThrottle = -2f;
 
     // FLIGHT CONTROL PARAMETERS
-    [Range(0, 100f)]
-    public float pitchStrength = 1.5f;
-    [Range(0, 100f)]
-    public float yawStrength = 1.5f;
-    [Range(0, 10f)]
-    public float rollStrength = 1.5f;
+    [Range(0, 100f)] public float yawStrength = 1.5f;
 
-    public bool flightAssist = false;
+    public bool flightAssist;
 
     // IMPULSE MODE
-    float impulseTimer;
-    public bool impulseMode = false;
+    float _impulseTimer;
+    public bool impulseMode;
     public float impulseCoolDown = 3.0f;
+
+    public float floatDistance = 2;
 
 
     /// <summary>
     /// Initialize ship controller and capture screen information.
     /// </summary>
-    void Start () {
-        centerScreen = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-        ship = GetComponent<Rigidbody>();
-        qtrScreenH = Screen.height * 0.25f;
-        qtrScreenW = Screen.width * 0.25f;
-	}
+    void Start()
+    {
+        _centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+        _ship = GetComponent<Rigidbody>();
+        _qtrScreenH = Screen.height * 0.25f;
+        _qtrScreenW = Screen.width * 0.25f;
+    }
 
 
     /// <summary>
     /// Called by the UnityEngine, should update once per frame.
     /// </summary>
-    void Update ()
+    void Update()
     {
-        // Remove this for production build
-        DebugUpdate();
-        //
-
         UpdateTimers();
         InputUpdate();
 
@@ -100,25 +83,62 @@ public class ShipController : MonoBehaviour
     /// </summary>
     void UpdateTimers()
     {
-        impulseTimer += Time.deltaTime;
+        _impulseTimer += Time.deltaTime;
     }
 
 
     /// <summary>
     /// Fixed step update used for physics calculations.
+    /// This method handles the physics related to input.
     /// </summary>
     void FixedUpdate()
     {
-        InputFixedUpdate();
-    }
+        // ADJUST YAW (LEFT/RIGHT/TURN/LOCAL Y)
+        if (_adjustYaw)
+            _ship.AddTorque(transform.up * (_yaw * yawStrength), ForceMode.Force);
 
+        // ADJUST THRUST Z (FORWARD/BACK/LOCAL Z)
+        if (_adjustThrustZ)
+        {
+            if (!impulseMode)
+            {
+                _ship.AddForce(transform.forward * (thrust.z * throttle), ForceMode.Force);
+            }
+            else if (_impulseTimer >= impulseCoolDown)
+            {
+                _ship.AddForce(transform.forward * (thrust.z * throttle), ForceMode.Impulse);
+                _impulseTimer = 0.0f;
+            }
+        }
 
-    /// <summary>
-    /// Let's try to keep things as clean as possible. property dumps should be out here.
-    /// </summary>
-    void DebugUpdate()
-    {
+        // ADJUST THRUST X (LEFT/RIGHT/STRAFE/LOCAL X)
+        if (_adjustThrustX)
+        {
+            if (!impulseMode)
+            {
+                _ship.AddForce(transform.right * (thrust.x * throttle), ForceMode.Force);
+            }
+            else if (_impulseTimer >= impulseCoolDown)
+            {
+                _ship.AddForce(transform.right * (thrust.x * throttle), ForceMode.Impulse);
+                _impulseTimer = 0.0f;
+            }
+        }
 
+        // ADJUST THRUST Y (UP/DOWN/ASCEND/DESCEND/LOCAL Y)
+        if (_adjustThrustY)
+        {
+            if (!impulseMode)
+            {
+                _ship.AddForce(transform.up * (throttle * thrust.y), ForceMode.Force);
+            }
+
+            if (impulseMode && _impulseTimer >= impulseCoolDown)
+            {
+                _ship.AddForce(transform.up * (throttle * thrust.y), ForceMode.Impulse);
+                _impulseTimer = 0.0f;
+            }
+        }
     }
 
 
@@ -128,20 +148,16 @@ public class ShipController : MonoBehaviour
     void InputUpdate()
     {
         mousePosition = Input.mousePosition;
-        pitch = GetPitchValue();
-        yaw = GetYawValue();
-        roll = GetRollValue();
+        _yaw = GetYawValue();
         thrust.x = Input.GetAxis("Horizontal");
         thrust.y = GetThrustY();
         thrust.z = Input.GetAxis("Vertical"); // Z is forward/Back
 
         // Set Flags
-        adjustPitch = Mathf.Abs(pitch) > 0.1f;
-        adjustYaw = Mathf.Abs(yaw) > 0.1f;
-        adjustRoll = roll != 0;
-        adjustThrustX = Mathf.Abs(thrust.x) > 0.1f;
-        adjustThrustY = thrust.y != 0;
-        adjustThrustZ = Mathf.Abs(thrust.z) > 0.1f;
+        _adjustYaw = Mathf.Abs(_yaw) > 0.1f;
+        _adjustThrustX = Mathf.Abs(thrust.x) > 0.1f;
+        _adjustThrustY = thrust.y != 0;
+        _adjustThrustZ = Mathf.Abs(thrust.z) > 0.1f;
 
 
         // Throttle up
@@ -167,105 +183,15 @@ public class ShipController : MonoBehaviour
 
 
     /// <summary>
-    /// This method handles the physics related to input.
-    /// </summary>
-    void InputFixedUpdate()
-    {
-        // ADJUST PITCH (FORWARD/BACK/TILT/LOCAL X)
-        if (adjustPitch)
-            ship.AddTorque(transform.right * (-pitch * pitchStrength), ForceMode.Force);
-
-        // ADJUST YAW (LEFT/RIGHT/TURN/LOCAL Y)
-        if (adjustYaw)
-            ship.AddTorque(transform.up * (yaw * yawStrength), ForceMode.Force);
-
-        // ADJUST ROLL (CLOCKWISE/COUNTERCLOCKWISE/LOCAL Z)
-        if(adjustRoll)
-            ship.AddTorque(transform.forward * (roll * rollStrength), ForceMode.Force);
-
-        // ADJUST THRUST Z (FORWARD/BACK/LOCAL Z)
-        if(adjustThrustZ)
-        {
-            if(!impulseMode)
-            {
-                ship.AddForce(transform.forward * (thrust.z * throttle), ForceMode.Force);
-            }
-            else if(impulseTimer >= impulseCoolDown)
-            {
-                ship.AddForce(transform.forward * (thrust.z * throttle), ForceMode.Impulse);
-                impulseTimer = 0.0f;
-            }
-        }
-
-        // ADJUST THRUST X (LEFT/RIGHT/STRAFE/LOCAL X)
-        if (adjustThrustX)
-        {
-            if(!impulseMode)
-            {
-                ship.AddForce(transform.right * (thrust.x * throttle), ForceMode.Force);
-            }
-            else if (impulseTimer >= impulseCoolDown)
-            {
-                ship.AddForce(transform.right * (thrust.x * throttle), ForceMode.Impulse);
-                impulseTimer = 0.0f;
-            }
-        }
-
-        // ADJUST THRUST Y (UP/DOWN/ASCEND/DESCEND/LOCAL Y)
-        if(adjustThrustY)
-        {
-            if(!impulseMode)
-            {
-                ship.AddForce(transform.up * (throttle * thrust.y), ForceMode.Force);
-            }
-            if (impulseMode && impulseTimer >= impulseCoolDown)
-            {
-                ship.AddForce(transform.up * (throttle * thrust.y), ForceMode.Impulse);
-                impulseTimer = 0.0f;
-            }
-        }
-    }
-
-
-    /// <summary>
-    /// Returns a pitch value based on the relative distance of the mouse from the center of the screen.
-    /// </summary>
-    /// <returns></returns>
-    float GetPitchValue()
-    {
-        pitchDiff = -(centerScreen.y - mousePosition.y);
-        pitchDiff = Mathf.Clamp(pitchDiff,-qtrScreenH,qtrScreenH);
-
-        return (pitchDiff / qtrScreenH);
-    }
-
-
-    /// <summary>
     /// Returns a yaw value based on the relative position of the mouse from the center of the screen.
     /// </summary>
     /// <returns></returns>
     float GetYawValue()
     {
-        yawDiff = -(centerScreen.x - mousePosition.x);
-        yawDiff = Mathf.Clamp(yawDiff, -qtrScreenW, qtrScreenW);
+        _yawDiff = -(_centerScreen.x - mousePosition.x);
+        _yawDiff = Mathf.Clamp(_yawDiff, -_qtrScreenW, _qtrScreenW);
 
-        return (yawDiff / qtrScreenW);
-    }
-
-
-    /// <summary>
-    /// Returns a digital axis.
-    /// </summary>
-    /// <returns></returns>
-    float GetRollValue()
-    {
-        if(Input.GetKey(KeyCode.A))
-            return 1.0f;
-
-        if(Input.GetKey(KeyCode.E))
-            return -1.0f;
-
-        return 0;
+        return (_yawDiff / _qtrScreenW);
     }
 
 
@@ -275,13 +201,23 @@ public class ShipController : MonoBehaviour
     /// <returns></returns>
     float GetThrustY()
     {
-        if(Input.GetKey(KeyCode.Space))
-            return 1;
+        // Make the body float above the ground
+        // Bit shift the index of the layer (8) to get a bit mask
+        int layerMask = 1 << 8;
 
-        if(Input.GetKey(KeyCode.LeftShift))
-            return -1;
+        // This would cast rays only against colliders in layer 8.
+        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+        layerMask = ~layerMask;
 
-        return 0.0f;
+        RaycastHit hit;
+        // Does the ray intersect any objects excluding the player layer
+        if (Physics.Raycast(transform.position + transform.forward * transform.localScale.z,
+                transform.TransformDirection(Vector3.down), out hit, floatDistance, layerMask))
+        {
+            return hit.distance / (floatDistance / 2);
+        }
+
+        return -1.0f;
     }
 
 
@@ -291,18 +227,18 @@ public class ShipController : MonoBehaviour
     void DampenTransform()
     {
         Vector3 nVeloc = new Vector3(
-            Mathf.Lerp(ship.velocity.x, 0, Time.deltaTime * 0.75f),
-            Mathf.Lerp(ship.velocity.y, 0, Time.deltaTime * 0.75f),
-            Mathf.Lerp(ship.velocity.z, 0, Time.deltaTime * 0.75f)
-            );
+            Mathf.Lerp(_ship.velocity.x, 0, Time.deltaTime * 0.75f),
+            Mathf.Lerp(_ship.velocity.y, 0, Time.deltaTime * 0.75f),
+            Mathf.Lerp(_ship.velocity.z, 0, Time.deltaTime * 0.75f)
+        );
 
         Vector3 nAVeloc = new Vector3(
-            Mathf.Lerp(ship.angularVelocity.x, 0, Time.deltaTime),
-            Mathf.Lerp(ship.angularVelocity.y, 0, Time.deltaTime),
-            Mathf.Lerp(ship.angularVelocity.z, 0, Time.deltaTime)
-            );
+            Mathf.Lerp(_ship.angularVelocity.x, 0, Time.deltaTime),
+            Mathf.Lerp(_ship.angularVelocity.y, 0, Time.deltaTime),
+            Mathf.Lerp(_ship.angularVelocity.z, 0, Time.deltaTime)
+        );
 
-        ship.velocity = nVeloc;
-        ship.angularVelocity = nAVeloc;
+        _ship.velocity = nVeloc;
+        _ship.angularVelocity = nAVeloc;
     }
 }
