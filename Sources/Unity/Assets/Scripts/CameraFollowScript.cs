@@ -14,6 +14,7 @@ public class CameraFollowScript : MonoBehaviour
     void Start()
     {
         offset = transform.position - player.transform.position;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     void LateUpdate()
