@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
+using Button = UnityEngine.UIElements.Button;
 
 public class ActionMenuScript : MonoBehaviour
 {
@@ -49,6 +52,15 @@ public class ActionMenuScript : MonoBehaviour
             }
             
         }
+        /*
+        if (Input.GetAxis("Vertical") > 0)
+        {
+            
+        }
+        else
+        {
+            
+        }*/
     }
 
     public void Update()
