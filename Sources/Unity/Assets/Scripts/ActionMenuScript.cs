@@ -8,8 +8,6 @@ public class ActionMenuScript : MonoBehaviour
     public GameObject inPausePanel;
     public GameObject inGamePanel;
 
-    private bool activatePause = false;
-
     private void switchPanel(GameObject currentPanel, GameObject nextPanel)
     {
         currentPanel.SetActive(false);
