@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SimulateButtonClicScript : MonoBehaviour
+public class SimulateButtonClickScript : MonoBehaviour
 {
     
     //temporary
@@ -16,7 +14,6 @@ public class SimulateButtonClicScript : MonoBehaviour
             if (Input.GetButtonDown("CrossButton"))
             {
                 
-                button = GetComponent<Button>();
                 button.onClick.Invoke();
 
             }
