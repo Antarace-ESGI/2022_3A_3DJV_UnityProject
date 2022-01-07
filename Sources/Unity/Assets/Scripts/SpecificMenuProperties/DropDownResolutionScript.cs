@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class DropDownResolutionScript : MonoBehaviour
 {
+    public Dropdown dropdown;
+    
     private void onResolutionScreen()
     {
         Resolution[] resolutions = Screen.resolutions;
@@ -17,16 +19,20 @@ public class DropDownResolutionScript : MonoBehaviour
         }
         
         tmpL.Reverse();
-        GetComponent<Dropdown>().AddOptions(tmpL);
+        dropdown.AddOptions(tmpL);
     }
-    
+
+    public void saveScreenSetting()
+    {
+        //Screen.SetResolution(1680,1050,true);
+    }
 
     void Start()
     {
         onResolutionScreen();
 
-        GetComponent<Dropdown>().onValueChanged.AddListener(delegate {
-            Debug.Log(GetComponent<Dropdown>().value);
+        dropdown.onValueChanged.AddListener(delegate {
+            saveScreenSetting();
         });
     }
     
