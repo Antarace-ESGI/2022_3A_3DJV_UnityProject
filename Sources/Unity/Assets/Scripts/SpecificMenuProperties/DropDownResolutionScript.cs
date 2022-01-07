@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class DropDownResolutionScript : MonoBehaviour
 {
-    public void onResolutionScreen()
+    private void onResolutionScreen()
     {
         Resolution[] resolutions = Screen.resolutions;
         Resolution currentResolution = Screen.currentResolution;
@@ -21,9 +19,15 @@ public class DropDownResolutionScript : MonoBehaviour
         tmpL.Reverse();
         GetComponent<Dropdown>().AddOptions(tmpL);
     }
+    
 
-    public void Start()
+    void Start()
     {
         onResolutionScreen();
+
+        GetComponent<Dropdown>().onValueChanged.AddListener(delegate {
+            Debug.Log(GetComponent<Dropdown>().value);
+        });
     }
+    
 }

@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ActionMenuScript : MonoBehaviour
 {
@@ -7,10 +8,17 @@ public class ActionMenuScript : MonoBehaviour
     public GameObject inPausePanel;
     public GameObject inGamePanel;
 
+    public GameObject targetPanel;
+
     private void switchPanel(GameObject currentPanel, GameObject nextPanel)
     {
         currentPanel.SetActive(false);
         nextPanel.SetActive(true);
+    }
+
+    public void navigationButton()
+    {
+        switchPanel(transform.parent.gameObject, targetPanel);
     }
     
     public void enablePause()
