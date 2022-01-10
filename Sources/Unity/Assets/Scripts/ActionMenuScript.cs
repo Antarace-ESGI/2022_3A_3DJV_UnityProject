@@ -41,7 +41,7 @@ public class ActionMenuScript : MonoBehaviour
     
     private void controllerActionButton()
     {
-        if (Input.GetButtonDown("Start"))
+        if (Input.GetButtonDown("Start") && inGamePanel != null && inPausePanel != null)
         {
             if (inPausePanel.activeInHierarchy)
             {
