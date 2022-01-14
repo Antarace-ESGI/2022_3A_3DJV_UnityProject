@@ -33,6 +33,7 @@ public class BonusScript : MonoBehaviour
             if (timer <= 0.0f)
             {
                 gameObject.transform.position = originalPosition;
+                timer = 5.0f;
             }
         }    
     }
