@@ -12,14 +12,13 @@ public class PlayerStatsScript : MonoBehaviour
     // Bonus 
     
     public bool haveBonus = false;
-    public int bonusIndex;
+    public int bonusIndex = -1;
     public Image bonus;
 
     private void Start()
     {
         lifebar.value = healthPoint;
         gameObject.AddComponent<BonusItemsLibrairyScript>();
-        gameObject.AddComponent<LootBonusScript>();
     }
 
     public void setBonus(Sprite item = null)
@@ -45,16 +44,30 @@ public class PlayerStatsScript : MonoBehaviour
         BonusItemsLibrairyScript librarian = gameObject.GetComponent<BonusItemsLibrairyScript>();
         librarian.use(bonusIndex, gameObject);
         haveBonus = false;
+        bonusIndex = -1;
     }
 
     private void updateLifeBar()
     {
         lifebar.value = healthPoint;
     }
+    
+    public void generateLoot(Vector3 spawnPos)
+    {
+        GameObject loot = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        loot.name = "loot";
+        loot.GetComponent<BoxCollider>().isTrigger = true;
+        loot.AddComponent<Rigidbody>().useGravity = false;
+        loot.transform.localPosition = new Vector3(0.25f,0.25f,0.25f);
+        loot.transform.position = new Vector3(spawnPos.x,spawnPos.y,spawnPos.z);
+        loot.AddComponent<LootBonusScript>();
+        loot.GetComponent<LootBonusScript>().itemIndex = bonusIndex;
+        loot.GetComponent<LootBonusScript>().bonusImage = bonus.sprite;
+    }
 
     private void Update()
     {
-        if ((haveBonus && Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Joystick1Button7)) && bonus.IsActive())
+        if ((haveBonus && Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Joystick1Button7)) && bonus.IsActive() && bonusIndex >= 0)
         {
             unableBonusUse();
         }
@@ -66,10 +79,14 @@ public class PlayerStatsScript : MonoBehaviour
         
         if (healthPoint == 0)
         {
-            LootBonusScript loot = gameObject.GetComponent<LootBonusScript>();
-            loot.generateLoot(gameObject.transform.position);
+            if (haveBonus)
+            {
+                generateLoot(transform.position);
+                haveBonus = false;
+                setBonus();
+            }
             gameObject.transform.position = new Vector3(0, 0, 0); // temporary checkpoint for test
-            healthPoint = 10; 
+            healthPoint = 10;
         }
         
     }

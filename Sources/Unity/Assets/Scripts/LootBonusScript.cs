@@ -1,28 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LootBonusScript : MonoBehaviour
 {
 
-    public void generateLoot(Vector3 spawnPos)
+    public int itemIndex;
+    public Sprite bonusImage;
+    
+    private void OnTriggerEnter(Collider col)
     {
-        GameObject loot = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        loot.name = "loot";
-        loot.GetComponent<BoxCollider>().isTrigger = true;
-        loot.transform.localPosition = new Vector3(0.25f,0.25f,0.25f);
-        loot.transform.position = new Vector3(spawnPos.x,spawnPos.y,spawnPos.z);
+        if (col.gameObject.layer == 6)
+        {
+            GameObject player = col.gameObject;
+            if (player.GetComponentInParent<PlayerStatsScript>().haveBonus == false)
+            {
+                col.gameObject.GetComponentInParent<PlayerStatsScript>().haveBonus = true;
+                col.gameObject.GetComponentInParent<PlayerStatsScript>().bonusIndex = itemIndex;
+                col.gameObject.GetComponentInParent<PlayerStatsScript>().setBonus(bonusImage);
+                Destroy(gameObject);
+            }
+        }
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
