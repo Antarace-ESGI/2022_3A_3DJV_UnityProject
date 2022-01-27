@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,41 +8,69 @@ public class SliderVolumeScript : MonoBehaviour
     public Slider slider;
     public Text text;
 
-    private AudioListener[] audioListeners;
-    
-    private void setVolumeSlider()
+    private AudioSource[] audioSources;
+
+    private void initVolume()
     {
-        float value = slider.value;
-        PlayerPrefs.SetFloat("musicVolume",value);
+        if (PlayerPrefs.HasKey("musicVolume"))
+        {
+            slider.value = PlayerPrefs.GetFloat("musicVolume") * 100.0f;
+        }
+        text.text = $"{(slider.value).ToString()}%";
+        for (int i = 0; i < audioSources.Length; i++)
+        {
+            if (audioSources[i].CompareTag("Music"))
+            {
+                audioSources[i].GetComponent<AudioSource>().volume = slider.value / 100.0f;
+                audioSources[i].Play();
+            }
+        }
     }
 
     public void saveVolumeParameters()
     {
-        float value = slider.value;
-        Debug.Log(PlayerPrefs.GetFloat("musicVolume"));
+        float value = slider.value / 100.0f;
         PlayerPrefs.SetFloat("musicVolume",value);
         PlayerPrefs.Save();
     }
 
-    private void textUpdateVolume()
+    private void updateVolume()
     {
-        text.text = $"{slider.value.ToString()}%";
+        for (int i = 0; i < audioSources.Length; i++)
+        {
+            if (audioSources[i].CompareTag("Music"))
+            {
+                audioSources[i].GetComponent<AudioSource>().volume = slider.value / 100.0f;
+            }
+        }
+        text.text = $"{(slider.value).ToString()}%";
     }
     
-    void Start()
+
+    private void OnEnable()
     {
-        audioListeners = FindObjectsOfType(typeof(AudioListener)) as AudioListener[];
-        if (audioListeners.Length != 0)
-        {
-            Debug.Log("Find one or more audio source.s !");
-        }
+        audioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        
+        initVolume();
         
         //deleteKey();
+        
         slider.onValueChanged.AddListener(delegate {
-            textUpdateVolume();
-            //setVolumeSlider();
+            updateVolume();
         });
     }
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < audioSources.Length; i++)
+        {
+            if (audioSources[i].CompareTag("Music"))
+            {
+                audioSources[i].Stop();
+            }
+        }
+    }
+
 
     // -------- Test ------------ //
 
