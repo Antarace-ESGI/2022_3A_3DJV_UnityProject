@@ -7,7 +7,14 @@ public class LootBonusScript : MonoBehaviour
 
     public int itemIndex;
     public Sprite bonusImage;
+
+    private Rigidbody rb;
     
+    private void OnEnable()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     private void OnTriggerEnter(Collider col)
     {
         if (col.gameObject.layer == 6)
@@ -22,5 +29,9 @@ public class LootBonusScript : MonoBehaviour
             }
         }
     }
-    
+
+    private void FixedUpdate()
+    {
+        rb.AddTorque(Vector3.up * 0.25f);
+    }
 }
