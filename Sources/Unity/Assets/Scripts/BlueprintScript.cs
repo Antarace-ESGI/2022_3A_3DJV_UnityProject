@@ -30,13 +30,13 @@ public class BlueprintScript : MonoBehaviour
     {
         switch (index)
         {
-            case 1:
+            case 0:
                 PlayerPrefs.SetInt("weaponBlueprint",PlayerPrefs.GetInt("weaponBlueprint") + 1);
                 break;
-            case 2:
+            case 1:
                 PlayerPrefs.SetInt("propulsorBluePrint",PlayerPrefs.GetInt("propulsorBluePrint") + 1); 
                 break;
-            case 3:
+            case 2:
                 PlayerPrefs.SetInt("engineBlueprint",PlayerPrefs.GetInt("engineBlueprint") + 1); 
                 break;
         }
