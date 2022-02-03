@@ -44,9 +44,10 @@ public class BlueprintScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (col.gameObject.layer == 6)
         {
             library(index);
+            Destroy(gameObject);
         }
     }
 
