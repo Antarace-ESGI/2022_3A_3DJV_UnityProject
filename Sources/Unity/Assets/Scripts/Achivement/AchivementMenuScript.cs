@@ -4,29 +4,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AchivementMenuScript : AchivementSerializedScript
+public class AchivementMenuScript : MonoBehaviour
 {
     public Text txt;
+
     private void OnEnable()
     {
-        AchivementListClass achivements = new AchivementListClass();
-        achivements = readFile();
 
-        if (achivements != null)
+        AchivementSerializedScript script = new AchivementSerializedScript();
+        List<AchivementSerializedScript.AchievementClass> achievements = new List<AchivementSerializedScript.AchievementClass>();
+        achievements = script.readFile();
+
+        if (achievements != null)
         {
             String content = "";
-            for (int i = 0; i < achivements.achivement.Length; i++)
+            for (int i = 0; i < achievements.Count; i++)
             {
-                String title = achivements.achivement[i].title;
-                String date = achivements.achivement[i].date;
-                String descr = achivements.achivement[i].descr;
-                if (!string.IsNullOrEmpty(descr))
+                if (!string.IsNullOrEmpty(achievements[i].descr))
                 {
-                    content += $"{title}:\n{descr}\n{date}";
+                    content += $"{achievements[i].title}:\n{achievements[i].descr}\n{achievements[i].date}";
                 }
                 else
                 {
-                    content += $"{title}    {date}";
+                    content += $"{achievements[i].title}{achievements[i].date}";
                 }
 
                 content += "\n\n";
