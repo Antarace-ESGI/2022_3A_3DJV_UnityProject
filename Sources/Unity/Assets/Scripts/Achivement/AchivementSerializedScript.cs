@@ -40,7 +40,7 @@ public class AchivementSerializedScript : MonoBehaviour
             {
                 sw.BaseStream.Seek(0, SeekOrigin.End);
                 String json = JsonUtility.ToJson(achievement);
-                sw.Write(json+Environment.NewLine);
+                sw.WriteLine(json);
             }
             
         }
