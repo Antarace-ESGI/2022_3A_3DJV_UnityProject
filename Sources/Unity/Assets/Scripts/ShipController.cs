@@ -3,14 +3,6 @@ using Unity.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 
-/*
- * ShipController.cs - A Unity3D player controller inspired by Elite: Dangerous.
- * 
- * This is a physics based controller and as such, requires a RigidBody component.
- * NOTE: Impulse mode is experimental and unfinished.
- * 
- * Author: Jeff Pizano
- **/
 public class ShipController : MonoBehaviour
 {
     Rigidbody _ship;
@@ -24,7 +16,7 @@ public class ShipController : MonoBehaviour
     bool _adjustThrustZ;
 
     [ReadOnly] public Vector3 mousePosition;
-    public float mouseDeadZone = 1.0f;
+    public float mouseDeadZone = 10.0f;
     Vector3 _centerScreen;
 
     float _yaw;
@@ -51,9 +43,6 @@ public class ShipController : MonoBehaviour
     public float floatDistance = 2;
 
 
-    /// <summary>
-    /// Initialize ship controller and capture screen information.
-    /// </summary>
     void Start()
     {
         _centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
@@ -63,9 +52,6 @@ public class ShipController : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Called by the UnityEngine, should update once per frame.
-    /// </summary>
     void Update()
     {
         UpdateTimers();
@@ -78,19 +64,12 @@ public class ShipController : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// 
-    /// </summary>
     void UpdateTimers()
     {
         _impulseTimer += Time.deltaTime;
     }
 
 
-    /// <summary>
-    /// Fixed step update used for physics calculations.
-    /// This method handles the physics related to input.
-    /// </summary>
     void FixedUpdate()
     {
         // ADJUST YAW (LEFT/RIGHT/TURN/LOCAL Y)
@@ -142,9 +121,6 @@ public class ShipController : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// This method handles input that doesn't deal with the physics engine.
-    /// </summary>
     void InputUpdate()
     {
         mousePosition = Input.mousePosition;
@@ -182,23 +158,18 @@ public class ShipController : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Returns a yaw value based on the relative position of the mouse from the center of the screen.
-    /// </summary>
-    /// <returns></returns>
     float GetYawValue()
     {
         _yawDiff = -(_centerScreen.x - mousePosition.x);
+        bool direction = _yawDiff > 0; // true for left, false for right
+        _yawDiff = Mathf.Max(0, Mathf.Abs(_yawDiff) - mouseDeadZone);
+        _yawDiff = direction ? _yawDiff : -_yawDiff;
         _yawDiff = Mathf.Clamp(_yawDiff, -_qtrScreenW, _qtrScreenW);
 
         return (_yawDiff / _qtrScreenW);
     }
 
 
-    /// <summary>
-    /// Returns a digital axis.
-    /// </summary>
-    /// <returns></returns>
     float GetThrustY()
     {
         // Make the body float above the ground
@@ -221,9 +192,6 @@ public class ShipController : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Dampens the velocity and angular velocity of the rigid body over time.
-    /// </summary>
     void DampenTransform()
     {
         Vector3 nVeloc = new Vector3(
