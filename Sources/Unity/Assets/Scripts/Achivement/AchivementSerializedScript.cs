@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
@@ -8,41 +9,40 @@ using UnityEngine.UI;
 public class AchivementSerializedScript : MonoBehaviour
 {
     [Serializable]
-    public class AchivementClass
+    public class AchievementClass
     {
         public String title;
         public String descr = null;
         public String date;
     }
     
-    [Serializable]
-    public class AchivementListClass
-    {
-        public AchivementClass[] achivement;
-    }
-    
-    public AchivementListClass achivementList = new AchivementListClass();
+    public AchievementClass achievement = new AchievementClass();
     
     private String fileName = "achivement";
 
     public void createFile()
     {
-        // Init time
-        for (int i = 0; i < achivementList.achivement.Length; i++)
-        {
-            achivementList.achivement[i].date = achivementTime();
-        }
         
         String path =  $"{Application.dataPath}/{fileName}.txt";
-        String json = JsonUtility.ToJson(achivementList);
         
+        // Init time
+        
+        achievement.date = achivementTime();
+
         if (!File.Exists(path))
         {
-            File.WriteAllText(path,json);
+            String json = JsonUtility.ToJson(achievement);
+            File.WriteAllText(path,json+Environment.NewLine);
         }
         else
         {
-            File.AppendAllText(path,json);
+            using (StreamWriter sw = new StreamWriter(path,append:true))
+            {
+                sw.BaseStream.Seek(0, SeekOrigin.End);
+                String json = JsonUtility.ToJson(achievement);
+                sw.WriteLine(json);
+            }
+            
         }
         
     }
@@ -53,17 +53,20 @@ public class AchivementSerializedScript : MonoBehaviour
         return localDate.ToString("d");
     }
     
-
     [CanBeNull]
-    public AchivementListClass readFile()
+    public List<AchievementClass> readFile()
     {
         String path =  $"{Application.dataPath}/{fileName}.txt";
         if (File.Exists(path))
         {
-            String content = File.ReadAllText(path);
-            AchivementListClass tmp = new AchivementListClass();
-            tmp = JsonUtility.FromJson<AchivementListClass>(content);
+            List<AchievementClass> tmp = new List<AchievementClass>();
+            foreach (String line in File.ReadLines(path))
+            {
+                tmp.Add(JsonUtility.FromJson<AchievementClass>(line));
+            }
+
             return tmp;
+
         }
         else
         {
