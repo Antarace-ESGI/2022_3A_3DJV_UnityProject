@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Music
   - PlayerSpawn
+  - AI
   layers:
   - Default
   - TransparentFX
