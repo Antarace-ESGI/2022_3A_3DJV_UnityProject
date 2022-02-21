@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using Unity.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 
@@ -8,30 +6,21 @@ public class AiController : MonoBehaviour
 {
     Rigidbody _ship;
 
-    public Transform[] checkpoints;
+    public GameObject[] checkpoints;
     private int _checkpointIndex = 0;
-    private Transform _nextCheckpoint;
-
-    float _qtrScreenH;
-    float _qtrScreenW;
+    private GameObject _nextCheckpoint;
 
     bool _adjustYaw;
     bool _adjustThrustX;
     bool _adjustThrustY;
     bool _adjustThrustZ;
 
-    [ReadOnly] public Vector3 mousePosition;
-    public float mouseDeadZone = 10.0f;
-    Vector3 _centerScreen;
-
     float _yaw;
-    float _yawDiff;
 
     public Vector3 thrust = Vector3.zero;
 
     // THROTTLE
     public float throttle = 100f;
-    [Range(0, 50)] public float throttleAmount = 0.25f;
     [Range(0, 500f)] public float maxThrottle = 4f;
     [Range(-500, 100f)] public float minThrottle = -2f;
 
@@ -50,10 +39,7 @@ public class AiController : MonoBehaviour
 
     void Start()
     {
-        _centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
         _ship = GetComponent<Rigidbody>();
-        _qtrScreenH = Screen.height * 0.25f;
-        _qtrScreenW = Screen.width * 0.25f;
 
         _nextCheckpoint = checkpoints[_checkpointIndex];
     }
@@ -130,7 +116,6 @@ public class AiController : MonoBehaviour
 
     void InputUpdate()
     {
-        mousePosition = Input.mousePosition;
         _yaw = GetYawValue();
         thrust.x = 0; // X is left/right
         thrust.y = GetThrustY();
@@ -189,5 +174,14 @@ public class AiController : MonoBehaviour
 
         _ship.velocity = nVeloc;
         _ship.angularVelocity = nAVeloc;
+    }
+
+    public void IncrementCheckpoint(GameObject currentCheckpoint)
+    {
+        if (currentCheckpoint.Equals(_nextCheckpoint))
+        {
+            _checkpointIndex = Mathf.Min(_checkpointIndex + 1, checkpoints.Length - 1);
+            _nextCheckpoint = checkpoints[_checkpointIndex];
+        }
     }
 }
