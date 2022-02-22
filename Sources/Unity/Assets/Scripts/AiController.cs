@@ -143,7 +143,7 @@ public class AiController : MonoBehaviour
 
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position + transform.forward * transform.localScale.z,
+        if (Physics.Raycast(transform.position,
                 transform.TransformDirection(Vector3.down), out hit, floatDistance, layerMask))
         {
             return hit.distance / (floatDistance / 2);
