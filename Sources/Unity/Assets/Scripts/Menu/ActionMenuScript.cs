@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ActionMenuScript : MonoBehaviour
@@ -9,6 +10,7 @@ public class ActionMenuScript : MonoBehaviour
     public GameObject inGamePanel;
 
     public GameObject targetPanel;
+    public int dest;
 
     private void switchPanel(GameObject currentPanel, GameObject nextPanel)
     {
@@ -53,6 +55,10 @@ public class ActionMenuScript : MonoBehaviour
             }
             
         }
+    }
+    public void changeScene()
+    {
+        SceneManager.LoadScene(dest);
     }
 
     public void Update()

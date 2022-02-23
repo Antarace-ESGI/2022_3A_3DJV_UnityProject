@@ -1154,6 +1154,7 @@ GameObject:
   - component: {fileID: 876442982}
   - component: {fileID: 876442981}
   - component: {fileID: 876442980}
+  - component: {fileID: 876442983}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -1224,7 +1225,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 876442981}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 876442983}
+        m_TargetAssemblyTypeName: ActionMenuScript, Assembly-CSharp
+        m_MethodName: changeScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &876442981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1263,6 +1276,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876442978}
   m_CullTransparentMesh: 1
+--- !u!114 &876442983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876442978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inPausePanel: {fileID: 0}
+  inGamePanel: {fileID: 0}
+  targetPanel: {fileID: 0}
+  dest: 0
 --- !u!1001 &884400035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2629,6 +2658,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7965885864689232795, guid: 2c26aeea281a8c34f881cd71fc60b8f6, type: 3}
   m_PrefabInstance: {fileID: 1802428441}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1802428444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802428443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad71b32223beab4aa52a501e751158e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enablingPanel: {fileID: 558624295}
+  disablingPanel: {fileID: 1040722619}
 --- !u!1001 &1878918273
 PrefabInstance:
   m_ObjectHideFlags: 0
