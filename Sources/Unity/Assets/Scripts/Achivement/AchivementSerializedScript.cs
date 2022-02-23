@@ -1,19 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class AchivementSerializedScript : MonoBehaviour
+public class AchivementSerializedScript
 {
     [Serializable]
     public class AchievementClass
     {
+        public int id;
         public String title;
         public String descr = null;
         public String date;
+
+        public void init(int id, String title, [CanBeNull] String descr)
+        {
+            this.id = id;
+            this.title = title;
+            this.descr = descr;
+        }
     }
     
     public AchievementClass achievement = new AchievementClass();
@@ -44,7 +50,7 @@ public class AchivementSerializedScript : MonoBehaviour
             }
             
         }
-        
+
     }
 
     private String achivementTime()
@@ -74,5 +80,4 @@ public class AchivementSerializedScript : MonoBehaviour
         }
     }
     
-
 }
