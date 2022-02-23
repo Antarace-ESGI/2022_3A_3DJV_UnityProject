@@ -34,11 +34,14 @@ public class AchievementSingletonScript : MonoBehaviour
             achievementManager.Add(i, false);
         }
 
-        foreach (AchivementSerializedScript.AchievementClass i in achievements)
+        if (achievements != null && achievements.Count > 0)
         {
-            achievementManager[i.id] = true;
+            foreach (AchivementSerializedScript.AchievementClass i in achievements)
+            {
+                achievementManager[i.id] = true;
+            }
         }
-
+        
     }
 
     private void Start()
@@ -46,8 +49,18 @@ public class AchievementSingletonScript : MonoBehaviour
         // Test unlock first achievement : (Load the game for the first time)
         if (!achievementManager[0])
         {
+            achievementManager[0] = true;
             script.achievement.init(0,"Première Partie", "Viens de lancer sa première partie");
             script.createFile();
+        }
+    }
+
+    // Use for debug
+    private void debug()
+    {
+        foreach (var achievement in achievementManager)
+        {
+            print(achievement.Value);
         }
     }
 
