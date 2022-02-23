@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10790447, g: 0.13966548, b: 0.19880208, a: 1}
+  m_IndirectSpecularColor: {r: 0.10790443, g: 0.13966581, b: 0.19880226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1716,7 +1716,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072921359}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3be0272ecbc10114d8b102e4a5ede463, type: 3}
   m_Name: 
@@ -1779,31 +1779,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1072921364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1072921359}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16d7f642f1d84c4d8c77b77b255e1e40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkpoints:
-  - {fileID: 1721287061}
-  - {fileID: 1320240813}
-  - {fileID: 1113535172}
-  thrust: {x: 0, y: 0, z: 0}
-  throttle: 100
-  maxThrottle: 8
-  minThrottle: 8
-  yawStrength: 1.5
-  flightAssist: 1
-  impulseMode: 0
-  impulseCoolDown: 3
-  floatDistance: 2
 --- !u!1 &1113535172 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7965885864689232795, guid: 2c26aeea281a8c34f881cd71fc60b8f6, type: 3}
