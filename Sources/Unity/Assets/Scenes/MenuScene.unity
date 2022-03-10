@@ -627,7 +627,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1377349847}
         m_TargetAssemblyTypeName: ActionMenuScript, Assembly-CSharp
-        m_MethodName: exitGame
+        m_MethodName: changeScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

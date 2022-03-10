@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,8 @@ public class AchievementSingletonScript : MonoBehaviour
 {
     // Public
     public static AchievementSingletonScript Instance { get; set; }
-    
+    public List<AchivementSerializedScript.AchievementClass> achievements;
+
     // Private
     
     private AchivementSerializedScript script = new AchivementSerializedScript();
@@ -17,10 +19,16 @@ public class AchievementSingletonScript : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            List<AchivementSerializedScript.AchievementClass> achievements = new List<AchivementSerializedScript.AchievementClass>();
+            achievements = new List<AchivementSerializedScript.AchievementClass>();
             achievements = script.readFile();
             initDictionary(achievements);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
+        
     }
     
     private void initDictionary(List<AchivementSerializedScript.AchievementClass> achievements)
@@ -41,7 +49,7 @@ public class AchievementSingletonScript : MonoBehaviour
                 achievementManager[i.id] = true;
             }
         }
-        
+
     }
 
     private void Start()
@@ -63,5 +71,5 @@ public class AchievementSingletonScript : MonoBehaviour
             print(achievement.Value);
         }
     }
-
+    
 }

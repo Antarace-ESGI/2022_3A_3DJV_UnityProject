@@ -10,9 +10,11 @@ public class AchivementMenuScript : MonoBehaviour
     private void OnEnable()
     {
 
-        AchivementSerializedScript script = new AchivementSerializedScript();
-        List<AchivementSerializedScript.AchievementClass> achievements = new List<AchivementSerializedScript.AchievementClass>();
-        achievements = script.readFile();
+        AchievementSingletonScript singleton = FindObjectOfType<AchievementSingletonScript>();
+        
+        
+        //AchivementSerializedScript script = new AchivementSerializedScript();
+        List<AchivementSerializedScript.AchievementClass> achievements = singleton.achievements;
 
         if (achievements != null)
         {

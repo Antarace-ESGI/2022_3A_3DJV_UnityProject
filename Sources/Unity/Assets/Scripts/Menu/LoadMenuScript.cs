@@ -8,7 +8,7 @@ public class LoadMenuScript : MonoBehaviour
 
     public string menuScene = "MenuScene";
 
-    // Start is called before the first frame update
+    // Will be update later to unable only digit 
     void Start()
     {
         SceneManager.LoadScene(menuScene, LoadSceneMode.Additive);
