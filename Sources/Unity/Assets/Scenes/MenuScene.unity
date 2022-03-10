@@ -580,6 +580,7 @@ MonoBehaviour:
   inPausePanel: {fileID: 38423452}
   inGamePanel: {fileID: 1828113044}
   targetPanel: {fileID: 0}
+  dest: 0
 --- !u!114 &1377349848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,6 +824,7 @@ MonoBehaviour:
   inPausePanel: {fileID: 38423452}
   inGamePanel: {fileID: 1828113044}
   targetPanel: {fileID: 0}
+  dest: 0
 --- !u!1 &1828113044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,6 +1004,7 @@ MonoBehaviour:
   inPausePanel: {fileID: 38423452}
   inGamePanel: {fileID: 1828113044}
   targetPanel: {fileID: 0}
+  dest: 0
 --- !u!114 &2052130378
 MonoBehaviour:
   m_ObjectHideFlags: 0
