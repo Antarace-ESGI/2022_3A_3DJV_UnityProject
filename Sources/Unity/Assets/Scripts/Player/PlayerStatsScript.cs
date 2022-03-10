@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,13 +15,38 @@ public class PlayerStatsScript : MonoBehaviour
     public bool haveBonus = false;
     public int bonusIndex = -1;
     public Image bonus;
+    
+    // InputManager
+
+    private PlayerController _controls;
 
     private void Start()
     {
         lifebar.value = healthPoint;
         gameObject.AddComponent<BonusItemsLibrairyScript>();
     }
+    
+    private void OnEnable()
+    {
+        _controls.Player.Enable();
+        Debug.Log("Loaded");
+    }
+    
+    private void OnDisable()
+    {
+        _controls.Player.Disable();
+    }
+    
+    // Input/Control
 
+    private void Awake()
+    {
+        _controls = new PlayerController();
+        _controls.Player.Use.performed += ctx => unableBonusUse();
+    }
+
+    // Main
+    
     public void setBonus(Sprite item = null)
     {
         bonus.GetComponent<Image>().sprite = item;
@@ -40,11 +66,14 @@ public class PlayerStatsScript : MonoBehaviour
     
     private void unableBonusUse()
     {
-        setBonus();
-        BonusItemsLibrairyScript librarian = gameObject.GetComponent<BonusItemsLibrairyScript>();
-        librarian.use(bonusIndex, gameObject);
-        haveBonus = false;
-        bonusIndex = -1;
+        if (bonus.IsActive() && bonusIndex >= 0)
+        {
+            setBonus();
+            BonusItemsLibrairyScript librarian = gameObject.GetComponent<BonusItemsLibrairyScript>();
+            librarian.use(bonusIndex, gameObject);
+            haveBonus = false;
+            bonusIndex = -1;
+        }
     }
 
     private void updateLifeBar()
@@ -67,11 +96,6 @@ public class PlayerStatsScript : MonoBehaviour
 
     private void Update()
     {
-        if ((haveBonus && Input.GetKey(KeyCode.X) || Input.GetKey(KeyCode.Joystick1Button7)) && bonus.IsActive() && bonusIndex >= 0)
-        {
-            unableBonusUse();
-        }
-
         if (healthPoint != lifebar.value)
         {
             updateLifeBar();

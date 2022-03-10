@@ -12,8 +12,8 @@ public class PlayerBlaster : MonoBehaviour
 
   void Update()
   {
-        if (canShoot) {
-          StartCoroutine(shootMissile());
+    if (canShoot) {
+      StartCoroutine(shootMissile());
     }
   }
 

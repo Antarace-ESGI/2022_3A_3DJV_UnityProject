@@ -1,5 +1,5 @@
 {
-    "name": "Player",
+    "name": "PlayerController",
     "maps": [
         {
             "name": "Player",
@@ -41,6 +41,14 @@
                     "name": "Boost",
                     "type": "Button",
                     "id": "4d76aa68-be59-40ff-a773-f4c762edb320",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "28f13fe2-fbf5-4df2-a004-e31b02204f36",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -143,6 +151,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e7fe94bf-abf7-46d7-b656-1d9efea3e4a7",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4c7a88ef-1c9b-4a5e-bf78-3cd8c7c650fa",
+                    "path": "<DualShockGamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
