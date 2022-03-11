@@ -25,15 +25,14 @@ public class ShipController : MonoBehaviour
     public Vector3 thrust = Vector3.zero;
 
     // THROTTLE
-    public float throttle = 100f;
-    [Range(0, 50)] public float throttleAmount = 0.25f;
-    [Range(0, 500f)] public float maxThrottle = 4f;
-    [Range(-500, 100f)] public float minThrottle = -2f;
+    public float baseThrottle = 10f;
+    public float boostMultiplier = 2f;
+    public float boostDuration = 2f; // Boost duration in seconds
+    private float _throttle;
+    private float _boostTime = 0f;
 
     // FLIGHT CONTROL PARAMETERS
     [Range(0, 100f)] public float yawStrength = 1.5f;
-
-    public bool flightAssist;
 
     // IMPULSE MODE
     float _impulseTimer;
@@ -49,26 +48,21 @@ public class ShipController : MonoBehaviour
         _ship = GetComponent<Rigidbody>();
         _qtrScreenH = Screen.height * 0.25f;
         _qtrScreenW = Screen.width * 0.25f;
+        _throttle = baseThrottle;
+        Cursor.lockState = CursorLockMode.Locked;
     }
-
 
     void Update()
     {
         UpdateTimers();
         InputUpdate();
-
-        if (flightAssist)
-        {
-            DampenTransform();
-        }
+        DampenTransform();
     }
-
 
     void UpdateTimers()
     {
         _impulseTimer += Time.deltaTime;
     }
-
 
     void FixedUpdate()
     {
@@ -81,11 +75,11 @@ public class ShipController : MonoBehaviour
         {
             if (!impulseMode)
             {
-                _ship.AddForce(transform.forward * (thrust.z * throttle), ForceMode.Force);
+                _ship.AddForce(transform.forward * (thrust.z * _throttle), ForceMode.Force);
             }
             else if (_impulseTimer >= impulseCoolDown)
             {
-                _ship.AddForce(transform.forward * (thrust.z * throttle), ForceMode.Impulse);
+                _ship.AddForce(transform.forward * (thrust.z * _throttle), ForceMode.Impulse);
                 _impulseTimer = 0.0f;
             }
         }
@@ -95,11 +89,11 @@ public class ShipController : MonoBehaviour
         {
             if (!impulseMode)
             {
-                _ship.AddForce(transform.right * (thrust.x * throttle), ForceMode.Force);
+                _ship.AddForce(transform.right * (thrust.x * _throttle), ForceMode.Force);
             }
             else if (_impulseTimer >= impulseCoolDown)
             {
-                _ship.AddForce(transform.right * (thrust.x * throttle), ForceMode.Impulse);
+                _ship.AddForce(transform.right * (thrust.x * _throttle), ForceMode.Impulse);
                 _impulseTimer = 0.0f;
             }
         }
@@ -109,12 +103,12 @@ public class ShipController : MonoBehaviour
         {
             if (!impulseMode)
             {
-                _ship.AddForce(transform.up * (throttle * thrust.y), ForceMode.Force);
+                _ship.AddForce(transform.up * (_throttle * thrust.y), ForceMode.Force);
             }
 
             if (impulseMode && _impulseTimer >= impulseCoolDown)
             {
-                _ship.AddForce(transform.up * (throttle * thrust.y), ForceMode.Impulse);
+                _ship.AddForce(transform.up * (_throttle * thrust.y), ForceMode.Impulse);
                 _impulseTimer = 0.0f;
             }
         }
@@ -135,28 +129,25 @@ public class ShipController : MonoBehaviour
         _adjustThrustY = thrust.y != 0;
         _adjustThrustZ = Mathf.Abs(thrust.z) > 0.1f;
 
-
-        // Throttle up
-        if (Input.GetKey(KeyCode.Equals))
+        // Boost
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            throttle += throttleAmount;
+            if (_boostTime < boostDuration)
+            {
+                _boostTime += Time.deltaTime; // Consume boost
+                _throttle = baseThrottle * boostMultiplier;
+            }
+            else
+            {
+                _throttle = baseThrottle; // Just set to default speed
+            }
         }
-
-        // Throttle down
-        if (Input.GetKey(KeyCode.Minus))
+        else
         {
-            throttle -= throttleAmount;
+            _boostTime -= Time.deltaTime; // Recharge boost
+            _throttle = baseThrottle;
         }
-
-        // Toggle Inertial dampeners
-        if (Input.GetKeyUp(KeyCode.CapsLock))
-        {
-            flightAssist = !flightAssist;
-        }
-
-        throttle = Mathf.Clamp(throttle, minThrottle, maxThrottle);
     }
-
 
     float GetYawValue()
     {
@@ -168,7 +159,6 @@ public class ShipController : MonoBehaviour
 
         return (_yawDiff / _qtrScreenW);
     }
-
 
     float GetThrustY()
     {
@@ -190,7 +180,6 @@ public class ShipController : MonoBehaviour
 
         return -1.0f;
     }
-
 
     void DampenTransform()
     {
