@@ -8,20 +8,19 @@ public class CameraFollowScript : MonoBehaviour
     public Rigidbody body;
     public float cameraDistance = 5f;
     public float floatDistance = 2f;
-    
+
     private Vector3 velocity;
 
     void Start()
     {
         offset = transform.position - player.transform.position;
-        Cursor.lockState = CursorLockMode.Confined;
     }
 
     void LateUpdate()
     {
         Vector3 position = player.transform.position - player.transform.forward * cameraDistance;
         position.y += floatDistance;
-        
+
         // Bit shift the index of the layer (8) to get a bit mask
         int layerMask = 1 << 8;
 

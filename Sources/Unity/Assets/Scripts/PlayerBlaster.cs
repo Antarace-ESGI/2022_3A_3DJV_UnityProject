@@ -21,7 +21,7 @@ public class PlayerBlaster : MonoBehaviour
 
   public IEnumerator shootMissile()
   {
-    if(Input.GetKeyDown(KeyCode.Space))
+    if(Input.GetMouseButtonDown(0))
     {
       canShoot = false;
       Vector3 playerPos =  new Vector3(Canon.transform.position.x, Canon.transform.position.y , Canon.transform.position.z);

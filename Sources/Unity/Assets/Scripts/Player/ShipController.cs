@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Unity.Collections;
 
@@ -30,6 +31,9 @@ public class ShipController : MonoBehaviour
     public float boostDuration = 2f; // Boost duration in seconds
     private float _throttle;
     private float _boostTime = 0f;
+
+    public RectTransform crosshair;
+    public float maxRadius = 128f;
 
     // FLIGHT CONTROL PARAMETERS
     [Range(0, 100f)] public float yawStrength = 1.5f;
@@ -119,6 +123,7 @@ public class ShipController : MonoBehaviour
     {
         mousePosition = Input.mousePosition;
         _yaw = GetYawValue();
+        
         thrust.x = Input.GetAxis("Horizontal");
         thrust.y = GetThrustY();
         thrust.z = Input.GetAxis("Vertical"); // Z is forward/Back
@@ -151,7 +156,11 @@ public class ShipController : MonoBehaviour
 
     float GetYawValue()
     {
-        _yawDiff = -(_centerScreen.x - mousePosition.x);
+        float x = Input.GetAxis("Mouse X");
+
+        _yawDiff = Mathf.Max(-maxRadius, Mathf.Min(crosshair.position.x - _centerScreen.x + x, maxRadius));
+        crosshair.position = new Vector3(_yawDiff + _centerScreen.x, _centerScreen.y, _centerScreen.z);
+        
         bool direction = _yawDiff > 0; // true for left, false for right
         _yawDiff = Mathf.Max(0, Mathf.Abs(_yawDiff) - mouseDeadZone);
         _yawDiff = direction ? _yawDiff : -_yawDiff;
