@@ -38,13 +38,7 @@ public class ShipController : MonoBehaviour
     // FLIGHT CONTROL PARAMETERS
     [Range(0, 100f)] public float yawStrength = 1.5f;
 
-    // IMPULSE MODE
-    float _impulseTimer;
-    public bool impulseMode;
-    public float impulseCoolDown = 3.0f;
-
     public float floatDistance = 2;
-
 
     void Start()
     {
@@ -58,14 +52,8 @@ public class ShipController : MonoBehaviour
 
     void Update()
     {
-        UpdateTimers();
         InputUpdate();
         DampenTransform();
-    }
-
-    void UpdateTimers()
-    {
-        _impulseTimer += Time.deltaTime;
     }
 
     void FixedUpdate()
@@ -77,44 +65,19 @@ public class ShipController : MonoBehaviour
         // ADJUST THRUST Z (FORWARD/BACK/LOCAL Z)
         if (_adjustThrustZ)
         {
-            if (!impulseMode)
-            {
-                _ship.AddForce(transform.forward * (thrust.z * _throttle), ForceMode.Force);
-            }
-            else if (_impulseTimer >= impulseCoolDown)
-            {
-                _ship.AddForce(transform.forward * (thrust.z * _throttle), ForceMode.Impulse);
-                _impulseTimer = 0.0f;
-            }
+            _ship.AddForce(transform.forward * (thrust.z * _throttle), ForceMode.Force);
         }
 
         // ADJUST THRUST X (LEFT/RIGHT/STRAFE/LOCAL X)
         if (_adjustThrustX)
         {
-            if (!impulseMode)
-            {
-                _ship.AddForce(transform.right * (thrust.x * _throttle), ForceMode.Force);
-            }
-            else if (_impulseTimer >= impulseCoolDown)
-            {
-                _ship.AddForce(transform.right * (thrust.x * _throttle), ForceMode.Impulse);
-                _impulseTimer = 0.0f;
-            }
+            _ship.AddForce(transform.right * (thrust.x * _throttle), ForceMode.Force);
         }
 
         // ADJUST THRUST Y (UP/DOWN/ASCEND/DESCEND/LOCAL Y)
         if (_adjustThrustY)
         {
-            if (!impulseMode)
-            {
-                _ship.AddForce(transform.up * (_throttle * thrust.y), ForceMode.Force);
-            }
-
-            if (impulseMode && _impulseTimer >= impulseCoolDown)
-            {
-                _ship.AddForce(transform.up * (_throttle * thrust.y), ForceMode.Impulse);
-                _impulseTimer = 0.0f;
-            }
+            _ship.AddForce(transform.up * (_throttle * thrust.y), ForceMode.Force);
         }
     }
 
@@ -149,7 +112,7 @@ public class ShipController : MonoBehaviour
         }
         else
         {
-            _boostTime -= Time.deltaTime; // Recharge boost
+            _boostTime = Mathf.Max(0, _boostTime - Time.deltaTime); // Recharge boost
             _throttle = baseThrottle;
         }
     }
