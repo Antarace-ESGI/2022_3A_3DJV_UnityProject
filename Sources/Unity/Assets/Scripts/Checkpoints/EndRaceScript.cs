@@ -32,6 +32,7 @@ public class EndRaceScript : MonoBehaviour
             //Wait for every participant to finish the race
             if (runner == playingEntities.Length)
             {
+                Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0.0f;
                 enablingPanel.SetActive(true);
                 disablingPanel.SetActive(false);
