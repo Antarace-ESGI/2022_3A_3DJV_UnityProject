@@ -158,7 +158,7 @@ public class ShipController : MonoBehaviour
     {
         float x = Input.GetAxis("Mouse X");
 
-        _yawDiff = Mathf.Max(-maxRadius, Mathf.Min(crosshair.position.x - _centerScreen.x + x, maxRadius));
+        _yawDiff = Mathf.Clamp(crosshair.position.x - _centerScreen.x + x, -maxRadius, maxRadius);
         crosshair.position = new Vector3(_yawDiff + _centerScreen.x, _centerScreen.y, _centerScreen.z);
         
         bool direction = _yawDiff > 0; // true for left, false for right
