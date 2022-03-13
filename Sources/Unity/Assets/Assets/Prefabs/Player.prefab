@@ -125,14 +125,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mousePosition: {x: 0, y: 0, z: 0}
-  mouseDeadZone: 10
+  mouseDeadZone: 0
   thrust: {x: 0, y: 0, z: 0}
-  throttle: 100
-  throttleAmount: 4
-  maxThrottle: 8
-  minThrottle: 8
-  yawStrength: 1.5
-  flightAssist: 1
+  baseThrottle: 10
+  boostMultiplier: 2
+  boostDuration: 2
+  crosshair: {fileID: 0}
+  maxRadius: 64
+  yawStrength: 5
   impulseMode: 0
   impulseCoolDown: 3
   floatDistance: 2
