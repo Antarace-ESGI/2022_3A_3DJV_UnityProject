@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -11,8 +12,8 @@ public class keybindingScript : MonoBehaviour
     private int bindingIndex = 0;
 
     private String actionName;
-    private InputActionReference inputActionReference;
-    
+    [CanBeNull] public InputActionReference inputActionReference;
+
     public Text actionText;
     public Button rebindButton;
     public Text rebindText;
@@ -21,22 +22,53 @@ public class keybindingScript : MonoBehaviour
     {
         _controller = new PlayerController();
     }
-    
-    private void OnValidate()
-    {
-        if (inputActionReference.action != null)
-        {
-            actionName = inputActionReference.action.name;
-        }
-        
-        if (actionText != null)
-        {
-            actionText.text = actionName;
-        }
 
-        if (rebindText != null)
+    private void Start()
+    {
+        if (inputActionReference)
         {
+            if (inputActionReference.action != null)
+                actionText.text = inputActionReference.action.name;
+
             rebindText.text = inputActionReference.action.GetBindingDisplayString(bindingIndex);
+            
+            rebindButton.onClick.AddListener(RebindingKey);
+            
         }
     }
+    
+    public void RebindingKey()
+    {
+        if (inputActionReference)
+        {
+
+            rebindText.text = $"Press any key{inputActionReference.action.expectedControlType}";
+            
+            inputActionReference.action.Disable();
+            
+            var rebind = inputActionReference.action.PerformInteractiveRebinding(bindingIndex);
+            
+            //Rebinding operation 
+
+            rebind
+                .WithControlsHavingToMatchPath("<Keyboard>")
+                .WithBindingGroup("Keyboard")
+                .WithCancelingThrough("<Keyboard>/escape")
+                .OnComplete(operation =>
+                {
+                    inputActionReference.action.Enable();
+                    operation.Dispose();
+                })
+                .OnCancel(operation =>
+                {
+                    inputActionReference.action.Enable();
+                    operation.Dispose();
+                })
+                .Start();
+
+
+        }
+    }
+
+    
 }
