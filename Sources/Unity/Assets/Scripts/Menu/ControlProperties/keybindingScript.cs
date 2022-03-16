@@ -53,40 +53,49 @@ public class keybindingScript : MonoBehaviour
     
     public void RebindingKey()
     {
+
+        DEBUG(inputActionReference.action.GetBindingDisplayString(bindingIndex));
         rebindPanel.SetActive(true);
         rebindText.text = $"Press any key{inputActionReference.action.expectedControlType}";
-        
-        InputAction action = new InputAction(inputActionReference.action.name);
-        action = inputActionReference.action;
 
-        inputActionReference.action.Disable();
+        InputAction action = _controller.asset.FindAction(inputActionReference.action.name);
+
+        action.Disable();
         
         var rebind = action.PerformInteractiveRebinding(bindingIndex);
         
         //Rebinding operation 
         rebind
             .WithControlsHavingToMatchPath("<Keyboard>")
-            .WithControlsHavingToMatchPath("<Mouse>")
-            .WithBindingGroup("Keyboard")
             .WithCancelingThrough("<Keyboard>/escape")
             .OnComplete(operation =>
             {
                 action.Enable();
-                rebindPanel.SetActive(false);
                 operation.Dispose();
-                Debug.Log("Rebind complete !");
+                
+                rebindPanel.SetActive(false);
+                DEBUG("Rebind complete !");
+                
+                DEBUG(action.bindings[0].ToString());
                 rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(bindingIndex);
             })
             .OnCancel(operation =>
             {
                 action.Enable();
-                rebindPanel.SetActive(false);
                 operation.Dispose();
+                rebindPanel.SetActive(false);
             });
         
         rebind.Start();
 
         
+    }
+    
+    // DEBUG
+
+    private void DEBUG(string message)
+    {
+        Debug.Log(message);
     }
     
     
