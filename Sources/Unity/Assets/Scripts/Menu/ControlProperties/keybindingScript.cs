@@ -2,73 +2,92 @@ using System;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class keybindingScript : MonoBehaviour
 {
     private PlayerController _controller;
-    
-    [SerializeField]
-    private int bindingIndex = 0;
 
-    private String actionName;
-    [CanBeNull] public InputActionReference inputActionReference;
+    [SerializeField] [Range(0,1)] private int bindingIndex = 0; 
+    [SerializeField] private InputBinding _inputBinding;
+    
+    
+    public InputActionReference inputActionReference;
 
     public Text actionText;
     public Button rebindButton;
     public Text rebindText;
+    public GameObject rebindPanel;
+    
+    private String actionName;
     
     private void Awake()
     {
         _controller = new PlayerController();
     }
-
-    private void Start()
+    
+    #if UNITY_EDITOR
+    
+    private void OnValidate()
     {
-        if (inputActionReference)
+        DisplayBindingUI();
+    }
+    
+    #endif
+    
+    public void DisplayBindingUI()
+    {
+        
+        if (inputActionReference.action != null)
         {
-            if (inputActionReference.action != null)
-                actionText.text = inputActionReference.action.name;
-
-            rebindText.text = inputActionReference.action.GetBindingDisplayString(bindingIndex);
-            
-            rebindButton.onClick.AddListener(RebindingKey);
-            
+            actionText.text = inputActionReference.action.name;
+            _inputBinding = inputActionReference.action.bindings[bindingIndex];
         }
+
+        rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(bindingIndex);
+        rebindButton.onClick.AddListener(RebindingKey);
+        
+    
     }
     
     public void RebindingKey()
     {
-        if (inputActionReference)
-        {
+        rebindPanel.SetActive(true);
+        rebindText.text = $"Press any key{inputActionReference.action.expectedControlType}";
+        
+        InputAction action = new InputAction(inputActionReference.action.name);
+        action = inputActionReference.action;
 
-            rebindText.text = $"Press any key{inputActionReference.action.expectedControlType}";
-            
-            inputActionReference.action.Disable();
-            
-            var rebind = inputActionReference.action.PerformInteractiveRebinding(bindingIndex);
-            
-            //Rebinding operation 
+        inputActionReference.action.Disable();
+        
+        var rebind = action.PerformInteractiveRebinding(bindingIndex);
+        
+        //Rebinding operation 
+        rebind
+            .WithControlsHavingToMatchPath("<Keyboard>")
+            .WithControlsHavingToMatchPath("<Mouse>")
+            .WithBindingGroup("Keyboard")
+            .WithCancelingThrough("<Keyboard>/escape")
+            .OnComplete(operation =>
+            {
+                action.Enable();
+                rebindPanel.SetActive(false);
+                operation.Dispose();
+                Debug.Log("Rebind complete !");
+                rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(bindingIndex);
+            })
+            .OnCancel(operation =>
+            {
+                action.Enable();
+                rebindPanel.SetActive(false);
+                operation.Dispose();
+            });
+        
+        rebind.Start();
 
-            rebind
-                .WithControlsHavingToMatchPath("<Keyboard>")
-                .WithBindingGroup("Keyboard")
-                .WithCancelingThrough("<Keyboard>/escape")
-                .OnComplete(operation =>
-                {
-                    inputActionReference.action.Enable();
-                    operation.Dispose();
-                })
-                .OnCancel(operation =>
-                {
-                    inputActionReference.action.Enable();
-                    operation.Dispose();
-                })
-                .Start();
-
-
-        }
+        
     }
-
+    
     
 }
