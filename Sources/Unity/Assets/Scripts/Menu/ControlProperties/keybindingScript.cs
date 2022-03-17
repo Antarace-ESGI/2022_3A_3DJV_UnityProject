@@ -7,11 +7,9 @@ using UnityEngine.UI;
 
 public class keybindingScript : MonoBehaviour
 {
-    private PlayerController _controller;
+    public static PlayerController controller;
 
     [SerializeField] [Range(0,1)] private int bindingIndex = 0; 
-    [SerializeField] private InputBinding _inputBinding;
-    
     
     public InputActionReference inputActionReference;
 
@@ -24,7 +22,7 @@ public class keybindingScript : MonoBehaviour
     
     private void Awake()
     {
-        _controller = new PlayerController();
+        controller = new PlayerController();
     }
     
     #if UNITY_EDITOR
@@ -42,27 +40,41 @@ public class keybindingScript : MonoBehaviour
         if (inputActionReference.action != null)
         {
             actionText.text = inputActionReference.action.name;
-            _inputBinding = inputActionReference.action.bindings[bindingIndex];
         }
 
         rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(bindingIndex);
-        rebindButton.onClick.AddListener(RebindingKey);
+        rebindButton.onClick.AddListener(StartRebinding);
         
     
     }
-    
-    public void RebindingKey()
-    {
 
-        DEBUG(inputActionReference.action.GetBindingDisplayString(bindingIndex));
+    public void StartRebinding()
+    {
+        InputAction action = controller.asset.FindAction(inputActionReference.action.name);
+        
+        if (action.bindings[bindingIndex].isComposite)
+        {
+            if (action.bindings[bindingIndex + 1].isPartOfComposite && (bindingIndex + 1) < action.bindings.Count)
+            {
+                RebindingKey(action, (bindingIndex+1), true);
+            }
+        }
+        else
+        {
+            RebindingKey(action, bindingIndex);
+        }
+        
+    }
+    
+    private void RebindingKey(InputAction action, int index, bool composite = false)
+    {
+        
         rebindPanel.SetActive(true);
         rebindText.text = $"Press any key{inputActionReference.action.expectedControlType}";
-
-        InputAction action = _controller.asset.FindAction(inputActionReference.action.name);
-
+        
         action.Disable();
         
-        var rebind = action.PerformInteractiveRebinding(bindingIndex);
+        var rebind = action.PerformInteractiveRebinding(index);
         
         //Rebinding operation 
         rebind
@@ -72,12 +84,19 @@ public class keybindingScript : MonoBehaviour
             {
                 action.Enable();
                 operation.Dispose();
-                
                 rebindPanel.SetActive(false);
+                
+                
+                if (composite)
+                {
+                    var nextBindingIndex = index + 1;
+                    if (nextBindingIndex < action.bindings.Count && action.bindings[nextBindingIndex].isPartOfComposite)
+                        RebindingKey(action, nextBindingIndex, true);
+                }
+                
                 DEBUG("Rebind complete !");
                 
-                DEBUG(action.bindings[0].ToString());
-                rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(bindingIndex);
+                rebindButton.GetComponentInChildren<Text>().text = action.GetBindingDisplayString(index);
             })
             .OnCancel(operation =>
             {
@@ -90,7 +109,7 @@ public class keybindingScript : MonoBehaviour
 
         
     }
-    
+
     // DEBUG
 
     private void DEBUG(string message)
