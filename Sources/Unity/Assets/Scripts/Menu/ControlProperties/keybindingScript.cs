@@ -22,7 +22,8 @@ public class keybindingScript : MonoBehaviour
     
     private void Awake()
     {
-        controller = new PlayerController();
+        if(controller == null)
+            controller = new PlayerController();
     }
     
     #if UNITY_EDITOR
