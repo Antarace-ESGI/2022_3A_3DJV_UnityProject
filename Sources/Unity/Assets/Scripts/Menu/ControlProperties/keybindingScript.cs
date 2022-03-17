@@ -7,23 +7,28 @@ using UnityEngine.UI;
 
 public class keybindingScript : MonoBehaviour
 {
-    public static PlayerController controller;
 
-    [SerializeField] [Range(0,1)] private int bindingIndex = 0; 
+    //The most important element => contain list of key to bind with action
+    public static PlayerController controller;
+    
+    // Private
+    
+    private int bindingIndex = 0; // Must be contains between 0 && Number of binding expect for composite (Number of binding * 4)
+    private String actionName;
+    
+    // Public
     
     public InputActionReference inputActionReference;
-
+    
+    [Header("UI")]
     public Text actionText;
     public Button rebindButton;
     public Text rebindText;
     public GameObject rebindPanel;
     
-    private String actionName;
-    
     private void Awake()
     {
-        if(controller == null)
-            controller = new PlayerController();
+        controller ??= new PlayerController();
     }
     
     #if UNITY_EDITOR
@@ -37,17 +42,14 @@ public class keybindingScript : MonoBehaviour
     
     public void DisplayBindingUI()
     {
-        
         if (inputActionReference.action != null)
         {
             actionText.text = inputActionReference.action.name;
         }
-
         rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(bindingIndex);
         rebindButton.onClick.AddListener(StartRebinding);
-        
-    
     }
+
 
     public void StartRebinding()
     {
@@ -80,6 +82,7 @@ public class keybindingScript : MonoBehaviour
         //Rebinding operation 
         rebind
             .WithControlsHavingToMatchPath("<Keyboard>")
+            .WithControlsHavingToMatchPath("<Mouse>")
             .WithCancelingThrough("<Keyboard>/escape")
             .OnComplete(operation =>
             {
@@ -95,8 +98,6 @@ public class keybindingScript : MonoBehaviour
                         RebindingKey(action, nextBindingIndex, true);
                 }
                 
-                DEBUG("Rebind complete !");
-                
                 rebindButton.GetComponentInChildren<Text>().text = action.GetBindingDisplayString(index);
             })
             .OnCancel(operation =>
@@ -111,12 +112,24 @@ public class keybindingScript : MonoBehaviour
         
     }
 
-    // DEBUG
-
-    private void DEBUG(string message)
-    {
-        Debug.Log(message);
-    }
     
+    // TODO : Create a file to store every new binding on click event 
+    private void SaveBinding()
+    {
+    }
+
+    // TODO : Create a reset function
+    
+    private void ResetOriginalBinding()
+    {
+        
+    }
+
+    
+    // TODO : Load the personal binding of the user when the game launch
+    private void LoadPersonalBinding()
+    {
+        
+    }
     
 }

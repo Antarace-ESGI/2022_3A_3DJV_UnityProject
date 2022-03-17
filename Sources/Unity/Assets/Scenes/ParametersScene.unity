@@ -2202,16 +2202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bindingIndex: 0
-  _inputBinding:
-    m_Name: Keyboard
-    m_Id: 883fc2f6-2ceb-421a-b0b0-dcdd30394450
-    m_Path: 2DVector
-    m_Interactions: 
-    m_Processors: 
-    m_Groups: 
-    m_Action: Movement
-    m_Flags: 4
   inputActionReference: {fileID: -6049995669949352201, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 1899144605}
   rebindButton: {fileID: 115602651}
@@ -3496,7 +3486,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 626603876}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56f10ffbf1e64d9499197c18a6ea34ad, type: 3}
   m_Name: 
@@ -5087,16 +5077,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bindingIndex: 0
-  _inputBinding:
-    m_Name: 
-    m_Id: e7fe94bf-abf7-46d7-b656-1d9efea3e4a7
-    m_Path: <Keyboard>/space
-    m_Interactions: 
-    m_Processors: 
-    m_Groups: 
-    m_Action: Jump
-    m_Flags: 0
   inputActionReference: {fileID: 6163147865700221184, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 52546249}
   rebindButton: {fileID: 76437616}
@@ -6996,16 +6976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bindingIndex: 0
-  _inputBinding:
-    m_Name: 
-    m_Id: 55f33729-f251-4078-9121-1723135d768e
-    m_Path: <Mouse>/rightButton
-    m_Interactions: 
-    m_Processors: 
-    m_Groups: 
-    m_Action: Use
-    m_Flags: 0
   inputActionReference: {fileID: 2033637320698636813, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 190422591}
   rebindButton: {fileID: 1377939490}
@@ -8141,16 +8111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bindingIndex: 0
-  _inputBinding:
-    m_Name: 
-    m_Id: 45a504f4-bfcb-48eb-9b57-0bf925c76557
-    m_Path: <Keyboard>/leftShift
-    m_Interactions: 
-    m_Processors: 
-    m_Groups: 
-    m_Action: Boost
-    m_Flags: 0
   inputActionReference: {fileID: 7422151749911913164, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 1837898127}
   rebindButton: {fileID: 1419513996}
@@ -11070,16 +11030,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bindingIndex: 0
-  _inputBinding:
-    m_Name: 
-    m_Id: a3e27f1a-bea5-4b66-a7f2-becd426488a0
-    m_Path: <Mouse>/leftButton
-    m_Interactions: 
-    m_Processors: 
-    m_Groups: 
-    m_Action: Shoot
-    m_Flags: 0
   inputActionReference: {fileID: 945911158577573120, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 1234973378730782327}
   rebindButton: {fileID: 1234973378730782326}
