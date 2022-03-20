@@ -10,6 +10,10 @@ public class AiController : MonoBehaviour
     private int _checkpointIndex = 0;
     private GameObject _nextCheckpoint;
 
+    private GameObject _currentCheckpoint;
+
+    public int AiLife = 50;
+
     bool _adjustYaw;
     bool _adjustThrustX;
     bool _adjustThrustY;
@@ -54,6 +58,13 @@ public class AiController : MonoBehaviour
         {
             DampenTransform();
         }
+
+        if(AiLife <= 0){
+          _currentCheckpoint = checkpoints[_checkpointIndex - 1];
+          _ship.gameObject.GetComponent<Transform>().position = _currentCheckpoint.transform.position;
+          AiLife = 50;
+        }
+
     }
 
 
@@ -152,7 +163,7 @@ public class AiController : MonoBehaviour
         return -1.0f;
     }
 
-    
+
     float GetYawValue()
     {
         return transform.InverseTransformPoint(_nextCheckpoint.transform.position).x;
