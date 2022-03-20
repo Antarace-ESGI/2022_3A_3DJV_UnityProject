@@ -8,7 +8,7 @@ public class PlayerInputScript : MonoBehaviour
     
     private void Awake()
     {
-        _controls = new PlayerController();
+        _controls = keybindingScript.controller;
         
         // Input callback
         
@@ -17,23 +17,18 @@ public class PlayerInputScript : MonoBehaviour
         _controls.Player.Boost.performed += ctx => Boost();
         _controls.Player.Pause.performed += ctx => Pause();
         _controls.Player.Jump.performed += ctx => Jump();
-    }
-    
-    // Main function
-
-    private void OnEnable()
-    {
+        _controls.Player.Movement.performed += ctx => Direction(ctx.ReadValue<Vector2>());
+        
         _controls.Player.Enable();
-        Debug.Log("Loaded");
-    }
-    
-    private void OnDisable()
-    {
-        _controls.Player.Disable();
     }
     
     // Action function
 
+    private void Direction(Vector2 dir)
+    {
+        Debug.Log(dir);
+    }
+    
     private void UseBonus()
     {
         Debug.Log("Pressed");
