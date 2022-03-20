@@ -16,8 +16,7 @@ public class ShipController : MonoBehaviour
     bool _adjustThrustY;
     bool _adjustThrustZ;
 
-    [ReadOnly] public Vector3 mousePosition;
-    public float mouseDeadZone = 10.0f;
+    public float mouseDeadZone = 0.05f;
     Vector3 _centerScreen;
 
     float _yaw;
@@ -84,7 +83,6 @@ public class ShipController : MonoBehaviour
 
     void InputUpdate()
     {
-        mousePosition = Input.mousePosition;
         _yaw = GetYawValue();
         
         thrust.x = Input.GetAxis("Horizontal");
@@ -92,7 +90,7 @@ public class ShipController : MonoBehaviour
         thrust.z = Input.GetAxis("Vertical"); // Z is forward/Back
 
         // Set Flags
-        _adjustYaw = Mathf.Abs(_yaw) > 0.1f;
+        _adjustYaw = Mathf.Abs(_yaw) > mouseDeadZone;
         _adjustThrustX = Mathf.Abs(thrust.x) > 0.1f;
         _adjustThrustY = thrust.y != 0;
         _adjustThrustZ = Mathf.Abs(thrust.z) > 0.1f;
@@ -123,11 +121,6 @@ public class ShipController : MonoBehaviour
 
         _yawDiff = Mathf.Clamp(crosshair.position.x - _centerScreen.x + x, -maxRadius, maxRadius);
         crosshair.position = new Vector3(_yawDiff + _centerScreen.x, _centerScreen.y, _centerScreen.z);
-        
-        bool direction = _yawDiff > 0; // true for left, false for right
-        _yawDiff = Mathf.Max(0, Mathf.Abs(_yawDiff) - mouseDeadZone);
-        _yawDiff = direction ? _yawDiff : -_yawDiff;
-        _yawDiff = Mathf.Clamp(_yawDiff, -_qtrScreenW, _qtrScreenW);
 
         return (_yawDiff / _qtrScreenW);
     }
