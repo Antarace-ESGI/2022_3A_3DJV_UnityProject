@@ -1,8 +1,6 @@
 using System;
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class keybindingScript : MonoBehaviour
@@ -112,24 +110,4 @@ public class keybindingScript : MonoBehaviour
         
     }
 
-    
-    // TODO : Create a file to store every new binding on click event 
-    private void SaveBinding()
-    {
-    }
-
-    // TODO : Create a reset function
-    
-    private void ResetOriginalBinding()
-    {
-        
-    }
-
-    
-    // TODO : Load the personal binding of the user when the game launch
-    private void LoadPersonalBinding()
-    {
-        
-    }
-    
 }
