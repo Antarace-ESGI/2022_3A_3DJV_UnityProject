@@ -26,6 +26,12 @@ public class keybindingMenuUIScript : MonoBehaviour
         }
     }
     
+    [Serializable]
+    public class Keybinds
+    {
+        public List<Keybind> bindings = new List<Keybind>();
+    }
+
     private PlayerController _controller;
     
     private int _index = 0;
@@ -52,19 +58,20 @@ public class keybindingMenuUIScript : MonoBehaviour
     public void SaveBinding()
     {
         InputAction action;
+
+        Keybind key = new Keybind();
+        
         int bindingIndex = 0;
         
-        List<Keybind> keys = new List<Keybind>();
-        
         String path =  $"{Application.dataPath}/{"keybind"}.txt";
-        
-        Keybind key = new Keybind();
+
+        Keybinds keys = new Keybinds();
         
         foreach (InputActionReference i in keybindings)
         {
             action = InitInputAction(i);
             key.SetKeybind(action.actionMap,action.name,action.bindings[bindingIndex].path);
-            keys.Add(key);
+            keys.bindings.Add(key);
         }
         
         // writing 
@@ -72,11 +79,6 @@ public class keybindingMenuUIScript : MonoBehaviour
         {
             sw.BaseStream.Seek(0, SeekOrigin.Begin);
             String json = JsonUtility.ToJson(keys);
-            keys = JsonUtility.FromJson<List<Keybind>>(json);
-            
-            
-            
-            Debug.Log(keys.Count);
             sw.Write(json);
         }
         
