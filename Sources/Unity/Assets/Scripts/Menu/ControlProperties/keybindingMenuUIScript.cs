@@ -7,31 +7,35 @@ using UnityEngine.InputSystem;
 public class keybindingMenuUIScript : MonoBehaviour
 {
     [Serializable]
-    private class Keybind
+    public class Keybind
     {
-        private InputActionMap _actionMap;
-        private string _actionName;
-        private string _actionPath;
+        public InputActionMap actionMap;
+        public string actionName;
+        public string actionPath;
 
         public void SetKeybind(InputActionMap action, string name, string path)
         {
-            _actionMap = action;
-            _actionName = name;
-            _actionPath = path;
+            actionMap = action;
+            actionName = name;
+            actionPath = path;
         }
-        
+
+        public override string ToString()
+        {
+            return $"{actionMap} -> {actionName} have path = {actionPath}";
+        }
     }
-    
     
     private PlayerController _controller;
     
     private int _index = 0;
     
     public List<InputActionReference> keybindings = new List<InputActionReference>();
+    
 
     private void Awake()
     {
-         //_controller ??= new PlayerController();
+         _controller ??= new PlayerController();
          _controller = keybindingScript.controller;
     }
 
@@ -50,22 +54,31 @@ public class keybindingMenuUIScript : MonoBehaviour
         InputAction action;
         int bindingIndex = 0;
         
-        String path =  $"{Application.dataPath}/{"keybind"}.txt";
-
         List<Keybind> keys = new List<Keybind>();
-
+        
+        String path =  $"{Application.dataPath}/{"keybind"}.txt";
+        
+        Keybind key = new Keybind();
+        
         foreach (InputActionReference i in keybindings)
         {
             action = InitInputAction(i);
-            Keybind key = new Keybind();
             key.SetKeybind(action.actionMap,action.name,action.bindings[bindingIndex].path);
             keys.Add(key);
         }
         
-        // Start writing 
-        
-        String json = JsonUtility.ToJson(keys);
-        File.WriteAllText(path,json);
+        // writing 
+        using (StreamWriter sw = new StreamWriter(path))
+        {
+            sw.BaseStream.Seek(0, SeekOrigin.Begin);
+            String json = JsonUtility.ToJson(keys);
+            keys = JsonUtility.FromJson<List<Keybind>>(json);
+            
+            
+            
+            Debug.Log(keys.Count);
+            sw.Write(json);
+        }
         
     }
 
@@ -82,19 +95,16 @@ public class keybindingMenuUIScript : MonoBehaviour
             action = InitInputAction(i);
             action.Disable();
             
-            if (bindingIndex < action.bindings.Count)
+            if (action.bindings[_index].isComposite)
             {
-                if (action.bindings[_index].isComposite)
+                for (int n = bindingIndex; n < action.bindings.Count && action.bindings[n].isPartOfComposite; n++)
                 {
-                    for (int n = bindingIndex; n < action.bindings.Count && action.bindings[n].isPartOfComposite; n++)
-                    {
-                        action.RemoveBindingOverride(n);
-                    }
+                    action.RemoveBindingOverride(n);
                 }
-                else
-                {
-                    action.RemoveBindingOverride(bindingIndex);
-                }
+            }
+            else
+            {
+                action.RemoveBindingOverride(bindingIndex);
             }
             
             action.Enable();
@@ -107,4 +117,5 @@ public class keybindingMenuUIScript : MonoBehaviour
     {
         
     }
+    
 }

@@ -44,6 +44,7 @@ public class keybindingScript : MonoBehaviour
         {
             actionText.text = inputActionReference.action.name;
         }
+        
         rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(bindingIndex);
         rebindButton.onClick.AddListener(StartRebinding);
     }
@@ -65,6 +66,34 @@ public class keybindingScript : MonoBehaviour
             RebindingKey(action, bindingIndex);
         }
         
+    }
+
+    private bool DuplicateBinding(InputAction action, int index, bool composite = false)
+    {
+        if (!composite)
+        {
+            foreach (InputBinding binding in action.actionMap.bindings)
+            {
+                if (binding.effectivePath == action.bindings[index].effectivePath)
+                {
+                    Debug.Log("Find a duplicate key bind element");
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            for (int i = index; i < action.bindings.Count && action.bindings[i].isPartOfComposite; i++)
+            {
+                if (action.bindings[index].effectivePath == action.bindings[i].effectivePath)
+                {
+                    Debug.Log("Find a duplicate key bind element in composite");
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
     
     private void RebindingKey(InputAction action, int index, bool composite = false)
@@ -88,6 +117,14 @@ public class keybindingScript : MonoBehaviour
                 operation.Dispose();
                 rebindPanel.SetActive(false);
                 
+                // TODO : Finish check duplicate rebind
+                /*
+                if (DuplicateBinding(action,index,composite))
+                {
+                    action.RemoveBindingOverride(index);
+                    RebindingKey(action,index,composite);
+                }
+                */
                 
                 if (composite)
                 {
