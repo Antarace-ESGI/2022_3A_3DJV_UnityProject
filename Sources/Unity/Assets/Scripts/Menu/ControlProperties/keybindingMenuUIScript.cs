@@ -30,6 +30,21 @@ public class keybindingMenuUIScript : MonoBehaviour
     public class Keybinds
     {
         public List<Keybind> bindings = new List<Keybind>();
+
+        public override string ToString()
+        {
+            string str = "";
+
+            for (int i = 0; i < bindings.Count; i++)
+            {
+                str += $"{bindings[i].ToString()}\n";
+            }
+
+            if (str.Length > 0)
+                return str;
+
+            return "No element in bindings";
+        }
     }
 
     private PlayerController _controller;
@@ -53,28 +68,29 @@ public class keybindingMenuUIScript : MonoBehaviour
         }
         return null;
     }
-
-    // TODO : Create a file to store every new binding on click event 
+    
     public void SaveBinding()
     {
-        InputAction action;
-
-        Keybind key = new Keybind();
-        
         int bindingIndex = 0;
         
         String path =  $"{Application.dataPath}/{"keybind"}.txt";
 
         Keybinds keys = new Keybinds();
         
-        foreach (InputActionReference i in keybindings)
+        foreach (InputAction action in _controller)
         {
-            action = InitInputAction(i);
-            key.SetKeybind(action.actionMap,action.name,action.bindings[bindingIndex].path);
+            Keybind key = new Keybind();
+            
+            if(action.bindings[bindingIndex].overridePath != null)
+                key.SetKeybind(action.actionMap,action.name,action.bindings[bindingIndex].overridePath);
+            else
+                key.SetKeybind(action.actionMap,action.name,action.bindings[bindingIndex].path);
+            
             keys.bindings.Add(key);
         }
-        
+
         // writing 
+        
         using (StreamWriter sw = new StreamWriter(path))
         {
             sw.BaseStream.Seek(0, SeekOrigin.Begin);
@@ -83,8 +99,6 @@ public class keybindingMenuUIScript : MonoBehaviour
         }
         
     }
-
-    // [WIP]
     
     public void ResetOriginalBinding()
     {
@@ -115,9 +129,19 @@ public class keybindingMenuUIScript : MonoBehaviour
 
     
     // TODO : Load the personal binding of the user when the game launch
-    private void LoadPersonalBinding()
+    public void LoadPersonalBinding()
     {
-        
+        String path = $"{Application.dataPath}/{"keybind"}.txt";
+        if (File.Exists(path))
+        {
+            Keybinds keys = new Keybinds();
+            keys = JsonUtility.FromJson<Keybinds>(File.ReadAllText(path));
+
+            foreach (Keybind key in keys.bindings)
+            {
+                Debug.Log(key.ToString());
+            }
+        }
     }
     
 }
