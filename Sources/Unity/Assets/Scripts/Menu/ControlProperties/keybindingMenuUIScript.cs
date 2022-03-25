@@ -91,8 +91,7 @@ public class keybindingMenuUIScript : MonoBehaviour
 
             foreach (InputAction action in _controller)
             {
-                
-                action.ApplyBindingOverride(keys[action.actionMap+action.name]);
+                action.ApplyBindingOverride(_index,keys[action.actionMap+action.name]);
             }
             
         }

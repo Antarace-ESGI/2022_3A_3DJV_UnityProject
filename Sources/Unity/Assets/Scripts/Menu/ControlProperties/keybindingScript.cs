@@ -73,24 +73,18 @@ public class keybindingScript : MonoBehaviour
     {
         if (!composite)
         {
-            foreach (InputBinding binding in action.actionMap.bindings)
+            foreach (InputAction effectiveAction in controller)
             {
-                if (binding.effectivePath == action.bindings[index].effectivePath)
-                {
-                    Debug.Log("Find a duplicate key bind element");
+                if(effectiveAction.bindings[index].effectivePath == action.bindings[index].effectivePath && effectiveAction != action)
                     return true;
-                }
             }
         }
         else
         {
-            for (int i = index; i < action.bindings.Count && action.bindings[i].isPartOfComposite; i++)
+            for (int i = 1; i < action.bindings.Count && action.bindings[i].isPartOfComposite; i++)
             {
-                if (action.bindings[index].effectivePath == action.bindings[i].effectivePath)
-                {
-                    Debug.Log("Find a duplicate key bind element in composite");
+                if (action.bindings[i].effectivePath == action.bindings[index].effectivePath)
                     return true;
-                }
             }
         }
         
@@ -117,15 +111,13 @@ public class keybindingScript : MonoBehaviour
                 action.Enable();
                 operation.Dispose();
                 rebindPanel.SetActive(false);
-                
-                // TODO : Finish check duplicate rebind
-                /*
+
                 if (DuplicateBinding(action,index,composite))
                 {
                     action.RemoveBindingOverride(index);
                     RebindingKey(action,index,composite);
                 }
-                */
+                
                 
                 if (composite)
                 {
