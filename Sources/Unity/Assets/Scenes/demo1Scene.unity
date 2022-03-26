@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10683466, g: 0.1385473, b: 0.19850901, a: 1}
+  m_IndirectSpecularColor: {r: 0.10683476, g: 0.13854736, b: 0.19850913, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1655,6 +1655,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1045687066}
   m_CullTransparentMesh: 1
+--- !u!1 &1120736136 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6892655827972240748, guid: abcbf018f87226845b4ee5a566cff10e, type: 3}
+  m_PrefabInstance: {fileID: 1251258683}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1188615279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6416701373286507358, guid: 49504b9f779276149b7be44f94e9988a, type: 3}
@@ -2463,7 +2468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enablingPanel: {fileID: 558624295}
-  disablingPanel: {fileID: 0}
+  disablingPanel: {fileID: 1120736136}
 --- !u!1001 &1878918273
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2795,7 +2800,6 @@ GameObject:
   - component: {fileID: 1966774992}
   - component: {fileID: 1966774991}
   - component: {fileID: 1966774990}
-  - component: {fileID: 1966774993}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -2830,9 +2834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 998005473}
-  offset: {x: 0, y: 0, z: 0}
   timeOffset: 0.3
-  body: {fileID: 998005477}
   cameraDistance: 5
   floatDistance: 2
 --- !u!81 &1966774991
@@ -2886,18 +2888,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1966774993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1966774988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56f10ffbf1e64d9499197c18a6ea34ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1982055413 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6416701373286507358, guid: 49504b9f779276149b7be44f94e9988a, type: 3}

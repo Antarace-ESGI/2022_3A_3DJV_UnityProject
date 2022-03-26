@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,29 +9,39 @@ public class EndRaceScript : MonoBehaviour
 
     public GameObject enablingPanel;
     public GameObject disablingPanel;
+    
+    private Dictionary<GameObject, bool> playingEntities = new Dictionary<GameObject, bool>(); 
 
-    private GameObject[] playingEntities;
     private int runner = 0;
 
     private void Start()
     {
-        GameObject[] ai = GameObject.FindGameObjectsWithTag("AI");
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        
+        foreach (GameObject ai in GameObject.FindGameObjectsWithTag("AI"))
+        {
+            playingEntities.Add(ai,false);
+        }
 
-        playingEntities = players.Concat(ai).ToArray();
+        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            playingEntities.Add(player,false);
+        }
+        
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.CompareTag("Player") || collision.CompareTag("AI"))
+        if ((collision.CompareTag("Player") || collision.CompareTag("AI")) && playingEntities[collision.gameObject] == false) 
         {
             runner++;
+
+            playingEntities[collision.gameObject] = true;
             
             if(collision.CompareTag("AI"))
                 Destroy(collision.gameObject);
             
             //Wait for every participant to finish the race
-            if (runner == playingEntities.Length)
+            if (runner == playingEntities.Count)
             {
                 Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0.0f;
