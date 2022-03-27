@@ -29,7 +29,7 @@ public class ShipController : MonoBehaviour
     public float boostMultiplier = 2f;
     public float boostDuration = 2f; // Boost duration in seconds
     private float _throttle;
-    private float _boostTime = 0f;
+    private float _boostTime;
 
     public RectTransform crosshair;
     public float maxRadius = 128f;
@@ -38,7 +38,7 @@ public class ShipController : MonoBehaviour
     [Range(0, 100f)] public float yawStrength = 1.5f;
 
     public float floatDistance = 2;
-    private bool _isStuck = false;
+    private bool _isStuck;
 
     void Start()
     {
@@ -83,12 +83,18 @@ public class ShipController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        _isStuck = true;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Environment") && collision.GetContact(0).normal == Vector3.up)
+        {
+            _isStuck = true;
+        }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        _isStuck = false;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Environment"))
+        {
+            _isStuck = false;
+        }
     }
 
     void InputUpdate()
