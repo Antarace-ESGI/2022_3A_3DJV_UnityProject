@@ -38,6 +38,7 @@ public class ShipController : MonoBehaviour
     [Range(0, 100f)] public float yawStrength = 1.5f;
 
     public float floatDistance = 2;
+    private bool _isStuck = false;
 
     void Start()
     {
@@ -80,6 +81,15 @@ public class ShipController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        _isStuck = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        _isStuck = false;
+    }
 
     void InputUpdate()
     {
@@ -88,6 +98,11 @@ public class ShipController : MonoBehaviour
         thrust.x = Input.GetAxis("Horizontal");
         thrust.y = GetThrustY();
         thrust.z = Input.GetAxis("Vertical"); // Z is forward/Back
+
+        if (_isStuck)
+        {
+            thrust.y += 10f;
+        }
 
         // Set Flags
         _adjustYaw = Mathf.Abs(_yaw) > mouseDeadZone;
