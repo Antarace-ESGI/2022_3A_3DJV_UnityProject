@@ -1,8 +1,6 @@
 using System;
-using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class keybindingScript : MonoBehaviour
 {
@@ -10,51 +8,19 @@ public class keybindingScript : MonoBehaviour
     //The most important element => contain list of key to bind with action
     public static PlayerController controller;
     
-    // Private
-    
-    private int bindingIndex = 0; // Must be contains between 0 && Number of binding expect for composite (Number of binding * 4)
-    private String actionName;
-    
-    // Public
-    
-    public InputActionReference inputActionReference;
-    
-    [Header("UI")]
-    public Text actionText;
-    public Button rebindButton;
-    public Text rebindText;
-    public GameObject rebindPanel;
-    
+    // Event 
+
+    public static event Action complete;
+    public static event Action cancel;
+
+
     private void Awake()
     {
         controller ??= new PlayerController();
     }
     
-    #if UNITY_EDITOR
-    
-    private void OnValidate()
+    public static void StartRebinding(InputAction action, int bindingIndex)
     {
-        DisplayBindingUI();
-    }
-    
-    #endif
-    
-    public void DisplayBindingUI()
-    {
-        if (inputActionReference.action != null)
-        {
-            actionText.text = inputActionReference.action.name;
-        }
-        
-        rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(bindingIndex);
-        rebindButton.onClick.AddListener(StartRebinding);
-    }
-
-
-    public void StartRebinding()
-    {
-        InputAction action = controller.asset.FindAction(inputActionReference.action.name);
-        
         if (action.bindings[bindingIndex].isComposite)
         {
             if (action.bindings[bindingIndex + 1].isPartOfComposite && (bindingIndex + 1) < action.bindings.Count)
@@ -69,7 +35,7 @@ public class keybindingScript : MonoBehaviour
         
     }
 
-    private bool DuplicateBinding(InputAction action, int index, bool composite = false)
+    private static bool DuplicateBinding(InputAction action, int index, bool composite = false)
     {
         if (!composite)
         {
@@ -91,11 +57,12 @@ public class keybindingScript : MonoBehaviour
         return false;
     }
     
-    private void RebindingKey(InputAction action, int index, bool composite = false)
+    private static void RebindingKey(InputAction action, int index, bool composite = false)
     {
-        
+        /*
         rebindPanel.SetActive(true);
         rebindText.text = $"Press any key{inputActionReference.action.expectedControlType}";
+        */
         
         action.Disable();
         
@@ -110,7 +77,7 @@ public class keybindingScript : MonoBehaviour
             {
                 action.Enable();
                 operation.Dispose();
-                rebindPanel.SetActive(false);
+                //rebindPanel.SetActive(false);
 
                 if (DuplicateBinding(action,index,composite))
                 {
@@ -126,13 +93,15 @@ public class keybindingScript : MonoBehaviour
                         RebindingKey(action, nextBindingIndex, true);
                 }
                 
-                rebindButton.GetComponentInChildren<Text>().text = action.GetBindingDisplayString(index);
+                complete?.Invoke();
+                
             })
             .OnCancel(operation =>
             {
                 action.Enable();
                 operation.Dispose();
-                rebindPanel.SetActive(false);
+                cancel?.Invoke();
+                //rebindPanel.SetActive(false);
             });
         
         rebind.Start();

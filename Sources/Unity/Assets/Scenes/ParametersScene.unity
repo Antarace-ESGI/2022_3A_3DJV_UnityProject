@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &162911 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6201240914687527422, guid: dea6d86bf70fb3f4db8d3afa02688e24, type: 3}
-  m_PrefabInstance: {fileID: 2095830361}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6312103
 GameObject:
   m_ObjectHideFlags: 0
@@ -2204,13 +2193,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 331878066}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
+  m_Script: {fileID: 11500000, guid: c21c2d36559cced49a947d4acf73b977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputActionReference: {fileID: -6049995669949352201, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 1293836362}
   rebindButton: {fileID: 1104026539}
-  rebindText: {fileID: 1841486901}
+  rebindText: {fileID: 1334549692}
   rebindPanel: {fileID: 859223372}
 --- !u!1 &341159783
 GameObject:
@@ -3496,7 +3485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &626603877
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3714,17 +3703,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639528726}
   m_CullTransparentMesh: 1
---- !u!114 &649137103 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6201240914687527422, guid: dea6d86bf70fb3f4db8d3afa02688e24, type: 3}
-  m_PrefabInstance: {fileID: 1234973378730782324}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &661781133
 GameObject:
   m_ObjectHideFlags: 0
@@ -5333,10 +5311,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputActionReference: {fileID: 6163147865700221184, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
+--- !u!114 &993948813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993948810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21c2d36559cced49a947d4acf73b977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputActionReference: {fileID: 945911158577573120, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 1105572337}
   rebindButton: {fileID: 1644734717}
-  rebindText: {fileID: 1516627078}
+  rebindText: {fileID: 1334549692}
   rebindPanel: {fileID: 859223372}
 --- !u!1001 &1011461392
 PrefabInstance:
@@ -5566,7 +5556,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1036976361
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7732,10 +7722,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputActionReference: {fileID: 2033637320698636813, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
+--- !u!114 &1455001142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455001139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21c2d36559cced49a947d4acf73b977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputActionReference: {fileID: 6163147865700221184, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 1494679937}
   rebindButton: {fileID: 1068244210}
-  rebindText: {fileID: 1859646168}
+  rebindText: {fileID: 1334549692}
   rebindPanel: {fileID: 859223372}
 --- !u!1 &1465092475
 GameObject:
@@ -8092,17 +8094,6 @@ RectTransform:
   m_AnchoredPosition: {x: -200, y: 10}
   m_SizeDelta: {x: 275, y: 288.746}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1516627078 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6201240914687527422, guid: dea6d86bf70fb3f4db8d3afa02688e24, type: 3}
-  m_PrefabInstance: {fileID: 1011461392}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1520366807
 GameObject:
   m_ObjectHideFlags: 0
@@ -8889,10 +8880,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1634583778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634583775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21c2d36559cced49a947d4acf73b977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   inputActionReference: {fileID: 7422151749911913164, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 677256453}
   rebindButton: {fileID: 1373101296}
-  rebindText: {fileID: 162911}
+  rebindText: {fileID: 1334549692}
   rebindPanel: {fileID: 859223372}
 --- !u!1 &1636770992
 GameObject:
@@ -9813,7 +9816,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1762562615
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10536,28 +10539,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1841486901 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6201240914687527422, guid: dea6d86bf70fb3f4db8d3afa02688e24, type: 3}
-  m_PrefabInstance: {fileID: 840404757}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1859646168 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6201240914687527422, guid: dea6d86bf70fb3f4db8d3afa02688e24, type: 3}
-  m_PrefabInstance: {fileID: 1500254279}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1859796964
 GameObject:
   m_ObjectHideFlags: 0
@@ -11982,8 +11963,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputActionReference: {fileID: 945911158577573120, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
+--- !u!114 &1234973378730782330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234973378730782328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21c2d36559cced49a947d4acf73b977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputActionReference: {fileID: 2033637320698636813, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 1026581191}
   rebindButton: {fileID: 777518325}
-  rebindText: {fileID: 649137103}
+  rebindText: {fileID: 1334549692}
   rebindPanel: {fileID: 859223372}

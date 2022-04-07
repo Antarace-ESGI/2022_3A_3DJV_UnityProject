@@ -4,6 +4,7 @@ using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class keybindingMenuUIScript : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class keybindingMenuUIScript : MonoBehaviour
     
     private int _index = 0;
     
+    
+    public static event Action complete;
+    
     public List<InputActionReference> keybindings = new List<InputActionReference>();
     
+    [SerializeField]
+    private List<Button> keyButton = new List<Button>();
 
     private void Awake()
     {
@@ -81,6 +87,9 @@ public class keybindingMenuUIScript : MonoBehaviour
             
             action.Enable();
         }
+        
+        UpdateMultipleUI();
+        
     }
     public void LoadPersonalBinding()
     {
@@ -94,6 +103,15 @@ public class keybindingMenuUIScript : MonoBehaviour
                 action.ApplyBindingOverride(_index,keys[action.actionMap+action.name]);
             }
             
+        }
+    }
+
+    public void UpdateMultipleUI()
+    {
+        
+        foreach (Button elem in keyButton)
+        {
+            complete?.Invoke();
         }
     }
 }
