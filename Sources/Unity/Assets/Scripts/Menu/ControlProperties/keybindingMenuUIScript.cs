@@ -12,14 +12,8 @@ public class keybindingMenuUIScript : MonoBehaviour
     
     private int _index = 0;
     
-    
-    public static event Action complete;
-    
     public List<InputActionReference> keybindings = new List<InputActionReference>();
     
-    [SerializeField]
-    private List<Button> keyButton = new List<Button>();
-
     private void Awake()
     {
          _controller ??= new PlayerController();
@@ -87,9 +81,7 @@ public class keybindingMenuUIScript : MonoBehaviour
             
             action.Enable();
         }
-        
-        UpdateMultipleUI();
-        
+
     }
     public void LoadPersonalBinding()
     {
@@ -105,13 +97,5 @@ public class keybindingMenuUIScript : MonoBehaviour
             
         }
     }
-
-    public void UpdateMultipleUI()
-    {
-        
-        foreach (Button elem in keyButton)
-        {
-            complete?.Invoke();
-        }
-    }
+    
 }

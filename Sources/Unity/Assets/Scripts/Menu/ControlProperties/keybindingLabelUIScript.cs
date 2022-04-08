@@ -52,9 +52,19 @@ public class keybindingLabelUIScript : MonoBehaviour
         rebindPanel.SetActive(false);
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(GetIndex());
+    }
+
+    public void UpdateUI(String str)
+    {
+        rebindButton.GetComponentInChildren<Text>().text = str;
+    }
+
+    public InputActionReference GetInputActionRef()
+    {
+        return inputActionReference;
     }
 
     private void DisplayBindingUI()
