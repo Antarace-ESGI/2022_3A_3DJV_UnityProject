@@ -11,6 +11,8 @@ public class PlayerStatsScript : MonoBehaviour
     public Slider lifebar;
     
     // Bonus 
+
+    private GameObject _gameManager;
     
     public bool haveBonus = false;
     public int bonusIndex = -1;
@@ -23,6 +25,9 @@ public class PlayerStatsScript : MonoBehaviour
     private void Start()
     {
         lifebar.value = healthPoint;
+        
+        _gameManager = GameObject.FindWithTag("GameController");
+        
         gameObject.AddComponent<BonusItemsLibrairyScript>();
     }
     
@@ -69,8 +74,7 @@ public class PlayerStatsScript : MonoBehaviour
         if (bonus.IsActive() && bonusIndex >= 0)
         {
             setBonus();
-            BonusItemsLibrairyScript librarian = gameObject.GetComponent<BonusItemsLibrairyScript>();
-            librarian.use(bonusIndex, gameObject);
+            _gameManager.GetComponent<BonusItemsLibrairyScript>().use(bonusIndex,gameObject);
             haveBonus = false;
             bonusIndex = -1;
         }

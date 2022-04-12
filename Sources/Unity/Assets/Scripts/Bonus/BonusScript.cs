@@ -4,15 +4,20 @@ using Random = UnityEngine.Random;
 public class BonusScript : MonoBehaviour
 {
 
-    public Vector3 originalPosition;
-    public Sprite[] items;
+    [SerializeField] private Vector3 originalPosition;
+
+    #if UNITY_EDITOR
+    [SerializeField] private bool cheatWithRandom;
+    [SerializeField] private int cheatInteger = 0;
+    #endif
     
+    private GameObject _gameManager;
     private Vector3 storagePosition;
     private float timer = 5.0f;
     
     void Start()
     {
-        //Modify if you want
+        _gameManager = _gameManager = GameObject.FindWithTag("GameController");
         storagePosition = new Vector3(0.0f, -500.0f, 0.0f);
     }
 
@@ -21,6 +26,11 @@ public class BonusScript : MonoBehaviour
         float n = Random.Range(0.0f, 1.0f);
         int nb = Mathf.RoundToInt(n);
 
+        #if UNITY_EDITOR
+        if (cheatWithRandom)
+            nb = cheatInteger;
+        #endif
+        
         return nb;
 
     }
@@ -36,7 +46,7 @@ public class BonusScript : MonoBehaviour
                 int bonusIndex = giveBonusItem();
                 col.gameObject.GetComponentInParent<PlayerStatsScript>().haveBonus = true;
                 col.gameObject.GetComponentInParent<PlayerStatsScript>().bonusIndex = bonusIndex;
-                col.gameObject.GetComponentInParent<PlayerStatsScript>().setBonus(items[bonusIndex]);
+                col.gameObject.GetComponentInParent<PlayerStatsScript>().setBonus(_gameManager.GetComponent<BonusItemsLibrairyScript>().GetImage(bonusIndex));
             }
         }
     }
