@@ -1,22 +1,24 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class keybindingScript : MonoBehaviour
 {
 
     //The most important element => contain list of key to bind with action
     public static PlayerController controller;
+
+    [SerializeField] private GameObject manager;
     
     // Event 
 
     public static event Action complete;
     public static event Action cancel;
 
-
-    private void Awake()
+    public static void init(GameObject manager)
     {
-        controller ??= new PlayerController();
+        controller = manager.GetComponent<KeybindManager>().AccessController();
     }
     
     public static void StartRebinding(InputAction action, int bindingIndex)

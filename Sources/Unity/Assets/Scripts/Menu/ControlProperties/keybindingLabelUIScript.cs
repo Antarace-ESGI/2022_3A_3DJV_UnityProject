@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class keybindingLabelUIScript : MonoBehaviour
 {
-   
+
+    [SerializeField] private GameObject accessor;
     private PlayerController controller;
     
     // Public
@@ -21,20 +22,14 @@ public class keybindingLabelUIScript : MonoBehaviour
     public Text rebindText;
     public GameObject rebindPanel;
     
-    private void Awake()
+    private void Start()
     {
-        controller ??= new PlayerController();
+        controller = accessor.GetComponent<KeybindManager>().AccessController();
+        keybindingScript.init(accessor);
+        DisplayBindingUI();
     }
     
-    #if UNITY_EDITOR
-        
-        private void OnValidate()
-        {
-            DisplayBindingUI();
-        }
-        
-    #endif
-
+    
     private void OnEnable()
     {
         keybindingScript.complete += DeselectPanel;
@@ -46,7 +41,8 @@ public class keybindingLabelUIScript : MonoBehaviour
         keybindingScript.cancel -= DeselectPanel;
         keybindingScript.cancel -= UpdateUI;
     }
-
+    
+    
     private void DeselectPanel()
     {
         rebindPanel.SetActive(false);
@@ -69,13 +65,12 @@ public class keybindingLabelUIScript : MonoBehaviour
 
     private void DisplayBindingUI()
     {
-        if (inputActionReference.action != null)
+        if (inputActionReference.action != null && controller != null)
         {
             actionText.text = inputActionReference.action.name;
+            rebindButton.GetComponentInChildren<Text>().text =  controller.asset[inputActionReference.action.name].GetBindingDisplayString(GetIndex());
+            rebindButton.onClick.AddListener(StartRebinding);
         }
-        
-        rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(GetIndex());
-        rebindButton.onClick.AddListener(StartRebinding);
     }
 
     private int GetIndex()
@@ -86,7 +81,7 @@ public class keybindingLabelUIScript : MonoBehaviour
     private void StartRebinding()
     {
         rebindPanel.SetActive(true);
-        rebindText.text = $"Press any key{inputActionReference.action.expectedControlType}";
+        rebindText.text = $"Press any key{controller.asset[inputActionReference.action.name].expectedControlType}";
         keybindingScript.StartRebinding(inputActionReference.action,GetIndex());
     }
     

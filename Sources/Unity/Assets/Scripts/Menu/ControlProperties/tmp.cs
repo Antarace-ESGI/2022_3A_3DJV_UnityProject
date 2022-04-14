@@ -1,22 +1,24 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class keybindingMenuUIScript : MonoBehaviour
+public class tmp : MonoBehaviour
 {
-    
-    [SerializeField] private GameObject accessor;
-    private PlayerController _controller;
 
+}
+/*
+ *public class keybindingMenuUIScript : MonoBehaviour
+{
+    private PlayerController _controller;
+    
+    private int _index = 0;
+    
     public List<InputActionReference> keybindings = new List<InputActionReference>();
     
-
-    private void Start()
+    private void Awake()
     {
-        _controller = accessor.GetComponent<KeybindManager>().AccessController();
+         _controller ??= new PlayerController();
+         _controller = keybindingScript.controller;
     }
 
     private InputAction InitInputAction(InputActionReference inputref)
@@ -26,11 +28,6 @@ public class keybindingMenuUIScript : MonoBehaviour
             return _controller.asset.FindAction(inputref.action.name); 
         }
         return null;
-    }
-
-    private int GetIndex()
-    {
-        return 0;
     }
     
     public void SaveBinding()
@@ -43,12 +40,10 @@ public class keybindingMenuUIScript : MonoBehaviour
 
         foreach (InputAction action in _controller)
         {
-            if(action.bindings[GetIndex()].overridePath != null)
-                bindings.Add(action.actionMap+action.name,action.bindings[GetIndex()].overridePath);
+            if(action.bindings[bindingIndex].overridePath != null)
+                bindings.Add(action.actionMap+action.name,action.bindings[bindingIndex].overridePath);
             else
-                bindings.Add(action.actionMap+action.name,action.bindings[GetIndex()].path);
-            
-            Debug.Log(action.bindings[GetIndex()].overridePath);
+                bindings.Add(action.actionMap+action.name,action.bindings[bindingIndex].path);
         }
         
         // writing 
@@ -73,7 +68,7 @@ public class keybindingMenuUIScript : MonoBehaviour
             action = InitInputAction(i);
             action.Disable();
             
-            if (action.bindings[GetIndex()].isComposite)
+            if (action.bindings[_index].isComposite)
             {
                 for (int n = bindingIndex; n < action.bindings.Count && action.bindings[n].isPartOfComposite; n++)
                 {
@@ -87,5 +82,24 @@ public class keybindingMenuUIScript : MonoBehaviour
             
             action.Enable();
         }
+
     }
+    public void LoadPersonalBinding()
+    {
+        String path = $"{Application.dataPath}/{"keybind"}.txt";
+        if (File.Exists(path))
+        {
+            Dictionary<string, string> keys = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(path));
+
+            foreach (InputAction action in _controller)
+            {
+                action.ApplyBindingOverride(_index,keys[action.actionMap+action.name]);
+            }
+            
+        }
+    }
+    
 }
+
+ * 
+ */
