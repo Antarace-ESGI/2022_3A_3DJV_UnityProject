@@ -11,11 +11,17 @@ public class ModelPreviewScript : MonoBehaviour
     
     private void OnEnable()
     {
-          _model.SetActive(true);
+        if (_model)
+        {
+            _model.SetActive(true);
+        }
     }
 
     private void OnDisable()
     {
-        _model.SetActive(false);
+        if (_model)
+        {
+            _model.SetActive(false);
+        }
     }
 }
