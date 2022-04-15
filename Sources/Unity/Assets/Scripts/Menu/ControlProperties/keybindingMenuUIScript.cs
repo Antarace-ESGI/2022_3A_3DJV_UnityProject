@@ -35,8 +35,6 @@ public class keybindingMenuUIScript : MonoBehaviour
     
     public void SaveBinding()
     {
-        int bindingIndex = 0;
-        
         String path =  $"{Application.dataPath}/{"keybind"}.txt";
 
         Dictionary<string, string> bindings = new Dictionary<string, string>();

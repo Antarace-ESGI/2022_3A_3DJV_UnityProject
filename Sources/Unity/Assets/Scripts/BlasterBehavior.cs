@@ -13,11 +13,9 @@ public class BlasterBehavior : MonoBehaviour
 
       if(VanishTime > 0){
         VanishTime -= Time.deltaTime;
-        // Debug.Log(VanishTime);
       }else{
-        // Debug.Log("BONJO");
         Destroy(transform.gameObject);
       }
 
-      }
+  }
 }

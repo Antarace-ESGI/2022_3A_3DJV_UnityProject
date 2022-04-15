@@ -18,36 +18,12 @@ public class PlayerStatsScript : MonoBehaviour
     public int bonusIndex = -1;
     public Image bonus;
     
-    // InputManager
-
-    private PlayerController _controls;
-
     private void Start()
     {
         lifebar.value = healthPoint;
         
         _gameManager = GameObject.FindWithTag("GameController");
         
-        gameObject.AddComponent<BonusItemsLibrairyScript>();
-    }
-    
-    private void OnEnable()
-    {
-        _controls.Player.Enable();
-        Debug.Log("Loaded");
-    }
-    
-    private void OnDisable()
-    {
-        _controls.Player.Disable();
-    }
-    
-    // Input/Control
-
-    private void Awake()
-    {
-        _controls = new PlayerController();
-        _controls.Player.Use.performed += ctx => unableBonusUse();
     }
 
     // Main
@@ -69,7 +45,7 @@ public class PlayerStatsScript : MonoBehaviour
         }
     }
     
-    private void unableBonusUse()
+    public void unableBonusUse()
     {
         if (bonus.IsActive() && bonusIndex >= 0)
         {

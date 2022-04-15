@@ -8,6 +8,7 @@ TagManager:
   - PlayerSpawn
   - AI
   - Checkpoint
+  - Pause
   layers:
   - Default
   - TransparentFX

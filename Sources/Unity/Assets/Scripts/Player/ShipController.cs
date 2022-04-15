@@ -6,21 +6,21 @@ using Unity.Collections;
 
 public class ShipController : MonoBehaviour
 {
-    Rigidbody _ship;
+    private Rigidbody _ship;
 
-    float _qtrScreenH;
-    float _qtrScreenW;
+    private float _qtrScreenH;
+    private float _qtrScreenW;
 
-    bool _adjustYaw;
-    bool _adjustThrustX;
-    bool _adjustThrustY;
-    bool _adjustThrustZ;
+    private bool _adjustYaw;
+    private bool _adjustThrustX;
+    private bool _adjustThrustY;
+    private bool _adjustThrustZ;
 
     public float mouseDeadZone = 0.05f;
-    Vector3 _centerScreen;
+    private Vector3 _centerScreen;
 
-    float _yaw;
-    float _yawDiff;
+    private float _yaw;
+    private float _yawDiff;
 
     public Vector3 thrust = Vector3.zero;
 
@@ -40,7 +40,7 @@ public class ShipController : MonoBehaviour
     public float floatDistance = 2;
     private bool _isStuck;
 
-    void Start()
+    private void Start()
     {
         _centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
         _ship = GetComponent<Rigidbody>();
@@ -50,13 +50,13 @@ public class ShipController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void Update()
+    private void Update()
     {
         InputUpdate();
         DampenTransform();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         // ADJUST YAW (LEFT/RIGHT/TURN/LOCAL Y)
         if (_adjustYaw)
@@ -97,7 +97,7 @@ public class ShipController : MonoBehaviour
         }
     }
 
-    void InputUpdate()
+    private void InputUpdate()
     {
         _yaw = GetYawValue();
         
@@ -115,9 +115,12 @@ public class ShipController : MonoBehaviour
         _adjustThrustX = Mathf.Abs(thrust.x) > 0.1f;
         _adjustThrustY = thrust.y != 0;
         _adjustThrustZ = Mathf.Abs(thrust.z) > 0.1f;
+        
+    }
 
-        // Boost
-        if (Input.GetKey(KeyCode.LeftShift))
+    public void ActiveBoost(bool active)
+    {
+        if (active)
         {
             if (_boostTime < boostDuration)
             {
@@ -136,7 +139,7 @@ public class ShipController : MonoBehaviour
         }
     }
 
-    float GetYawValue()
+    private float GetYawValue()
     {
         float x = Input.GetAxis("Mouse X");
 
@@ -146,7 +149,7 @@ public class ShipController : MonoBehaviour
         return (_yawDiff / _qtrScreenW);
     }
 
-    float GetThrustY()
+    private float GetThrustY()
     {
         // Make the body float above the ground
         // Bit shift the index of the layer (8) to get a bit mask
@@ -167,7 +170,7 @@ public class ShipController : MonoBehaviour
         return -1.0f;
     }
 
-    void DampenTransform()
+    private void DampenTransform()
     {
         Vector3 nVeloc = new Vector3(
             Mathf.Lerp(_ship.velocity.x, 0, Time.deltaTime * 0.75f),

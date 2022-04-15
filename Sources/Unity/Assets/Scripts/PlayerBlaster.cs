@@ -9,17 +9,15 @@ public class PlayerBlaster : MonoBehaviour
   public GameObject Canon;
   public GameObject missile;
   public GameObject missileClone;
-
-  void Update()
+  
+  public void Shoot()
   {
     if (canShoot) {
-      StartCoroutine(shootMissile());
+      StartCoroutine(ShootMissile());
     }
   }
 
-
-
-  public IEnumerator shootMissile()
+  private IEnumerator ShootMissile()
   {
     if(Input.GetMouseButtonDown(0))
     {
