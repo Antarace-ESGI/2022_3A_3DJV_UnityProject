@@ -6,7 +6,7 @@ public class BlasterBehavior : MonoBehaviour
 {
 
   public float VanishTime = 4;
-  public float slowdown = 2000f;
+  public float slowdown = 0.05f;
 
   void Update()
   {
@@ -26,13 +26,25 @@ public class BlasterBehavior : MonoBehaviour
           //Coroutine degats
           StartCoroutine(AiGetShot(collision));
         }
+
+        if(collision.CompareTag("Player")){
+          //Coroutine degats
+          StartCoroutine(PlayerGetShot(collision));
+        }
+
+
       }
 
       private IEnumerator AiGetShot(Collider collision){
 
         yield return new WaitForSeconds(0.05f);
-        collision.GetComponent<Rigidbody>().AddForce(-transform.forward * slowdown, ForceMode.Force);
-    //   Rigidbody rb = collision.GetComponent<Rigidbody>();
+
+        // JE SAIS PLUS CE QU4IL FALLAIT FAIRE POUR LE RALENTI
+
+      //  collision.GetComponent<Rigidbody>().AddForce(-transform.forward *slowdown, ForceMode.Force);
+
+      Rigidbody rb = collision.GetComponent<Rigidbody>();
+      rb.velocity =Vector3.zero;
     //
     // Vector3 slowingDown = new Vector3(-transform.forward.x * rb.velocity.x,-transform.forward.y * rb.velocity.y,-transform.forward.z * rb.velocity.z);
     //
@@ -43,6 +55,30 @@ public class BlasterBehavior : MonoBehaviour
         Debug.Log("get hit");
          Destroy(transform.gameObject);
       }
+
+
+      private IEnumerator PlayerGetShot(Collider collision){
+
+        yield return new WaitForSeconds(0.05f);
+
+        // JE SAIS PLUS CE QU4IL FALLAIT FAIRE POUR LE RALENTI
+
+      //  collision.GetComponent<Rigidbody>().AddForce(-transform.forward *slowdown, ForceMode.Force);
+
+
+    //   Rigidbody rb = collision.GetComponent<Rigidbody>();
+    //
+    // Vector3 slowingDown = new Vector3(-transform.forward.x * rb.velocity.x,-transform.forward.y * rb.velocity.y,-transform.forward.z * rb.velocity.z);
+    //
+    //   rb.AddForce(slowingDown, ForceMode.Force);
+
+        PlayerStatsScript PSS = collision.gameObject.GetComponent<PlayerStatsScript>();
+        PSS.healthPoint = PSS.healthPoint - 10;
+        Debug.Log("Player get hit");
+         Destroy(transform.gameObject);
+      }
+
+
 
 
 }

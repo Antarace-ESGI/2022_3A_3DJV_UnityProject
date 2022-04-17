@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.10683466, g: 0.1385473, b: 0.19850901, a: 1}
+  m_IndirectSpecularColor: {r: 0.106834956, g: 0.13854778, b: 0.19850945, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -704,6 +704,54 @@ Transform:
   m_Father: {fileID: 1004690544}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &556045723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 556045724}
+  - component: {fileID: 556045725}
+  m_Layer: 0
+  m_Name: Canon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &556045724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556045723}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.73}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1188615279}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &556045725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556045723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 138f765c2490e1c4eaa5063c96d03045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canShoot: 1
+  AICanon: {fileID: 556045723}
+  AImissile: {fileID: 224817473580224026, guid: ae86430099e8e084ba941d5cff6d7463, type: 3}
+  AImissileClone: {fileID: 0}
+  canonTransform: {fileID: 556045724}
 --- !u!1 &558624295
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,6 +1086,10 @@ PrefabInstance:
       propertyPath: lifebar
       value: 
       objectReference: {fileID: 878491845}
+    - target: {fileID: 1072921362, guid: b4e72bcacd40771458014916280adcd3, type: 3}
+      propertyPath: healthPoint
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 625644560970509833, guid: b4e72bcacd40771458014916280adcd3, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1914,6 +1966,10 @@ PrefabInstance:
     - target: {fileID: 6416701373286507359, guid: 49504b9f779276149b7be44f94e9988a, type: 3}
       propertyPath: m_Name
       value: IA 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6416701373286507359, guid: 49504b9f779276149b7be44f94e9988a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49504b9f779276149b7be44f94e9988a, type: 3}
@@ -2830,9 +2886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 998005473}
-  offset: {x: 0, y: 0, z: 0}
   timeOffset: 0.3
-  body: {fileID: 998005477}
   cameraDistance: 5
   floatDistance: 2
 --- !u!81 &1966774991
@@ -2903,3 +2957,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6416701373286507358, guid: 49504b9f779276149b7be44f94e9988a, type: 3}
   m_PrefabInstance: {fileID: 1291146347}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2000909714 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6416701373286507359, guid: 49504b9f779276149b7be44f94e9988a, type: 3}
+  m_PrefabInstance: {fileID: 1291146347}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2000909718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000909714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 138f765c2490e1c4eaa5063c96d03045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canShoot: 1
+  AICanon: {fileID: 0}
+  AImissile: {fileID: 0}
+  AImissileClone: {fileID: 0}
+  canonTransform: {fileID: 0}

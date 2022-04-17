@@ -4,39 +4,41 @@ using UnityEngine.UI;
 
 public class PlayerStatsScript : MonoBehaviour
 {
-    
+
     // Player global stats
 
-    public int healthPoint = 10;
+    public int healthPoint = 50;
     public Slider lifebar;
-    
-    // Bonus 
-    
+
+    // Bonus
+
     public bool haveBonus = false;
     public int bonusIndex = -1;
     public Image bonus;
-    
+
     // InputManager
 
     private PlayerController _controls;
+
+    public Transform playerSpawn;
 
     private void Start()
     {
         lifebar.value = healthPoint;
         gameObject.AddComponent<BonusItemsLibrairyScript>();
     }
-    
+
     private void OnEnable()
     {
         _controls.Player.Enable();
         Debug.Log("Loaded");
     }
-    
+
     private void OnDisable()
     {
         _controls.Player.Disable();
     }
-    
+
     // Input/Control
 
     private void Awake()
@@ -46,7 +48,7 @@ public class PlayerStatsScript : MonoBehaviour
     }
 
     // Main
-    
+
     public void setBonus(Sprite item = null)
     {
         bonus.GetComponent<Image>().sprite = item;
@@ -63,7 +65,7 @@ public class PlayerStatsScript : MonoBehaviour
             bonus.GetComponent<Image>().color = tmpcolor;
         }
     }
-    
+
     private void unableBonusUse()
     {
         if (bonus.IsActive() && bonusIndex >= 0)
@@ -80,7 +82,7 @@ public class PlayerStatsScript : MonoBehaviour
     {
         lifebar.value = healthPoint;
     }
-    
+
     public void generateLoot(Vector3 spawnPos)
     {
         GameObject loot = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -100,7 +102,7 @@ public class PlayerStatsScript : MonoBehaviour
         {
             updateLifeBar();
         }
-        
+
         if (healthPoint == 0)
         {
             if (haveBonus)
@@ -109,9 +111,10 @@ public class PlayerStatsScript : MonoBehaviour
                 haveBonus = false;
                 setBonus();
             }
-            gameObject.transform.position = new Vector3(0, 0, 0); // temporary checkpoint for test
-            healthPoint = 10;
+            gameObject.transform.position = playerSpawn.transform.position; // temporary checkpoint for test
+
+            healthPoint = 50;
         }
-        
+
     }
 }
