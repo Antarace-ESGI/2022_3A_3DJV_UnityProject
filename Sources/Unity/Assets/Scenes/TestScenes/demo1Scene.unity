@@ -1570,6 +1570,10 @@ PrefabInstance:
       propertyPath: healthPoint
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 8392480833485309665, guid: 3a5758ee13b880348b1c0b011ab586b8, type: 3}
+      propertyPath: playerSpawn
+      value: 
+      objectReference: {fileID: 1075534524}
     - target: {fileID: 8392480833674382245, guid: 3a5758ee13b880348b1c0b011ab586b8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
