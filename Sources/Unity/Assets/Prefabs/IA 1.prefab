@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 6416701373286507331}
   - component: {fileID: 6416701373286507357}
   - component: {fileID: 2315132206830102591}
+  - component: {fileID: 7565597353745008555}
   m_Layer: 0
   m_Name: IA 1
   m_TagString: AI
@@ -324,10 +325,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   aiLife: 50
-  thrust: {x: 0, y: 0, z: 0}
-  throttle: 100
-  maxThrottle: 8
-  minThrottle: 8
 --- !u!114 &2315132206830102591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,3 +343,18 @@ MonoBehaviour:
   baseThrottle: 10
   yawStrength: 1.5
   floatDistance: 2
+--- !u!114 &7565597353745008555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6416701373286507359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7bb7ef1038fb5545b3d1236ce169814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipController: {fileID: 2315132206830102591}
+  bodyMaterial: {fileID: 2100000, guid: 461a68214be454146b710a649a358116, type: 2}
+  vehicleIndex: 1
