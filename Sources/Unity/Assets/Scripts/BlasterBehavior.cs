@@ -52,7 +52,7 @@ public class BlasterBehavior : MonoBehaviour
         //   rb.AddForce(slowingDown, ForceMode.Force);
 
         AiController ai = collision.gameObject.GetComponent<AiController>();
-        ai.AiLife -= 10;
+        ai.aiLife -= 10;
         Destroy(transform.gameObject);
     }
 

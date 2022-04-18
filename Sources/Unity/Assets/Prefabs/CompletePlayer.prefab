@@ -1087,7 +1087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canShoot: 1
-  Canon: {fileID: 8392480834229186757}
+  canon: {fileID: 8392480834229186757}
   missile: {fileID: 224817473580224026, guid: ae86430099e8e084ba941d5cff6d7463, type: 3}
   missileClone: {fileID: 0}
 --- !u!1 &8995562795618833402
@@ -1104,6 +1104,7 @@ GameObject:
   - component: {fileID: 8392480833485309667}
   - component: {fileID: 8392480833485309665}
   - component: {fileID: 2599530809406207042}
+  - component: {fileID: 7815054172253413563}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1168,13 +1169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be0272ecbc10114d8b102e4a5ede463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseDeadZone: 0
-  thrust: {x: 0, y: 0, z: 0}
-  baseThrottle: 10
   boostMultiplier: 2
   boostDuration: 2
-  crosshair: {fileID: 8392480833672699866}
-  maxRadius: 64
+  thrust: {x: 0, y: 0, z: 0}
+  baseThrottle: 10
   yawStrength: 5
   floatDistance: 2
 --- !u!114 &8392480833485309665
@@ -1194,6 +1192,7 @@ MonoBehaviour:
   haveBonus: 0
   bonusIndex: -1
   bonus: {fileID: 8392480832157804155}
+  playerSpawn: {fileID: 0}
 --- !u!114 &2599530809406207042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1209,3 +1208,18 @@ MonoBehaviour:
   shipController: {fileID: 8392480833485309667}
   bodyMaterial: {fileID: 2100000, guid: d83bf6e5582dab4489678c251c185ad7, type: 2}
   vehicleIndex: 3
+--- !u!114 &7815054172253413563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995562795618833402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 912ef791bef34f6d9babacb3074013d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseDeadZone: 0.05
+  crosshair: {fileID: 8392480833672699866}
+  maxRadius: 128

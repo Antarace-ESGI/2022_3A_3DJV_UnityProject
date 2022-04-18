@@ -21,7 +21,7 @@ public class PlayerInputScript : MonoBehaviour
         _controls.Player.Boost.canceled += ctx => UnBoost();
         _controls.Player.Pause.performed += ctx => Pause();
         _controls.Player.Jump.performed += ctx => Jump();
-        _controls.Player.Movement.performed += ctx => Direction(ctx.ReadValue<Vector2>());
+        // _controls.Player.Movement.performed += ctx => Direction(ctx.ReadValue<Vector2>());
         
         _controls.Player.Enable();
     }
