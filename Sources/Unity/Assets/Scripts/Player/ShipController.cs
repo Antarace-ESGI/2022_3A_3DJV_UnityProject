@@ -40,8 +40,12 @@ public class ShipController : MonoBehaviour
     public float floatDistance = 2;
     private bool _isStuck;
 
+    private Vector2 axis;
+    
     private void Start()
     {
+        axis = Vector2.zero;
+        
         _centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
         _ship = GetComponent<Rigidbody>();
         _qtrScreenH = Screen.height * 0.25f;
@@ -99,12 +103,13 @@ public class ShipController : MonoBehaviour
 
     private void InputUpdate()
     {
-        _yaw = GetYawValue();
         
-        thrust.x = Input.GetAxis("Horizontal");
-        thrust.y = GetThrustY();
-        thrust.z = Input.GetAxis("Vertical"); // Z is forward/Back
+        _yaw = GetYawValue();
 
+        thrust.x = axis.x;
+        thrust.y = GetThrustY();
+        thrust.z = axis.y;
+        
         if (_isStuck)
         {
             thrust.y += 10f;
@@ -116,6 +121,11 @@ public class ShipController : MonoBehaviour
         _adjustThrustY = thrust.y != 0;
         _adjustThrustZ = Mathf.Abs(thrust.z) > 0.1f;
         
+    }
+
+    public void Move(Vector2 dir)
+    {
+        axis = dir;
     }
 
     public void ActiveBoost(bool active)

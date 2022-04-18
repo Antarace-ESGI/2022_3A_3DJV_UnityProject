@@ -14,21 +14,42 @@ public class PlayerInputScript : MonoBehaviour
     
     private void Start()
     {
+        
+        // Load input map
+        
         _controls ??= new PlayerController();
         
         // Input callback
-        
+        // Use the bonus
         _controls.Player.Use.performed += ctx => UseBonus();
+        
+        // Shoot
+        
         _controls.Player.Shoot.performed += ctx => Shoot();
+        
+        // Boost
+        
         _controls.Player.Boost.performed += ctx => Boost();
         _controls.Player.Boost.canceled += ctx => UnBoost();
+        
+        // Enabling/Disabling pause
+        
         _controls.Player.Pause.performed += ctx => Pause();
+        
+        // Jump
+        
         _controls.Player.Jump.performed += ctx => Jump();
-        //_controls.Player.Movement.performed += ctx => Direction(ctx.ReadValue<Vector2>());
+        
+        // Movement
+        
+        _controls.Player.Movement.performed += ctx => Direction(ctx.ReadValue<Vector2>());
+        _controls.Player.Movement.canceled += ctx => Direction(Vector2.zero);
         
         _controls.Player.Enable();
     }
-
+    
+    // Enable or disable the input 
+    
     private void OnDisable()
     {
         _controls.Player.Disable();
@@ -44,14 +65,7 @@ public class PlayerInputScript : MonoBehaviour
     private void Direction(Vector2 dir)
     {
         Debug.Log(dir);
-        //gameObject.GetComponent<ShipController>().InputUpdate(dir);
-    }
-
-    public void OnMouvement(InputAction.CallbackContext ctx)
-    {
-        Vector2 movement = ctx.ReadValue<Vector2>();
-        Vector3 rawInput = new Vector3(movement.x, 0, movement.y);
-        //gameObject.GetComponent<ShipController>().InputUpdate(rawInput);
+        gameObject.GetComponent<ShipController>().Move(dir);
     }
     
     private void UseBonus()
