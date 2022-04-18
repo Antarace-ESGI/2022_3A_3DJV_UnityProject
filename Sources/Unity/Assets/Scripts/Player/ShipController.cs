@@ -115,7 +115,6 @@ public class ShipController : MonoBehaviour
         _adjustThrustX = Mathf.Abs(thrust.x) > 0.1f;
         _adjustThrustY = thrust.y != 0;
         _adjustThrustZ = Mathf.Abs(thrust.z) > 0.1f;
-        
     }
 
     public void ActiveBoost(bool active)

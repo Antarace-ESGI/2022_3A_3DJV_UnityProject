@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,7 +21,7 @@ public class PlayerInputScript : MonoBehaviour
         _controls.Player.Boost.canceled += ctx => UnBoost();
         _controls.Player.Pause.performed += ctx => Pause();
         _controls.Player.Jump.performed += ctx => Jump();
-        //_controls.Player.Movement.performed += ctx => Direction(ctx.ReadValue<Vector2>());
+        _controls.Player.Movement.performed += ctx => Direction(ctx.ReadValue<Vector2>());
         
         _controls.Player.Enable();
     }
@@ -47,7 +44,7 @@ public class PlayerInputScript : MonoBehaviour
         //gameObject.GetComponent<ShipController>().InputUpdate(dir);
     }
 
-    public void OnMouvement(InputAction.CallbackContext ctx)
+    public void OnMovement(InputAction.CallbackContext ctx)
     {
         Vector2 movement = ctx.ReadValue<Vector2>();
         Vector3 rawInput = new Vector3(movement.x, 0, movement.y);

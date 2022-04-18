@@ -1,18 +1,18 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BlasterBehavior : MonoBehaviour
 {
-    public float VanishTime = 4;
-    public float slowdown = 0.05f;
+    [FormerlySerializedAs("VanishTime")] public float vanishTime = 4;
 
     void Update()
     {
         transform.Translate(new Vector3(0, 0, 30 * Time.deltaTime));
 
-        if (VanishTime > 0)
+        if (vanishTime > 0)
         {
-            VanishTime -= Time.deltaTime;
+            vanishTime -= Time.deltaTime;
         }
         else
         {
@@ -22,6 +22,7 @@ public class BlasterBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        // TODO: Factoriser ces deux méthodes
         if (collision.CompareTag("AI"))
         {
             //Coroutine degats
@@ -50,9 +51,8 @@ public class BlasterBehavior : MonoBehaviour
         //
         //   rb.AddForce(slowingDown, ForceMode.Force);
 
-        AiController AI = collision.gameObject.GetComponent<AiController>();
-        AI.AiLife = AI.AiLife - 10;
-        Debug.Log("get hit");
+        AiController ai = collision.gameObject.GetComponent<AiController>();
+        ai.AiLife -= 10;
         Destroy(transform.gameObject);
     }
 
@@ -71,8 +71,8 @@ public class BlasterBehavior : MonoBehaviour
         //
         //   rb.AddForce(slowingDown, ForceMode.Force);
 
-        PlayerStatsScript PSS = collision.gameObject.GetComponent<PlayerStatsScript>();
-        PSS.healthPoint = PSS.healthPoint - 10;
+        PlayerStatsScript pss = collision.gameObject.GetComponent<PlayerStatsScript>();
+        pss.healthPoint -= 10;
         Debug.Log("Player get hit");
         Destroy(transform.gameObject);
     }
