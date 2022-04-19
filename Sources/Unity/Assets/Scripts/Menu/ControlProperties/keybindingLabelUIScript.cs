@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 public class keybindingLabelUIScript : MonoBehaviour
 {
@@ -28,8 +30,7 @@ public class keybindingLabelUIScript : MonoBehaviour
         keybindingScript.init(accessor);
         DisplayBindingUI();
     }
-    
-    
+
     private void OnEnable()
     {
         keybindingScript.complete += DeselectPanel;
@@ -75,7 +76,22 @@ public class keybindingLabelUIScript : MonoBehaviour
 
     private int GetIndex()
     {
-        return 0;
+        int index = 0;
+        
+        InputSystem.onDeviceChange += (device, change) =>
+        {
+            switch (change)
+            {
+                case InputDeviceChange.Disconnected:
+                    Debug.Log(device.description);
+                    break;
+                case InputDeviceChange.Reconnected:
+                    //index = 0;
+                    break;
+            }
+        };
+        
+        return index;
     }
 
     private void StartRebinding()

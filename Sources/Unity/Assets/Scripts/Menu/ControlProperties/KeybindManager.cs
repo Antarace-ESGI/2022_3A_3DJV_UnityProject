@@ -47,6 +47,9 @@ public class KeybindManager : MonoBehaviour
         }
     }
 
+    
+    // DEBUG
+    
     private void debug()
     {
         foreach (var action in _controller)

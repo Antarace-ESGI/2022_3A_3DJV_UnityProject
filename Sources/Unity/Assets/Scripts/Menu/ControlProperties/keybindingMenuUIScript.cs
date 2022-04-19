@@ -9,11 +9,10 @@ public class keybindingMenuUIScript : MonoBehaviour
 {
     
     [SerializeField] private GameObject accessor;
-    private PlayerController _controller;
-
-    public List<InputActionReference> keybindings = new List<InputActionReference>();
+    [SerializeField] private GameObject[] labels;
     
-
+    private PlayerController _controller;
+    
     private void Start()
     {
         _controller = accessor.GetComponent<KeybindManager>().AccessController();
@@ -60,15 +59,17 @@ public class keybindingMenuUIScript : MonoBehaviour
         
     }
     
-    public void ResetOriginalBinding()
+    public void ResetOriginalBindingUI()
     {
 
         InputAction action;
-        int bindingIndex = 0;
-            
-        foreach (InputActionReference i in keybindings)
+        int bindingIndex = GetIndex();
+
+        foreach (GameObject label in labels)
         {
-            action = InitInputAction(i);
+            var keyScript = label.GetComponent<keybindingLabelUIScript>();
+
+            action = InitInputAction(keyScript.inputActionReference);
             action.Disable();
             
             if (action.bindings[GetIndex()].isComposite)
@@ -83,7 +84,11 @@ public class keybindingMenuUIScript : MonoBehaviour
                 action.RemoveBindingOverride(bindingIndex);
             }
             
+            
+            keyScript.UpdateUI(action.GetBindingDisplayString(bindingIndex));
             action.Enable();
         }
+        
     }
+    
 }
