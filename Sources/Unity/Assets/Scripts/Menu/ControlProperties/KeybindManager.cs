@@ -5,20 +5,24 @@ using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class KeybindManager : MonoBehaviour
 {
 
     private PlayerController _controller;
-
-    public InputActionReference tmp;
+    private int _index;
     
     private void Awake()
     {
         _controller = new PlayerController();
+        _index = 0;
         LoadPersonalBinding();
-        //debug();
-        Help();
+    }
+
+    private void Start()
+    {
+        InputSystem.onDeviceChange += OnInputDeviceChange;
     }
 
     public PlayerController AccessController()
@@ -26,10 +30,23 @@ public class KeybindManager : MonoBehaviour
         return _controller;
     }
 
-    // TODO : Check if there's a controller plug in the PC
+    private void OnInputDeviceChange(InputDevice device, InputDeviceChange change)
+    {
+        switch (change)
+        {
+            case InputDeviceChange.Added:
+                _index = 1;
+                break;
+            case InputDeviceChange.Disconnected:
+                _index = 0;
+                break;
+        }
+        Debug.Log(_index);
+    }
+    
     private int GetIndex()
     {
-        return 0;
+        return _index;
     }
     
     private void LoadPersonalBinding()
@@ -46,21 +63,4 @@ public class KeybindManager : MonoBehaviour
             
         }
     }
-
-    
-    // DEBUG
-    
-    private void debug()
-    {
-        foreach (var action in _controller)
-        {
-            Debug.Log(action.bindings[GetIndex()]);
-        }
-    }
-
-    public void Help()
-    {
-         Debug.Log(_controller.asset[tmp.action.name].GetBindingDisplayString(GetIndex()));
-    }
-    
 }

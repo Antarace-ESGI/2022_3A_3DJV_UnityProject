@@ -12,10 +12,13 @@ public class keybindingMenuUIScript : MonoBehaviour
     [SerializeField] private GameObject[] labels;
     
     private PlayerController _controller;
+    private int _index;
     
     private void Start()
     {
         _controller = accessor.GetComponent<KeybindManager>().AccessController();
+        _index = 0;
+        InputSystem.onDeviceChange += OnInputDeviceChange;
     }
 
     private InputAction InitInputAction(InputActionReference inputref)
@@ -26,10 +29,23 @@ public class keybindingMenuUIScript : MonoBehaviour
         }
         return null;
     }
+    
+    private void OnInputDeviceChange(InputDevice device, InputDeviceChange change)
+    {
+        switch (change)
+        {
+            case InputDeviceChange.Added:
+                _index = 1;
+                break;
+            case InputDeviceChange.Disconnected:
+                _index = 0;
+                break;
+        }
+    }
 
     private int GetIndex()
     {
-        return 0;
+        return _index;
     }
     
     public void SaveBinding()

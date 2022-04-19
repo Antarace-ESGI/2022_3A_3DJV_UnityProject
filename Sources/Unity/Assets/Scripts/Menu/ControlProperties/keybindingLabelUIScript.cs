@@ -1,7 +1,9 @@
 using System;
-using System.Diagnostics;
+using System.ComponentModel;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
@@ -23,11 +25,18 @@ public class keybindingLabelUIScript : MonoBehaviour
     [Header("OnRebind")]
     public Text rebindText;
     public GameObject rebindPanel;
+
+    [Header("Device")] 
+    [SerializeField] private int _index;
     
     private void Start()
     {
         controller = accessor.GetComponent<KeybindManager>().AccessController();
         keybindingScript.init(accessor);
+
+        _index = 0;
+        InputSystem.onDeviceChange += OnInputDeviceChange;
+        
         DisplayBindingUI();
     }
 
@@ -43,6 +52,20 @@ public class keybindingLabelUIScript : MonoBehaviour
         keybindingScript.cancel -= UpdateUI;
     }
     
+    private void OnInputDeviceChange(InputDevice device, InputDeviceChange change)
+    {
+        switch (change)
+        {
+            case InputDeviceChange.Added:
+                _index = 1;
+                UpdateUI();
+                break;
+            case InputDeviceChange.Disconnected:
+                _index = 0;
+                UpdateUI();
+                break;
+        }
+    }
     
     private void DeselectPanel()
     {
@@ -76,22 +99,7 @@ public class keybindingLabelUIScript : MonoBehaviour
 
     private int GetIndex()
     {
-        int index = 0;
-        
-        InputSystem.onDeviceChange += (device, change) =>
-        {
-            switch (change)
-            {
-                case InputDeviceChange.Disconnected:
-                    Debug.Log(device.description);
-                    break;
-                case InputDeviceChange.Reconnected:
-                    //index = 0;
-                    break;
-            }
-        };
-        
-        return index;
+        return _index;
     }
 
     private void StartRebinding()

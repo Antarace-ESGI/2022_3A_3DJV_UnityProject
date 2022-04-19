@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class keybindingScript : MonoBehaviour
 {
@@ -61,11 +60,6 @@ public class keybindingScript : MonoBehaviour
     
     private static void RebindingKey(InputAction action, int index, bool composite = false)
     {
-        /*
-        rebindPanel.SetActive(true);
-        rebindText.text = $"Press any key{inputActionReference.action.expectedControlType}";
-        */
-        
         action.Disable();
         
         var rebind = action.PerformInteractiveRebinding(index);
@@ -79,7 +73,6 @@ public class keybindingScript : MonoBehaviour
             {
                 action.Enable();
                 operation.Dispose();
-                //rebindPanel.SetActive(false);
 
                 if (DuplicateBinding(action,index,composite))
                 {
@@ -103,11 +96,9 @@ public class keybindingScript : MonoBehaviour
                 action.Enable();
                 operation.Dispose();
                 cancel?.Invoke();
-                //rebindPanel.SetActive(false);
             });
         
         rebind.Start();
 
-        
     }
 }
