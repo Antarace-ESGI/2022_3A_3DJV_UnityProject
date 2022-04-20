@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class EndRaceScript : MonoBehaviour
 {
 
-    public GameObject enablingPanel;
-    public GameObject disablingPanel;
+    [SerializeField] private GameObject enablingPanel;
+    [SerializeField] private Camera view;
     
     private Dictionary<GameObject, bool> playingEntities = new Dictionary<GameObject, bool>(); 
 
@@ -39,14 +39,24 @@ public class EndRaceScript : MonoBehaviour
             
             if(collision.CompareTag("AI"))
                 Destroy(collision.gameObject);
-            
+
+            if (collision.CompareTag("Player"))
+            {
+                collision.gameObject.SetActive(false);
+                view.enabled = true;
+                
+                if (GameObject.FindGameObjectWithTag("HUD"))
+                {
+                    GameObject.FindGameObjectWithTag("HUD").SetActive(false);
+                }
+            }
+
             //Wait for every participant to finish the race
             if (runner == playingEntities.Count)
             {
                 Cursor.lockState = CursorLockMode.None;
                 Time.timeScale = 0.0f;
                 enablingPanel.SetActive(true);
-                disablingPanel.SetActive(false);
             }
         }
     }

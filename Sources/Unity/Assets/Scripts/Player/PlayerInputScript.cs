@@ -11,6 +11,7 @@ public class PlayerInputScript : MonoBehaviour
     // Accessor
 
     [SerializeField] private GameObject _blaster;
+    [SerializeField] private GameObject _uiHUD;
     
     private void Start()
     {
@@ -35,7 +36,7 @@ public class PlayerInputScript : MonoBehaviour
         // Enabling/Disabling pause
         
         _controls.Player.Pause.performed += ctx => Pause();
-        
+
         // Jump
         
         _controls.Player.Jump.performed += ctx => Jump();
@@ -95,6 +96,21 @@ public class PlayerInputScript : MonoBehaviour
 
     private void Pause()
     {
-        
+        GameObject pause = GameObject.FindGameObjectWithTag("Pause");
+        if (pause)
+        {
+            if (pause.GetComponent<Canvas>().enabled)
+            {
+                _uiHUD.SetActive(true);
+                Time.timeScale = 1.0f;
+                pause.GetComponent<Canvas>().enabled = false;
+            }
+            else
+            {
+                _uiHUD.SetActive(false);
+                Time.timeScale = 0.0f;
+                pause.GetComponent<Canvas>().enabled = true;
+            }
+        }
     }
 }

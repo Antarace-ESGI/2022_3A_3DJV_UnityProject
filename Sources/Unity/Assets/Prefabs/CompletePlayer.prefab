@@ -1104,6 +1104,7 @@ GameObject:
   - component: {fileID: 8392480833485309667}
   - component: {fileID: 8392480833485309665}
   - component: {fileID: 2599530809406207042}
+  - component: {fileID: 1624205221}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1194,6 +1195,7 @@ MonoBehaviour:
   haveBonus: 0
   bonusIndex: -1
   bonus: {fileID: 8392480832157804155}
+  playerSpawn: {fileID: 0}
 --- !u!114 &2599530809406207042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1208,4 +1210,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 8392480833485309667}
   bodyMaterial: {fileID: 2100000, guid: d83bf6e5582dab4489678c251c185ad7, type: 2}
-  vehicleIndex: 3
+  vehicleIndex: 2
+--- !u!114 &1624205221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995562795618833402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56f10ffbf1e64d9499197c18a6ea34ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _blaster: {fileID: 8392480834229186757}
