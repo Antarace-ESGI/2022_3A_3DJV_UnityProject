@@ -7,18 +7,18 @@ using UnityEngine.InputSystem;
 
 public class keybindingMenuUIScript : MonoBehaviour
 {
+    private PlayerController _controller;
     
-    [SerializeField] private GameObject accessor;
+    [SerializeField]private int _index = 0;
     [SerializeField] private GameObject[] labels;
     
-    private PlayerController _controller;
-    private int _index;
-    
-    private void Start()
+    private void OnEnable()
     {
-        _controller = accessor.GetComponent<KeybindManager>().AccessController();
-        _index = 0;
-        InputSystem.onDeviceChange += OnInputDeviceChange;
+         _controller ??= new PlayerController();
+         _controller = keybindingScript.controller;
+
+         InputSystem.onDeviceChange += OnInputDeviceChange;
+
     }
 
     private InputAction InitInputAction(InputActionReference inputref)
@@ -42,26 +42,20 @@ public class keybindingMenuUIScript : MonoBehaviour
                 break;
         }
     }
-
-    private int GetIndex()
-    {
-        return _index;
-    }
     
     public void SaveBinding()
     {
+        
         String path =  $"{Application.dataPath}/{"keybind"}.txt";
 
         Dictionary<string, string> bindings = new Dictionary<string, string>();
 
         foreach (InputAction action in _controller)
         {
-            if(action.bindings[GetIndex()].overridePath != null)
-                bindings.Add(action.actionMap+action.name,action.bindings[GetIndex()].overridePath);
+            if(action.bindings[_index].overridePath != null)
+                bindings.Add(action.actionMap+action.name,action.bindings[_index].overridePath);
             else
-                bindings.Add(action.actionMap+action.name,action.bindings[GetIndex()].path);
-            
-            Debug.Log(action.bindings[GetIndex()].overridePath);
+                bindings.Add(action.actionMap+action.name,action.bindings[_index].path);
         }
         
         // writing 
@@ -79,16 +73,16 @@ public class keybindingMenuUIScript : MonoBehaviour
     {
 
         InputAction action;
-        int bindingIndex = GetIndex();
+        int bindingIndex = _index;
 
         foreach (GameObject label in labels)
         {
-            var keyScript = label.GetComponent<keybindingLabelUIScript>();
+            var keyScript = label.GetComponent<keybindingScript>();
 
-            action = InitInputAction(keyScript.inputActionReference);
+            action = InitInputAction(keyScript.GetInputReference());
             action.Disable();
             
-            if (action.bindings[GetIndex()].isComposite)
+            if (action.bindings[_index].isComposite)
             {
                 for (int n = bindingIndex; n < action.bindings.Count && action.bindings[n].isPartOfComposite; n++)
                 {
@@ -100,11 +94,9 @@ public class keybindingMenuUIScript : MonoBehaviour
                 action.RemoveBindingOverride(bindingIndex);
             }
             
-            
             keyScript.UpdateUI(action.GetBindingDisplayString(bindingIndex));
             action.Enable();
         }
         
     }
-    
 }

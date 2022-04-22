@@ -1873,49 +1873,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 177183502}
   m_CullTransparentMesh: 1
---- !u!1 &190874601
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 190874603}
-  - component: {fileID: 190874602}
-  m_Layer: 0
-  m_Name: InputLoader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &190874602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190874601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b5cce01204045f47bc7f7fd7af57b9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &190874603
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 190874601}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 487.4391, y: 239.17087, z: 21.988297}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &212711783
 GameObject:
   m_ObjectHideFlags: 0
@@ -2563,16 +2520,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 331878066}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21c2d36559cced49a947d4acf73b977, type: 3}
+  m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessor: {fileID: 190874601}
   inputActionReference: {fileID: -6049995669949352201, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 1293836362}
   rebindButton: {fileID: 1104026539}
   rebindText: {fileID: 1334549692}
   rebindPanel: {fileID: 859223372}
-  _index: 0
 --- !u!1 &341159783
 GameObject:
   m_ObjectHideFlags: 0
@@ -2965,7 +2920,7 @@ Transform:
   - {fileID: 794246415}
   - {fileID: 1331898428}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &426683990
 GameObject:
@@ -4024,7 +3979,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &626603877
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6382,16 +6337,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 993948810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21c2d36559cced49a947d4acf73b977, type: 3}
+  m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessor: {fileID: 190874601}
-  inputActionReference: {fileID: 945911158577573120, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
+  inputActionReference: {fileID: 6163147865700221184, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 1105572337}
   rebindButton: {fileID: 1644734717}
   rebindText: {fileID: 1334549692}
   rebindPanel: {fileID: 859223372}
-  _index: 0
 --- !u!1001 &1011461392
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7290,13 +7243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cefe19f25df0e4fa45d22fa4bd67f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessor: {fileID: 190874601}
-  labels:
-  - {fileID: 1234973378730782328}
-  - {fileID: 1634583775}
-  - {fileID: 1455001139}
-  - {fileID: 993948810}
-  - {fileID: 331878066}
+  keybindings: []
 --- !u!1 &1214111234
 GameObject:
   m_ObjectHideFlags: 0
@@ -8852,16 +8799,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1455001139}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21c2d36559cced49a947d4acf73b977, type: 3}
+  m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessor: {fileID: 190874601}
-  inputActionReference: {fileID: 6163147865700221184, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
+  inputActionReference: {fileID: 945911158577573120, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 1494679937}
   rebindButton: {fileID: 1068244210}
   rebindText: {fileID: 1334549692}
   rebindPanel: {fileID: 859223372}
-  _index: 0
 --- !u!1 &1465092475
 GameObject:
   m_ObjectHideFlags: 0
@@ -10086,16 +10031,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1634583775}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21c2d36559cced49a947d4acf73b977, type: 3}
+  m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessor: {fileID: 190874601}
   inputActionReference: {fileID: 7422151749911913164, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 677256453}
   rebindButton: {fileID: 1373101296}
   rebindText: {fileID: 1334549692}
   rebindPanel: {fileID: 859223372}
-  _index: 0
 --- !u!1 &1636770992
 GameObject:
   m_ObjectHideFlags: 0
@@ -10991,8 +10934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cefe19f25df0e4fa45d22fa4bd67f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessor: {fileID: 0}
-  labels: []
+  keybindings: []
 --- !u!1 &1742670224
 GameObject:
   m_ObjectHideFlags: 0
@@ -11209,7 +11151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1762562615
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11417,8 +11359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cefe19f25df0e4fa45d22fa4bd67f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessor: {fileID: 190874601}
-  labels: []
+  keybindings: []
 --- !u!1 &1776445411
 GameObject:
   m_ObjectHideFlags: 0
@@ -13581,13 +13522,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1234973378730782328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c21c2d36559cced49a947d4acf73b977, type: 3}
+  m_Script: {fileID: 11500000, guid: a6742848cfd54314c90188365d660862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessor: {fileID: 190874601}
   inputActionReference: {fileID: 2033637320698636813, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
   actionText: {fileID: 1026581191}
   rebindButton: {fileID: 777518325}
   rebindText: {fileID: 1334549692}
   rebindPanel: {fileID: 859223372}
-  _index: 0

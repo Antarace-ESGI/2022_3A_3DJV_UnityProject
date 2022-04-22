@@ -1,42 +1,106 @@
 using System;
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class keybindingScript : MonoBehaviour
 {
 
     //The most important element => contain list of key to bind with action
     public static PlayerController controller;
-
-    [SerializeField] private GameObject manager;
     
-    // Event 
-
-    public static event Action complete;
-    public static event Action cancel;
-
-    public static void init(GameObject manager)
+    // Public
+    
+    [Header("Input")]
+    [SerializeField] private InputActionReference inputActionReference;
+    
+    [Header("Neutral")]
+    [SerializeField] private Text actionText;
+    [SerializeField] private Button rebindButton;
+    
+    [Header("OnRebind")]
+    [SerializeField] private Text rebindText;
+    [SerializeField] private GameObject rebindPanel;
+    
+    [Header("Device")] 
+    [SerializeField] private int _index;
+    
+    private void Awake()
     {
-        controller = manager.GetComponent<KeybindManager>().AccessController();
+        controller ??= new PlayerController();
+    }
+
+    private void OnEnable()
+    {
+        InputSystem.onDeviceChange += OnInputDeviceChange;
+        DisplayBindingUI();
     }
     
-    public static void StartRebinding(InputAction action, int bindingIndex)
+    private void OnInputDeviceChange(InputDevice device, InputDeviceChange change)
     {
-        if (action.bindings[bindingIndex].isComposite)
+        switch (change)
         {
-            if (action.bindings[bindingIndex + 1].isPartOfComposite && (bindingIndex + 1) < action.bindings.Count)
+            case InputDeviceChange.Added:
+                _index = 1;
+                UpdateUI();
+                break;
+            case InputDeviceChange.Disconnected:
+                _index = 0;
+                UpdateUI();
+                break;
+        }
+    }
+
+    // UI
+    
+    public void DisplayBindingUI()
+    {
+        if (inputActionReference.action != null)
+        {
+            actionText.text = inputActionReference.action.name;
+            rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(_index);
+            rebindButton.onClick.AddListener(StartRebinding);
+        }
+    }
+    
+    
+    public void UpdateUI()
+    {
+        rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(_index);
+    }
+    
+    public void UpdateUI(String str)
+    {
+        rebindButton.GetComponentInChildren<Text>().text = str;
+    }
+    
+    // Logic part
+
+    public InputActionReference GetInputReference()
+    {
+        return inputActionReference;
+    }
+    
+    public void StartRebinding()
+    {
+        InputAction action = controller.asset.FindAction(inputActionReference.action.name);
+        
+        if (action.bindings[_index].isComposite)
+        {
+            if (action.bindings[_index + 1].isPartOfComposite && (_index + 1) < action.bindings.Count)
             {
-                RebindingKey(action, (bindingIndex+1), true);
+                RebindingKey(action, (_index+1), true);
             }
         }
         else
         {
-            RebindingKey(action, bindingIndex);
+            RebindingKey(action, _index);
         }
         
     }
 
-    private static bool DuplicateBinding(InputAction action, int index, bool composite = false)
+    private bool DuplicateBinding(InputAction action, int index, bool composite = false)
     {
         if (!composite)
         {
@@ -58,8 +122,12 @@ public class keybindingScript : MonoBehaviour
         return false;
     }
     
-    private static void RebindingKey(InputAction action, int index, bool composite = false)
+    private void RebindingKey(InputAction action, int index, bool composite = false)
     {
+        
+        rebindPanel.SetActive(true);
+        rebindText.text = $"Press any key{inputActionReference.action.expectedControlType}";
+        
         action.Disable();
         
         var rebind = action.PerformInteractiveRebinding(index);
@@ -73,6 +141,7 @@ public class keybindingScript : MonoBehaviour
             {
                 action.Enable();
                 operation.Dispose();
+                rebindPanel.SetActive(false);
 
                 if (DuplicateBinding(action,index,composite))
                 {
@@ -88,17 +157,17 @@ public class keybindingScript : MonoBehaviour
                         RebindingKey(action, nextBindingIndex, true);
                 }
                 
-                complete?.Invoke();
-                
+                rebindButton.GetComponentInChildren<Text>().text = action.GetBindingDisplayString(index);
             })
             .OnCancel(operation =>
             {
                 action.Enable();
                 operation.Dispose();
-                cancel?.Invoke();
+                rebindPanel.SetActive(false);
             });
         
         rebind.Start();
 
+        
     }
 }
