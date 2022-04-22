@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -11,6 +10,8 @@ public class keybindingScript : MonoBehaviour
     public static PlayerController controller;
     
     // Public
+    [Header("Manager")]
+    [SerializeField] private GameObject loader;
     
     [Header("Input")]
     [SerializeField] private InputActionReference inputActionReference;
@@ -24,16 +25,24 @@ public class keybindingScript : MonoBehaviour
     [SerializeField] private GameObject rebindPanel;
     
     [Header("Device")] 
-    [SerializeField] private int _index;
+    [SerializeField] [Range(0,1)] private int _index;
     
     private void Awake()
     {
         controller ??= new PlayerController();
+
+        _index = 0;
+        
+        if (loader.GetComponent<KeybindManager>().GetController() != null)
+            controller = loader.GetComponent<KeybindManager>().GetController();
+        
     }
 
     private void OnEnable()
     {
         InputSystem.onDeviceChange += OnInputDeviceChange;
+        if (Gamepad.current != null)
+            OnGamepad();
         DisplayBindingUI();
     }
     
@@ -42,14 +51,25 @@ public class keybindingScript : MonoBehaviour
         switch (change)
         {
             case InputDeviceChange.Added:
-                _index = 1;
+                OnGamepad();
                 UpdateUI();
                 break;
+            
             case InputDeviceChange.Disconnected:
+                
                 _index = 0;
                 UpdateUI();
+                
                 break;
         }
+    }
+
+    private void OnGamepad()
+    {
+        if (controller.asset.FindAction(inputActionReference.action.name).bindings[0].isComposite)
+            _index += controller.asset.FindAction(inputActionReference.action.name).bindings.Count - 1;
+        else
+            _index = 1;
     }
 
     // UI
@@ -59,7 +79,7 @@ public class keybindingScript : MonoBehaviour
         if (inputActionReference.action != null)
         {
             actionText.text = inputActionReference.action.name;
-            rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(_index);
+            rebindButton.GetComponentInChildren<Text>().text = controller.asset.FindAction(inputActionReference.action.name).GetBindingDisplayString(_index);
             rebindButton.onClick.AddListener(StartRebinding);
         }
     }
@@ -67,7 +87,7 @@ public class keybindingScript : MonoBehaviour
     
     public void UpdateUI()
     {
-        rebindButton.GetComponentInChildren<Text>().text = inputActionReference.action.GetBindingDisplayString(_index);
+        rebindButton.GetComponentInChildren<Text>().text = controller.asset.FindAction(inputActionReference.action.name).GetBindingDisplayString(_index);
     }
     
     public void UpdateUI(String str)

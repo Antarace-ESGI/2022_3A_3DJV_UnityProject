@@ -11,21 +11,22 @@ public class KeybindManager : MonoBehaviour
 {
 
     private PlayerController _controller;
-    private int _index;
+    [SerializeField] [Range(0,1)] private int _index;
     
     private void Awake()
     {
-        _controller = new PlayerController();
         _index = 0;
+        if (Gamepad.current != null)
+            _index = 1;
         LoadPersonalBinding();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         InputSystem.onDeviceChange += OnInputDeviceChange;
     }
 
-    public PlayerController AccessController()
+    public PlayerController GetController()
     {
         return _controller;
     }
@@ -43,22 +44,18 @@ public class KeybindManager : MonoBehaviour
         }
         Debug.Log(_index);
     }
-    
-    private int GetIndex()
-    {
-        return _index;
-    }
-    
+
     private void LoadPersonalBinding()
     {
         String path = $"{Application.dataPath}/{"keybind"}.txt";
         if (File.Exists(path))
         {
+            _controller = new PlayerController();
             Dictionary<string, string> keys = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(path));
 
             foreach (InputAction action in _controller)
             {
-                action.ApplyBindingOverride(GetIndex(),keys[action.actionMap+action.name]);
+                action.ApplyBindingOverride(_index,keys[action.actionMap+action.name]);
             }
             
         }

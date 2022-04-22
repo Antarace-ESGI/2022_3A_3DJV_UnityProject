@@ -4,6 +4,7 @@ using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 
 public class keybindingMenuUIScript : MonoBehaviour
 {
@@ -18,7 +19,8 @@ public class keybindingMenuUIScript : MonoBehaviour
          _controller = keybindingScript.controller;
 
          InputSystem.onDeviceChange += OnInputDeviceChange;
-
+         if (Gamepad.current != null)
+             _index = 1;
     }
 
     private InputAction InitInputAction(InputActionReference inputref)
@@ -45,17 +47,24 @@ public class keybindingMenuUIScript : MonoBehaviour
     
     public void SaveBinding()
     {
-        
         String path =  $"{Application.dataPath}/{"keybind"}.txt";
 
         Dictionary<string, string> bindings = new Dictionary<string, string>();
 
         foreach (InputAction action in _controller)
         {
+            int bindingIndex = _index;
+            
+            if (_index != 0)
+            {
+                if (action.bindings[0].isComposite)
+                    bindingIndex += action.bindings.Count - 1;
+            }
+            
             if(action.bindings[_index].overridePath != null)
-                bindings.Add(action.actionMap+action.name,action.bindings[_index].overridePath);
+                bindings.Add(action.actionMap+action.name,action.bindings[bindingIndex].overridePath);
             else
-                bindings.Add(action.actionMap+action.name,action.bindings[_index].path);
+                bindings.Add(action.actionMap+action.name,action.bindings[bindingIndex].path);
         }
         
         // writing 
@@ -81,6 +90,12 @@ public class keybindingMenuUIScript : MonoBehaviour
 
             action = InitInputAction(keyScript.GetInputReference());
             action.Disable();
+            
+            if (_index != 0)
+            {
+                if (action.bindings[0].isComposite)
+                    bindingIndex += action.bindings.Count - 1;
+            }
             
             if (action.bindings[_index].isComposite)
             {
