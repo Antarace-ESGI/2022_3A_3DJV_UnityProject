@@ -14,6 +14,8 @@ namespace Player
             // Should not be loaded in a normal usage
             Vehicle.InitializeVehicles();
 
+            vehicleIndex = PlayerPrefs.GetInt("playerVehicle");
+
             Vehicle vehicle = Vehicle.Vehicles[vehicleIndex];
 
             shipController.baseThrottle = vehicle.baseThrottle;

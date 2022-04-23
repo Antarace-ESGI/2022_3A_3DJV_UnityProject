@@ -36,5 +36,7 @@ public class VehicleButton : MonoBehaviour
                            $"Boost multiplier: {_vehicle.boostMultiplier}\n" +
                            $"Boost duration: {_vehicle.boostDuration}\n" +
                            $"Yaw strength: {_vehicle.yawStrength}";
+
+        PlayerPrefs.SetInt("playerVehicle", vehicleIndex);
     }
 }
