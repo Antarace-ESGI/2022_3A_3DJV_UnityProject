@@ -1780,7 +1780,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2599530809406207042, guid: 3a5758ee13b880348b1c0b011ab586b8, type: 3}
       propertyPath: vehicleIndex
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8392480833456586576, guid: 3a5758ee13b880348b1c0b011ab586b8, type: 3}
       propertyPath: m_Name

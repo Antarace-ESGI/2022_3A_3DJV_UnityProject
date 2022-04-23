@@ -8,7 +8,7 @@ namespace Player
         private static List<Vehicle> _vehicles = new List<Vehicle>();
 
         public readonly string name;
-        public readonly Color color;
+        public readonly Material material;
         public readonly float baseThrottle;
         public readonly float boostMultiplier;
         public readonly float boostDuration;
@@ -22,8 +22,27 @@ namespace Player
             float boostDuration = 2f,
             float yawStrength = 1.5f )
         {
+            var material = new Material(Shader.Find("Standard"));
+            material.color = color;
+            
             this.name = name;
-            this.color = color;
+            this.material = material;
+            this.baseThrottle = baseThrottle;
+            this.boostMultiplier = boostMultiplier;
+            this.boostDuration = boostDuration;
+            this.yawStrength = yawStrength;
+        }
+        
+        private Vehicle(
+            string name,
+            Material material,
+            float baseThrottle = 10f,
+            float boostMultiplier = 2f,
+            float boostDuration = 2f,
+            float yawStrength = 1.5f )
+        {
+            this.name = name;
+            this.material = material;
             this.baseThrottle = baseThrottle;
             this.boostMultiplier = boostMultiplier;
             this.boostDuration = boostDuration;

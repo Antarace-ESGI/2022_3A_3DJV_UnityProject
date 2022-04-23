@@ -7,10 +7,11 @@ namespace Player
         private static bool _initialized;
         
         public ShipController shipController;
-        public Material bodyMaterial;
+        public MeshRenderer meshRenderer;
         [Range(0, 3)] public int vehicleIndex;
 
-        public VehicleLoader()
+        // Start is called before the first frame update
+        void Start()
         {
             if (!_initialized)
             {
@@ -18,14 +19,10 @@ namespace Player
                 Vehicle.CreateVehicle("Quic", Color.red, 15, 1.5f, 2, 2);
                 Vehicle.CreateVehicle("Boosty", Color.gray, 5, 5, 2, 5);
                 Vehicle.CreateVehicle("Agil", Color.green, 10, 10, 1, 10);
+
+                _initialized = true;
             }
-
-            _initialized = true;
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
+            
             Vehicle vehicle = Vehicle.Vehicles[vehicleIndex];
 
             shipController.baseThrottle = vehicle.baseThrottle;
@@ -33,7 +30,7 @@ namespace Player
             shipController.boostDuration = vehicle.boostDuration;
             shipController.yawStrength = vehicle.yawStrength;
 
-            bodyMaterial.color = vehicle.color;
+            meshRenderer.material = vehicle.material;
         }
     }
 }

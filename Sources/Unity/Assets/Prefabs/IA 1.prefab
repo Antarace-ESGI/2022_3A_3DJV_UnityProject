@@ -356,5 +356,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipController: {fileID: 2315132206830102591}
-  bodyMaterial: {fileID: 2100000, guid: 461a68214be454146b710a649a358116, type: 2}
+  meshRenderer: {fileID: 3061695576506983091}
   vehicleIndex: 1
