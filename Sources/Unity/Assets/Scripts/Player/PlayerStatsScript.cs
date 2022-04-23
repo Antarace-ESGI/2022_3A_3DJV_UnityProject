@@ -16,11 +16,7 @@ public class PlayerStatsScript : MonoBehaviour
     public bool haveBonus;
     public int bonusIndex = -1;
     public Image bonus;
-
-    // InputManager
-
-    private PlayerController _controls;
-
+    
     public Transform playerSpawn;
 
     private void Start()
@@ -29,26 +25,7 @@ public class PlayerStatsScript : MonoBehaviour
         gameObject.AddComponent<BonusItemsLibrairyScript>();
         _gameManager = GameObject.FindWithTag("GameController");
     }
-
-    private void OnEnable()
-    {
-        _controls.Player.Enable();
-        Debug.Log("Loaded");
-    }
-
-    private void OnDisable()
-    {
-        _controls.Player.Disable();
-    }
-
-    // Input/Control
-
-    private void Awake()
-    {
-        _controls = new PlayerController();
-        _controls.Player.Use.performed += ctx => unableBonusUse();
-    }
-
+    
     // Main
 
     public void setBonus(Sprite item = null)
@@ -73,9 +50,12 @@ public class PlayerStatsScript : MonoBehaviour
         if (bonus.IsActive() && bonusIndex >= 0)
         {
             setBonus();
-            _gameManager.GetComponent<BonusItemsLibrairyScript>().use(bonusIndex, gameObject);
-            haveBonus = false;
-            bonusIndex = -1;
+            if (_gameManager)
+            {
+                _gameManager.GetComponent<BonusItemsLibrairyScript>().use(bonusIndex, gameObject);
+                haveBonus = false;
+                bonusIndex = -1;
+            }
         }
     }
 

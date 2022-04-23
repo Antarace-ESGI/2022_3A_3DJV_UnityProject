@@ -16,6 +16,7 @@ public class EndRaceScript : MonoBehaviour
 
     private void Start()
     {
+        runner = 0;
         
         foreach (GameObject ai in GameObject.FindGameObjectsWithTag("AI"))
         {
@@ -55,7 +56,6 @@ public class EndRaceScript : MonoBehaviour
             if (runner == playingEntities.Count)
             {
                 Cursor.lockState = CursorLockMode.None;
-                Time.timeScale = 0.0f;
                 enablingPanel.SetActive(true);
             }
         }
