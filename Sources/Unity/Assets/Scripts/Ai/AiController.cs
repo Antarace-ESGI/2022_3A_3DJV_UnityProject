@@ -37,23 +37,14 @@ public class AiController : MonoBehaviour
     
     void InputUpdate()
     {
-        _shipController.yaw = GetYawValue();
-        _shipController.thrust.x = 0; // X is left/right
-        _shipController.thrust.y = _shipController.GetThrustY();
-        _shipController.thrust.z = 1; // Z is forward/Back
-
-        // Set Flags
-        _shipController.adjustYaw = Mathf.Abs(_shipController.yaw) > 0.1f;
-        _shipController.adjustThrustX = Mathf.Abs(_shipController.thrust.x) > 0.1f;
-        _shipController.adjustThrustY = _shipController.thrust.y != 0;
-        _shipController.adjustThrustZ = Mathf.Abs(_shipController.thrust.z) > 0.1f;
-
-        // _shipController.throttle = Mathf.Clamp(throttle, minThrottle, maxThrottle);
+        GetYawValue();
+        _shipController.Move(Vector2.up);
     }
 
-    float GetYawValue()
+    private void GetYawValue()
     {
-        return transform.InverseTransformPoint(_nextCheckpoint.transform.position).x;
+        float yaw = transform.InverseTransformPoint(_nextCheckpoint.transform.position).x;
+        _shipController.SetYaw(yaw);
     }
 
     public void IncrementCheckpoint(GameObject currentCheckpoint)

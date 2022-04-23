@@ -1,17 +1,31 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerInputScript : MonoBehaviour
 {
     private PlayerController _controls;
     
     // Accessor
-
     [SerializeField] private GameObject _blaster;
     [SerializeField] private GameObject _uiHUD;
-    
+
+    private ShipController _shipController;
+    private Canvas _pauseCanvas;
+
+    private float _yawDiff;
+
+    public RectTransform crosshair;
+    public float maxRadius = 128f;
+
+    private Vector3 _centerScreen;
+    private float _qtrScreenW;
+
     private void Start()
     {
+        _shipController = GetComponent<ShipController>();
+        _pauseCanvas = GetComponent<Canvas>();
+        
+        _centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+        _qtrScreenW = Screen.width * 0.25f;
         
         // Load input map
         
@@ -45,6 +59,21 @@ public class PlayerInputScript : MonoBehaviour
         
         _controls.Player.Enable();
     }
+
+    private void Update()
+    {
+        GetYawValue();
+    }
+
+    private void GetYawValue()
+    {
+        float x = Input.GetAxis("Mouse X");
+
+        _yawDiff = Mathf.Clamp(crosshair.position.x - _centerScreen.x + x, -maxRadius, maxRadius);
+        crosshair.position = new Vector3(_yawDiff + _centerScreen.x, _centerScreen.y, _centerScreen.z);
+
+        _shipController.SetYaw(_yawDiff / _qtrScreenW);
+    }
     
     // Enable or disable the input 
     
@@ -62,8 +91,7 @@ public class PlayerInputScript : MonoBehaviour
 
     private void Direction(Vector2 dir)
     {
-        Debug.Log(dir);
-        gameObject.GetComponent<ShipController>().Move(dir);
+        _shipController.Move(dir);
     }
     
     private void UseBonus()
@@ -78,12 +106,12 @@ public class PlayerInputScript : MonoBehaviour
 
     private void Boost()
     {
-        gameObject.GetComponent<ShipController>().ActiveBoost(true);
+        _shipController.ActiveBoost(true);
     }
 
     private void UnBoost()
     {
-        gameObject.GetComponent<ShipController>().ActiveBoost(false);
+        _shipController.ActiveBoost(false);
     }
     
     private void Jump()
@@ -96,17 +124,17 @@ public class PlayerInputScript : MonoBehaviour
         GameObject pause = GameObject.FindGameObjectWithTag("Pause");
         if (pause)
         {
-            if (pause.GetComponent<Canvas>().enabled)
+            if (_pauseCanvas.enabled)
             {
                 _uiHUD.SetActive(true);
                 Time.timeScale = 1.0f;
-                pause.GetComponent<Canvas>().enabled = false;
+                _pauseCanvas.enabled = false;
             }
             else
             {
                 _uiHUD.SetActive(false);
                 Time.timeScale = 0.0f;
-                pause.GetComponent<Canvas>().enabled = true;
+                _pauseCanvas.enabled = true;
             }
         }
     }
