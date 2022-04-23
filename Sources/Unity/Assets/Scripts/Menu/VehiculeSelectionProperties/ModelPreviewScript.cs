@@ -6,9 +6,8 @@ public class ModelPreviewScript : MonoBehaviour
 
     // TODO : Generate the preview element
 
-    [SerializeField] 
-    private GameObject _model;
-    
+    [SerializeField] private GameObject _model;
+
     private void OnEnable()
     {
         if (_model)

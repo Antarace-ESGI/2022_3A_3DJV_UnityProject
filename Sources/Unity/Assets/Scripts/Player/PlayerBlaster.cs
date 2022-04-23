@@ -1,33 +1,34 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerBlaster : MonoBehaviour
 {
-  public bool canShoot = true;
+    public bool canShoot = true;
 
-  public GameObject Canon;
-  public GameObject missile;
-  public GameObject missileClone;
-  
-  public void Shoot()
-  {
-    if (canShoot) {
-      StartCoroutine(ShootMissile());
-    }
-  }
+    [FormerlySerializedAs("Canon")] public GameObject canon;
+    public GameObject missile;
+    public GameObject missileClone;
 
-  private IEnumerator ShootMissile()
-  {
-    if(Input.GetMouseButtonDown(0))
+    public void Shoot()
     {
-      canShoot = false;
-      Vector3 playerPos =  new Vector3(Canon.transform.position.x, Canon.transform.position.y , Canon.transform.position.z);
-
-      missileClone = Instantiate(missile, playerPos, Canon.transform.rotation * Quaternion.Euler(0f,0f,90f)) as GameObject;
-      yield return new WaitForSeconds(0.20f);
-      canShoot = true;
+        if (canShoot)
+        {
+            StartCoroutine(ShootMissile());
+        }
     }
-  }
 
+    private IEnumerator ShootMissile()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            canShoot = false;
+            var position = canon.transform.position;
+            Vector3 playerPos = new Vector3(position.x, position.y, position.z);
+
+            missileClone = Instantiate(missile, playerPos, canon.transform.rotation * Quaternion.Euler(0f, 0f, 90f));
+            yield return new WaitForSeconds(0.20f);
+            canShoot = true;
+        }
+    }
 }

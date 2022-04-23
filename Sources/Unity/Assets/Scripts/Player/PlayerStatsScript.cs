@@ -13,7 +13,7 @@ public class PlayerStatsScript : MonoBehaviour
 
     private GameObject _gameManager;
 
-    public bool haveBonus = false;
+    public bool haveBonus;
     public int bonusIndex = -1;
     public Image bonus;
 
@@ -99,7 +99,7 @@ public class PlayerStatsScript : MonoBehaviour
 
     private void Update()
     {
-        if (healthPoint != lifebar.value)
+        if (Math.Abs(healthPoint - lifebar.value) > .1)
         {
             updateLifeBar();
         }
