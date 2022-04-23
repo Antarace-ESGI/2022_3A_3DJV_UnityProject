@@ -11,6 +11,7 @@ namespace Player
         // Start is called before the first frame update
         void Start()
         {
+            // Should not be loaded in a normal usage
             Vehicle.InitializeVehicles();
 
             Vehicle vehicle = Vehicle.Vehicles[vehicleIndex];

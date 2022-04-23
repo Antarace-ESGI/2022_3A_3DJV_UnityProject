@@ -22,6 +22,8 @@ public class VehicleButton : MonoBehaviour
         _button = GetComponent<Button>();
         _button.onClick.AddListener(HandleClick);
 
+        HandleClick();
+
         buttonText.text = _vehicle.name;
     }
 

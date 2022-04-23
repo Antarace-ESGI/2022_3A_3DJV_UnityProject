@@ -49,10 +49,10 @@ namespace Player
         {
             if (!_initialized)
             {
-                Vehicle.CreateVehicle("RedPlayer", Color.blue, 10, 2, 2, 5);
-                Vehicle.CreateVehicle("Quic", Color.red, 15, 1.5f, 2, 2);
-                Vehicle.CreateVehicle("Boosty", Color.gray, 5, 5, 2, 5);
-                Vehicle.CreateVehicle("Agil", Color.green, 10, 10, 1, 10);
+                CreateVehicle("RedPlayer", Color.blue, 10, 2, 2, 5);
+                CreateVehicle("Quic", Color.red, 15, 1.5f, 2, 2);
+                CreateVehicle("Boosty", Color.gray, 5, 5, 2, 5);
+                CreateVehicle("Agil", Color.green, 10, 10, 1, 10);
 
                 _initialized = true;
             }
