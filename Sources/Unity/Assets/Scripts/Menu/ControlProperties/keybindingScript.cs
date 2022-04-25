@@ -151,13 +151,28 @@ public class keybindingScript : MonoBehaviour
         action.Disable();
         
         var rebind = action.PerformInteractiveRebinding(index);
+
+        // Initialize rebind parameters:
         
-        //Rebinding operation 
-        rebind
-            .WithControlsHavingToMatchPath("<Keyboard>")
-            .WithControlsHavingToMatchPath("<Mouse>")
-            .WithCancelingThrough("<Keyboard>/escape")
-            .OnComplete(operation =>
+        if (index > 0)
+        {
+            rebind
+                .WithControlsExcluding("<>Mouse")
+                .WithControlsExcluding("<Keyboard>")
+                .WithControlsHavingToMatchPath("<PS4 Controller>")
+                .WithCancelingThrough("<PS4 Controller>/options");
+        }
+        else
+        {
+            rebind
+                .WithControlsHavingToMatchPath("<Keyboard>")
+                .WithControlsHavingToMatchPath("<Mouse>")
+                .WithCancelingThrough("<Keyboard>/escape");
+        }
+
+        //Perform rebinding operation 
+        
+        rebind.OnComplete(operation =>
             {
                 action.Enable();
                 operation.Dispose();
