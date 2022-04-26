@@ -9,8 +9,7 @@ public class PlayerInputScript : MonoBehaviour
     [SerializeField] private GameObject _uiHUD;
 
     private ShipController _shipController;
-    private Canvas _pauseCanvas;
-
+    
     private float _yawDiff;
 
     public RectTransform crosshair;
@@ -22,7 +21,6 @@ public class PlayerInputScript : MonoBehaviour
     private void Start()
     {
         _shipController = GetComponent<ShipController>();
-        _pauseCanvas = GetComponent<Canvas>();
         
         _centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
         _qtrScreenW = Screen.width * 0.25f;
@@ -124,17 +122,18 @@ public class PlayerInputScript : MonoBehaviour
         GameObject pause = GameObject.FindGameObjectWithTag("Pause");
         if (pause)
         {
-            if (_pauseCanvas.enabled)
+            Canvas pauseCanvas = pause.GetComponent<Canvas>();
+            if (pause.GetComponent<Canvas>().enabled)
             {
                 _uiHUD.SetActive(true);
                 Time.timeScale = 1.0f;
-                _pauseCanvas.enabled = false;
+                pauseCanvas.enabled = false;
             }
             else
             {
                 _uiHUD.SetActive(false);
                 Time.timeScale = 0.0f;
-                _pauseCanvas.enabled = true;
+                pauseCanvas.enabled = true;
             }
         }
     }
