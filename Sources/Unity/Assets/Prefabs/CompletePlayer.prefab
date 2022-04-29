@@ -1105,6 +1105,7 @@ GameObject:
   - component: {fileID: 8392480833485309665}
   - component: {fileID: 2599530809406207042}
   - component: {fileID: 7815054172253413563}
+  - component: {fileID: 7292246443510697947}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1225,3 +1226,17 @@ MonoBehaviour:
   _uiHUD: {fileID: 8392480833032017551}
   crosshair: {fileID: 8392480833672699866}
   maxRadius: 128
+--- !u!114 &7292246443510697947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995562795618833402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db6217a0f5eb436b874a227ab1e3d001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkpoints: []
+  playerSpawn: {fileID: 0}
