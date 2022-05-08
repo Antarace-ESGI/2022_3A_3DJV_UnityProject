@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Checkpoints
 {
@@ -35,7 +33,7 @@ namespace Checkpoints
         {
             IncrementCheckpoint(collision.gameObject);
         }
-        
+
         public void DecrementCheckpoint()
         {
             _currentCheckpoint = checkpoints[_checkpointIndex];
@@ -45,12 +43,13 @@ namespace Checkpoints
 
         public GameObject GetCurrentCheckpoint()
         {
+            Debug.Log($"{name}: {_currentCheckpoint.name}, {_nextCheckpoint.name}");
             return _currentCheckpoint;
         }
 
         public GameObject GetNextCheckpoint()
         {
-            Debug.Log($"{_currentCheckpoint.name}, {_nextCheckpoint.name}");
+            Debug.Log($"{name}: {_currentCheckpoint.name}, {_nextCheckpoint.name}");
             return _nextCheckpoint;
         }
 
