@@ -1,25 +1,18 @@
+using Checkpoints;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CheckpointController))]
+[RequireComponent(typeof(ShipController))]
 public class AiController : MonoBehaviour
 {
-    Rigidbody _ship;
-
-    public GameObject[] checkpoints;
-    private int _checkpointIndex = 0;
-    private GameObject _nextCheckpoint;
-
-    private GameObject _currentCheckpoint;
-
-    [FormerlySerializedAs("AiLife")] public int aiLife = 50;
+    public int aiLife = 50;
 
     private ShipController _shipController;
+    private CheckpointController _checkpointController;
     
     void Start()
     {
-        _ship = GetComponent<Rigidbody>();
-        _nextCheckpoint = checkpoints[_checkpointIndex];
+        _checkpointController = GetComponent<CheckpointController>();
         _shipController = GetComponent<ShipController>();
     }
 
@@ -29,12 +22,11 @@ public class AiController : MonoBehaviour
 
         if (aiLife <= 0)
         {
-            _currentCheckpoint = checkpoints[_checkpointIndex - 1];
-            _ship.gameObject.GetComponent<Transform>().position = _currentCheckpoint.transform.position;
+            _checkpointController.RespawnEntity();
             aiLife = 50;
         }
     }
-    
+
     void InputUpdate()
     {
         GetYawValue();
@@ -43,16 +35,7 @@ public class AiController : MonoBehaviour
 
     private void GetYawValue()
     {
-        float yaw = transform.InverseTransformPoint(_nextCheckpoint.transform.position).x;
+        float yaw = transform.InverseTransformPoint(_checkpointController.GetNextCheckpoint().transform.position).x;
         _shipController.SetYaw(yaw);
-    }
-
-    public void IncrementCheckpoint(GameObject currentCheckpoint)
-    {
-        if (currentCheckpoint.Equals(_nextCheckpoint))
-        {
-            _checkpointIndex = Mathf.Min(_checkpointIndex + 1, checkpoints.Length - 1);
-            _nextCheckpoint = checkpoints[_checkpointIndex];
-        }
     }
 }

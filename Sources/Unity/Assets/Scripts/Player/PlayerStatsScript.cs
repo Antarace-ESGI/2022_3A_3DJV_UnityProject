@@ -1,7 +1,9 @@
 using System;
+using Checkpoints;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CheckpointController))]
 public class PlayerStatsScript : MonoBehaviour
 {
     // Player global stats
@@ -17,13 +19,14 @@ public class PlayerStatsScript : MonoBehaviour
     public int bonusIndex = -1;
     public Image bonus;
     
-    public Transform playerSpawn;
+    private CheckpointController _checkpointController;
 
     private void Start()
     {
         lifebar.value = healthPoint;
         gameObject.AddComponent<BonusItemsLibrairyScript>();
         _gameManager = GameObject.FindWithTag("GameController");
+        _checkpointController = GetComponent<CheckpointController>();
     }
     
     // Main
@@ -72,9 +75,9 @@ public class PlayerStatsScript : MonoBehaviour
         loot.AddComponent<Rigidbody>().useGravity = false;
         loot.transform.localPosition = new Vector3(0.25f, 0.25f, 0.25f);
         loot.transform.position = new Vector3(spawnPos.x, spawnPos.y, spawnPos.z);
-        loot.AddComponent<LootBonusScript>();
-        loot.GetComponent<LootBonusScript>().itemIndex = bonusIndex;
-        loot.GetComponent<LootBonusScript>().bonusImage = bonus.sprite;
+        var lootBonusScript = loot.AddComponent<LootBonusScript>();
+        lootBonusScript.itemIndex = bonusIndex;
+        lootBonusScript.bonusImage = bonus.sprite;
     }
 
     private void Update()
@@ -84,7 +87,7 @@ public class PlayerStatsScript : MonoBehaviour
             updateLifeBar();
         }
 
-        if (healthPoint == 0)
+        if (healthPoint <= 0)
         {
             if (haveBonus)
             {
@@ -93,8 +96,7 @@ public class PlayerStatsScript : MonoBehaviour
                 setBonus();
             }
 
-            gameObject.transform.position = playerSpawn.transform.position; // temporary checkpoint for test
-
+            _checkpointController.RespawnEntity();
             healthPoint = 50;
         }
     }
