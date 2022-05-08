@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Checkpoints;
 using UnityEngine;
@@ -27,7 +28,12 @@ public class Leaderboard : MonoBehaviour
 
     int CalculatePosition()
     {
-        players.Sort((a, b) => b._checkpointIndex - a._checkpointIndex);
+        players.Sort(Comparison);
         return players.FindIndex(controller => self == controller);
+    }
+
+    private int Comparison(CheckpointController x, CheckpointController y)
+    {
+        return x.GetTotalProgression() - y.GetTotalProgression();
     }
 }
