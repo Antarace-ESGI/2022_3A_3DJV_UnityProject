@@ -10,23 +10,24 @@ namespace Checkpoints
     /// </summary>
     public class CheckpointController : MonoBehaviour
     {
-        public GameObject[] checkpoints;
+        private static GameObject[] _checkpoints;
 
-        [ReadOnly] public int _checkpointIndex;
+        [ReadOnly] public int checkpointIndex;
         private GameObject _nextCheckpoint, _currentCheckpoint;
 
         private void Start()
         {
-            _currentCheckpoint = _nextCheckpoint = checkpoints[_checkpointIndex];
+            _checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+            _currentCheckpoint = _nextCheckpoint = _checkpoints[checkpointIndex];
         }
 
         private void IncrementCheckpoint(GameObject currentCheckpoint)
         {
             if (currentCheckpoint.Equals(_nextCheckpoint))
             {
-                _currentCheckpoint = checkpoints[_checkpointIndex];
-                _checkpointIndex = Mathf.Min(_checkpointIndex + 1, checkpoints.Length - 1);
-                _nextCheckpoint = checkpoints[_checkpointIndex];
+                _currentCheckpoint = _checkpoints[checkpointIndex];
+                checkpointIndex = Mathf.Min(checkpointIndex + 1, _checkpoints.Length - 1);
+                _nextCheckpoint = _checkpoints[checkpointIndex];
             }
         }
 
@@ -37,9 +38,9 @@ namespace Checkpoints
 
         public void DecrementCheckpoint()
         {
-            _currentCheckpoint = checkpoints[_checkpointIndex];
-            _checkpointIndex = Mathf.Max(_checkpointIndex - 1, 0);
-            _nextCheckpoint = checkpoints[_checkpointIndex];
+            _currentCheckpoint = _checkpoints[checkpointIndex];
+            checkpointIndex = Mathf.Max(checkpointIndex - 1, 0);
+            _nextCheckpoint = _checkpoints[checkpointIndex];
         }
 
         private GameObject GetCurrentCheckpoint()
@@ -65,7 +66,7 @@ namespace Checkpoints
 
             var progressionBetweenCheckpoints = distanceToNextCheckpoint / distanceBetweenCheckpoint;
             
-            int progression = (int) (_checkpointIndex * 100 + progressionBetweenCheckpoints * 100) / checkpoints.Length * 100;
+            int progression = (int) (checkpointIndex * 100 + progressionBetweenCheckpoints * 100) / _checkpoints.Length * 100;
 
             return progression;
         }

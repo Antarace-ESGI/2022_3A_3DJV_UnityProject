@@ -6,15 +6,23 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class Leaderboard : MonoBehaviour
 {
-    public List<CheckpointController> players;
     public CheckpointController self; // The current player
 
     private Text _text;
     private float _lastExecution;
+    private readonly List<CheckpointController> _checkpointControllers = new List<CheckpointController>();
 
     // Start is called before the first frame update
     void Start()
     {
+        GameObject[] ais = GameObject.FindGameObjectsWithTag("AI");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (var entity in ais)
+            _checkpointControllers.Add(entity.GetComponent<CheckpointController>());
+        foreach (var entity in players)
+            _checkpointControllers.Add(entity.GetComponent<CheckpointController>());
+        
         _text = GetComponent<Text>();
     }
 
@@ -23,15 +31,15 @@ public class Leaderboard : MonoBehaviour
     {
         if (_lastExecution > 1)
         {
-            _text.text = $"{CalculatePosition() + 1} / {players.Count}";
+            _text.text = $"{CalculatePosition() + 1} / {_checkpointControllers.Count}";
         }
         _lastExecution += Time.deltaTime;
     }
 
     int CalculatePosition()
     {
-        players.Sort(Comparison);
-        return players.FindIndex(controller => self == controller);
+        _checkpointControllers.Sort(Comparison);
+        return _checkpointControllers.FindIndex(controller => self == controller);
     }
 
     private int Comparison(CheckpointController x, CheckpointController y)
