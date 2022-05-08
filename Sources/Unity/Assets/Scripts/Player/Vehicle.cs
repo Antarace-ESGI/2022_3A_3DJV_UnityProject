@@ -24,8 +24,10 @@ namespace Player
             float yawStrength = 1.5f)
         {
             // TODO: Use model reference instead of material
-            var material = new Material(Shader.Find("Standard"));
-            material.color = color;
+            var material = new Material(Shader.Find("Standard"))
+            {
+                color = color
+            };
 
             this.name = name;
             this.material = material;
@@ -35,7 +37,7 @@ namespace Player
             this.yawStrength = yawStrength;
         }
 
-        public static void CreateVehicle(string name,
+        private static void CreateVehicle(string name,
             Color color,
             float baseThrottle,
             float boostMultiplier,

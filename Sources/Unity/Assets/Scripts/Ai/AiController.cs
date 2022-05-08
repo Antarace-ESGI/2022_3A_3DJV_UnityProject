@@ -1,13 +1,10 @@
 using Checkpoints;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CheckpointController))]
 [RequireComponent(typeof(ShipController))]
 public class AiController : MonoBehaviour
 {
-    Rigidbody _ship;
     public int aiLife = 50;
 
     private ShipController _shipController;
@@ -15,7 +12,6 @@ public class AiController : MonoBehaviour
     
     void Start()
     {
-        _ship = GetComponent<Rigidbody>();
         _checkpointController = GetComponent<CheckpointController>();
         _shipController = GetComponent<ShipController>();
     }

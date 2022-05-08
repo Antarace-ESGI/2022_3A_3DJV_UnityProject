@@ -11,7 +11,7 @@ namespace Checkpoints
     {
         public GameObject[] checkpoints;
 
-        public int _checkpointIndex = 0;
+        public int _checkpointIndex;
         private GameObject _nextCheckpoint, _currentCheckpoint;
 
         private void Start()
@@ -41,15 +41,13 @@ namespace Checkpoints
             _nextCheckpoint = checkpoints[_checkpointIndex];
         }
 
-        public GameObject GetCurrentCheckpoint()
+        private GameObject GetCurrentCheckpoint()
         {
-            Debug.Log($"{name}: {_currentCheckpoint.name}, {_nextCheckpoint.name}");
             return _currentCheckpoint;
         }
 
         public GameObject GetNextCheckpoint()
         {
-            Debug.Log($"{name}: {_currentCheckpoint.name}, {_nextCheckpoint.name}");
             return _nextCheckpoint;
         }
 
