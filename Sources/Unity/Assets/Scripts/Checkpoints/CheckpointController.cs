@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Collections;
+using UnityEngine;
 
 namespace Checkpoints
 {
@@ -11,7 +12,7 @@ namespace Checkpoints
     {
         public GameObject[] checkpoints;
 
-        public int _checkpointIndex;
+        [ReadOnly] public int _checkpointIndex;
         private GameObject _nextCheckpoint, _currentCheckpoint;
 
         private void Start()

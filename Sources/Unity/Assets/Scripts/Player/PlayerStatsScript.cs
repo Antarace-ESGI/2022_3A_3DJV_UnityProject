@@ -87,7 +87,7 @@ public class PlayerStatsScript : MonoBehaviour
             updateLifeBar();
         }
 
-        if (healthPoint == 0)
+        if (healthPoint <= 0)
         {
             if (haveBonus)
             {

@@ -26,7 +26,7 @@ public class AiController : MonoBehaviour
             aiLife = 50;
         }
     }
-    
+
     void InputUpdate()
     {
         GetYawValue();
