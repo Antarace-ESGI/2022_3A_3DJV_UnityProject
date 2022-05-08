@@ -45,19 +45,18 @@ namespace Checkpoints
 
         public GameObject GetCurrentCheckpoint()
         {
-            Debug.Log(String.Format("{0}, {1}", _currentCheckpoint.name, _nextCheckpoint.name));
             return _currentCheckpoint;
         }
 
         public GameObject GetNextCheckpoint()
         {
-            Debug.Log(String.Format("{0}, {1}", _currentCheckpoint.name, _nextCheckpoint.name));
+            Debug.Log($"{_currentCheckpoint.name}, {_nextCheckpoint.name}");
             return _nextCheckpoint;
         }
 
         public void RespawnEntity()
         {
-            transform.position = GetCurrentCheckpoint().transform.position;
+            transform.position = GetCurrentCheckpoint().transform.position + Vector3.up; // +1 up to make the ship float above ground
         }
     }
 }
