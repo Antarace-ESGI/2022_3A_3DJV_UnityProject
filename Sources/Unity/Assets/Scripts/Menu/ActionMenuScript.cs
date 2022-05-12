@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,32 +7,48 @@ using UnityEngine.UI;
 public class ActionMenuScript : MonoBehaviour
 {
     
-    public GameObject inPausePanel;
-    public GameObject inGamePanel;
+    public GameObject currentPanel;
+    public GameObject nextPanel;
 
-    public GameObject targetPanel;
     public int dest = 0;
-
-    private void switchPanel(GameObject currentPanel, GameObject nextPanel)
+    
+    private void CurrentPanelClose()
     {
         currentPanel.SetActive(false);
+    }
+
+    private void CurrentPanelOpen()
+    {
+        currentPanel.SetActive(true);
+    }
+
+    private void NextPanelOpen()
+    {
         nextPanel.SetActive(true);
+    }
+
+    private void NextPanelClose()
+    {
+        nextPanel.SetActive(false);
     }
 
     public void navigationButton()
     {
-        switchPanel(transform.parent.gameObject, targetPanel);
+        CurrentPanelClose();
+        NextPanelOpen();
     }
     
     public void enablePause()
     {
         Time.timeScale = 0.0f;
-        switchPanel(inGamePanel,inPausePanel);
+        CurrentPanelClose();
+        NextPanelOpen();
     }
     public void disablePause()
     {
         Time.timeScale = 1.0f;
-        switchPanel(inPausePanel,inGamePanel);
+        CurrentPanelClose();
+        NextPanelOpen();
     }
     public void exitGame()
     {
@@ -43,6 +60,8 @@ public class ActionMenuScript : MonoBehaviour
     
     private void controllerActionButton()
     {
+        GameObject inGamePanel = currentPanel;
+        GameObject inPausePanel = nextPanel;
         if (Input.GetButtonDown("Start") && inGamePanel != null && inPausePanel != null)
         {
             if (inPausePanel.activeInHierarchy)
@@ -70,6 +89,7 @@ public class ActionMenuScript : MonoBehaviour
 
     public void LoadAdditiveScene()
     {
+        GameObject inGamePanel = currentPanel;
         TrackArrayScript brain = FindObjectOfType<TrackArrayScript>();
         if (brain)
         {

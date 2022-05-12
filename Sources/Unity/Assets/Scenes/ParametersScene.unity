@@ -482,9 +482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 782917752}
+  currentPanel: {fileID: 738256487}
+  nextPanel: {fileID: 782917752}
   dest: 0
 --- !u!114 &29053458
 MonoBehaviour:
@@ -865,9 +864,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 127056383}
+  currentPanel: {fileID: 1601670747}
+  nextPanel: {fileID: 127056383}
   dest: 0
 --- !u!1 &51849716
 GameObject:
@@ -1135,9 +1133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 6312103}
+  currentPanel: {fileID: 782917752}
+  nextPanel: {fileID: 6312103}
   dest: 0
 --- !u!114 &80827191
 MonoBehaviour:
@@ -2052,9 +2049,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 1036976360}
+  currentPanel: {fileID: 24785395}
+  nextPanel: {fileID: 1036976360}
   dest: 0
 --- !u!114 &218153381
 MonoBehaviour:
@@ -3387,9 +3383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 1762562614}
+  currentPanel: {fileID: 1601670747}
+  nextPanel: {fileID: 1762562614}
   dest: 0
 --- !u!114 &448915130
 MonoBehaviour:
@@ -4298,9 +4293,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 626603876}
+  currentPanel: {fileID: 782917752}
+  nextPanel: {fileID: 626603876}
   dest: 0
 --- !u!114 &639528729
 MonoBehaviour:
@@ -4447,9 +4441,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 1601670747}
+  currentPanel: {fileID: 127056383}
+  nextPanel: {fileID: 1601670747}
   dest: 0
 --- !u!114 &661781136
 MonoBehaviour:
@@ -4747,9 +4740,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 0}
+  currentPanel: {fileID: 0}
+  nextPanel: {fileID: 0}
   dest: 0
 --- !u!114 &702514927
 MonoBehaviour:
@@ -5264,9 +5256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 782917752}
+  currentPanel: {fileID: 1762562614}
+  nextPanel: {fileID: 782917752}
   dest: 0
 --- !u!114 &762407948
 MonoBehaviour:
@@ -6052,9 +6043,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 1601670747}
+  currentPanel: {fileID: 24785395}
+  nextPanel: {fileID: 1601670747}
   dest: 0
 --- !u!114 &845911180
 MonoBehaviour:
@@ -8084,9 +8074,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 0}
+  currentPanel: {fileID: 0}
+  nextPanel: {fileID: 0}
   dest: 0
 --- !u!1 &1247426748
 GameObject:
@@ -8308,9 +8297,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 782917752}
+  currentPanel: {fileID: 626603876}
+  nextPanel: {fileID: 782917752}
   dest: 0
 --- !u!114 &1269842211
 MonoBehaviour:
@@ -9000,9 +8988,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 782917752}
+  currentPanel: {fileID: 6312103}
+  nextPanel: {fileID: 782917752}
   dest: 0
 --- !u!114 &1428915871
 MonoBehaviour:
@@ -9257,9 +9244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 0}
+  currentPanel: {fileID: 0}
+  nextPanel: {fileID: 0}
   dest: 0
 --- !u!114 &1465092478
 MonoBehaviour:
@@ -9932,9 +9918,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 1601670747}
+  currentPanel: {fileID: 1762562614}
+  nextPanel: {fileID: 1601670747}
   dest: 0
 --- !u!1 &1547694696
 GameObject:
@@ -10066,9 +10051,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 1762562614}
+  currentPanel: {fileID: 782917752}
+  nextPanel: {fileID: 1762562614}
   dest: 0
 --- !u!114 &1592259014
 MonoBehaviour:
@@ -12052,9 +12036,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 1601670747}
+  currentPanel: {fileID: 1776445411}
+  nextPanel: {fileID: 1601670747}
   dest: 0
 --- !u!114 &1826128901
 MonoBehaviour:
@@ -12296,9 +12279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 24785395}
+  currentPanel: {fileID: 1601670747}
+  nextPanel: {fileID: 24785395}
   dest: 0
 --- !u!1 &1828659496
 GameObject:
@@ -12633,9 +12615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 1776445411}
+  currentPanel: {fileID: 1601670747}
+  nextPanel: {fileID: 1776445411}
   dest: 0
 --- !u!114 &1957236799
 MonoBehaviour:
@@ -12862,9 +12843,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 738256487}
+  currentPanel: {fileID: 782917752}
+  nextPanel: {fileID: 738256487}
   dest: 0
 --- !u!114 &1978435503
 MonoBehaviour:
@@ -13295,9 +13275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 1036976360}
+  currentPanel: {fileID: 24785395}
+  nextPanel: {fileID: 1036976360}
   dest: 0
 --- !u!114 &2037863743
 MonoBehaviour:
@@ -13750,9 +13729,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 0}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 24785395}
+  currentPanel: {fileID: 1036976360}
+  nextPanel: {fileID: 24785395}
   dest: 0
 --- !u!114 &2110041731
 MonoBehaviour:

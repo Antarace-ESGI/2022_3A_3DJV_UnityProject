@@ -576,9 +576,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 38423452}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 0}
+  currentPanel: {fileID: 0}
+  nextPanel: {fileID: 0}
   dest: 0
 --- !u!114 &1377349848
 MonoBehaviour:
@@ -726,9 +725,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c5c67f073e7cb4c8268a63583e2a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inPausePanel: {fileID: 38423452}
-  inGamePanel: {fileID: 0}
-  targetPanel: {fileID: 0}
+  currentPanel: {fileID: 2052130375}
+  nextPanel: {fileID: 0}
   dest: 0
 --- !u!114 &2052130378
 MonoBehaviour:
