@@ -10,7 +10,7 @@ public class ActionMenuScript : MonoBehaviour
     public GameObject inGamePanel;
 
     public GameObject targetPanel;
-    public int dest;
+    public int dest = 0;
 
     private void switchPanel(GameObject currentPanel, GameObject nextPanel)
     {
@@ -59,6 +59,36 @@ public class ActionMenuScript : MonoBehaviour
     public void changeScene()
     {
         SceneManager.LoadScene(dest);
+    }
+
+    public void changeSceneWithIndex()
+    {
+        TrackArrayScript brain = FindObjectOfType<TrackArrayScript>();
+        if (brain)
+            SceneManager.LoadScene(brain.GetIndexOfTrack());
+    }
+
+    public void LoadAdditiveScene()
+    {
+        TrackArrayScript brain = FindObjectOfType<TrackArrayScript>();
+        if (brain)
+        {
+            brain.SetIndex(brain.GetIndex()+1);
+            int i = brain.GetIndexOfTrack();
+            if(i == 0)
+                gameObject.SetActive(false);
+            else
+            {
+                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadSceneAsync(i, LoadSceneMode.Additive);
+                inGamePanel.SetActive(false);
+            }
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
+        
     }
 
     public void Update()
