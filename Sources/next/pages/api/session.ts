@@ -16,14 +16,15 @@ async function signup(username: string, password: string): Promise<string | null
 		return login(username, password);
 	} catch (e) {
 		if (e instanceof UniqueConstraintError) {
-			return login(username, password);
+			return null;
 		} else {
 			return null;
 		}
 	}
 }
 
-async function login(username: string, password: string): Promise<string> {
+async function login(username: string, password: string): Promise<string | null> {
+	console.log(`"${username}"`, `"${password}"`);
 	const user = await User.findOne({
 		where: {
 			username,
@@ -32,7 +33,7 @@ async function login(username: string, password: string): Promise<string> {
 	});
 
 	if (user === null) {
-		return signup(username, password);
+		return null;
 	} else {
 		return jwt.sign(
 			{
@@ -49,13 +50,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	await sequelize.authenticate();
 	await User.sync();
 
-	if (req.method === "POST") {
-		// Log in
-		const { username, password } = req.body;
+	const { username, password } = req.body;
 
+	if (req.method === "GET") {
+		// Log in
 		const token = await login(username, password);
 
-		res.status(200).json({ token });
+		if (token === null) {
+			res.status(400).end();
+		} else {
+			res.status(200).json({ token });
+		}
+	} else if (req.method === "POST") {
+		// Sign up
+		const token = await signup(username, password);
+
+		if (token === null) {
+			res.status(400).end();
+		} else {
+			res.status(200).json({ token });
+		}
 	} else {
 		res.status(405).end();
 	}
