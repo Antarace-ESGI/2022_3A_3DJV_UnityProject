@@ -1,15 +1,16 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputScript : MonoBehaviour
 {
     private PlayerController _controls;
-    
+
     // Accessor
     [SerializeField] private GameObject _blaster;
     [SerializeField] private GameObject _uiHUD;
 
     private ShipController _shipController;
-    
+
     private float _yawDiff;
 
     public RectTransform crosshair;
@@ -18,43 +19,45 @@ public class PlayerInputScript : MonoBehaviour
     private Vector3 _centerScreen;
     private float _qtrScreenW;
 
+    private bool test = false;
+
     private void Start()
     {
         _shipController = GetComponent<ShipController>();
-        
+
         _centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
         _qtrScreenW = Screen.width * 0.25f;
-        
+
         // Load input map
-        
+
         _controls ??= new PlayerController();
-        
+
         // Input callback
         // Use the bonus
         _controls.Player.Use.performed += ctx => UseBonus();
-        
+
         // Shoot
-        
+
         _controls.Player.Shoot.performed += ctx => Shoot();
-        
+
         // Boost
-        
+
         _controls.Player.Boost.performed += ctx => Boost();
         _controls.Player.Boost.canceled += ctx => UnBoost();
-        
+
         // Enabling/Disabling pause
-        
+
         _controls.Player.Pause.performed += ctx => Pause();
 
         // Jump
-        
+
         _controls.Player.Jump.performed += ctx => Jump();
-        
+
         // Movement
-        
+
         _controls.Player.Movement.performed += ctx => Direction(ctx.ReadValue<Vector2>());
         _controls.Player.Movement.canceled += ctx => Direction(Vector2.zero);
-        
+
         _controls.Player.Enable();
     }
 
@@ -72,9 +75,9 @@ public class PlayerInputScript : MonoBehaviour
 
         _shipController.SetYaw(_yawDiff / _qtrScreenW);
     }
-    
-    // Enable or disable the input 
-    
+
+    // Enable or disable the input
+
     private void OnDisable()
     {
         _controls.Player.Disable();
@@ -87,34 +90,36 @@ public class PlayerInputScript : MonoBehaviour
 
     // Action function
 
-    private void Direction(Vector2 dir)
+    public void Direction(Vector2 dir)
     {
         _shipController.Move(dir);
     }
-    
-    private void UseBonus()
+
+    public void UseBonus()
     {
         gameObject.GetComponent<PlayerStatsScript>().unableBonusUse();
     }
 
-    private void Shoot()
+    public void Shoot(/*InputAction.CallbackContext context*/)
     {
         _blaster.GetComponent<PlayerBlaster>().Shoot();
+        // test = context.ReadValue<bool>();
+        // test = context.action.triggered;
     }
 
-    private void Boost()
+    public void Boost()
     {
         _shipController.ActiveBoost(true);
     }
 
-    private void UnBoost()
+    public void UnBoost()
     {
         _shipController.ActiveBoost(false);
     }
-    
-    private void Jump()
+
+    public void Jump()
     {
-        
+
     }
 
     private void Pause()

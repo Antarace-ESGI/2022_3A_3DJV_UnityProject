@@ -10,6 +10,7 @@ TagManager:
   - Checkpoint
   - Pause
   - HUD
+  - Player2
   layers:
   - Default
   - TransparentFX

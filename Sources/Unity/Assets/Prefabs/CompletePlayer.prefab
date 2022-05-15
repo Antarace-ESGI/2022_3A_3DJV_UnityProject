@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 8392480833032017544}
   m_Layer: 5
   m_Name: HUD
-  m_TagString: Untagged
+  m_TagString: HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1107,6 +1107,7 @@ GameObject:
   - component: {fileID: 2599530809406207042}
   - component: {fileID: 7815054172253413563}
   - component: {fileID: 7292246443510697947}
+  - component: {fileID: 1015671510}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1190,7 +1191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ce2d67b3cf6de44820b3656ea70053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoint: 10
+  healthPoint: 50
   lifebar: {fileID: 8392480832345388742}
   haveBonus: 0
   bonusIndex: -1
@@ -1209,7 +1210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipController: {fileID: 8392480833485309667}
   meshRenderer: {fileID: 1548377882130451113}
-  vehicleIndex: 2
+  vehicleIndex: 3
 --- !u!114 &7815054172253413563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,8 +1239,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db6217a0f5eb436b874a227ab1e3d001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpoints: []
-  _checkpointIndex: 0
+  checkpointIndex: 0
+--- !u!114 &1015671510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995562795618833402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 4df7540d71fb6da4db98f43060293cf3, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a307b28b-73ac-4076-8e21-d431a406794e
+    m_ActionName: Player/Use[/Mouse/rightButton,/DualShock4GamepadHID/leftShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e834c0c4-caf6-4bfd-896b-02ee4e732d85
+    m_ActionName: Player/Movement[/Keyboard/z,/Keyboard/s,/Keyboard/q,/Keyboard/d,/DualShock4GamepadHID/leftStick]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7815054172253413563}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 29c6ff22-dbf3-442c-9fe3-878061fc91fc
+    m_ActionName: Player/Shoot[/Mouse/leftButton,/DualShock4GamepadHID/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 596d1155-e6a5-44ab-a23b-8595257f027c
+    m_ActionName: Player/Pause[/Keyboard/backspace,/DualShock4GamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4d76aa68-be59-40ff-a773-f4c762edb320
+    m_ActionName: Player/Boost[/Keyboard/leftShift,/DualShock4GamepadHID/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 28f13fe2-fbf5-4df2-a004-e31b02204f36
+    m_ActionName: Player/Jump[/Keyboard/space,/DualShock4GamepadHID/buttonSouth]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &9219629493027522367
 GameObject:
   m_ObjectHideFlags: 0
