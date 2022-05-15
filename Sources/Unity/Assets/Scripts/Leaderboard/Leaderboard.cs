@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Checkpoints;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,6 +46,13 @@ public class Leaderboard : MonoBehaviour
 
     private int Comparison(CheckpointController x, CheckpointController y)
     {
-        return x.GetTotalProgression() - y.GetTotalProgression();
+        try
+        {
+            return x.GetTotalProgression() - y.GetTotalProgression();
+        }
+        catch (MissingReferenceException exception)
+        {
+            return 0;
+        }
     }
 }
