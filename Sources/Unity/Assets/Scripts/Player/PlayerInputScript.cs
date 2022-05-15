@@ -13,20 +13,11 @@ public class PlayerInputScript : MonoBehaviour
 
     private float _yawDiff;
 
-    public RectTransform crosshair;
-    public float maxRadius = 128f;
-
-    private Vector3 _centerScreen;
-    private float _qtrScreenW;
-
     private bool test = false;
 
     private void Start()
     {
         _shipController = GetComponent<ShipController>();
-
-        _centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
-        _qtrScreenW = Screen.width * 0.25f;
 
         // Load input map
 
@@ -57,23 +48,13 @@ public class PlayerInputScript : MonoBehaviour
 
         _controls.Player.Movement.performed += ctx => Direction(ctx.ReadValue<Vector2>());
         _controls.Player.Movement.canceled += ctx => Direction(Vector2.zero);
+        
+        // Rotation
+
+        _controls.Player.Rotate.performed += ctx => Rotation(ctx.ReadValue<float>());
+        _controls.Player.Rotate.canceled += ctx => Rotation(0f);
 
         _controls.Player.Enable();
-    }
-
-    private void Update()
-    {
-        GetYawValue();
-    }
-
-    private void GetYawValue()
-    {
-        float x = Input.GetAxis("Mouse X");
-
-        _yawDiff = Mathf.Clamp(crosshair.position.x - _centerScreen.x + x, -maxRadius, maxRadius);
-        crosshair.position = new Vector3(_yawDiff + _centerScreen.x, _centerScreen.y, _centerScreen.z);
-
-        _shipController.SetYaw(_yawDiff / _qtrScreenW);
     }
 
     // Enable or disable the input
@@ -89,6 +70,11 @@ public class PlayerInputScript : MonoBehaviour
     }
 
     // Action function
+
+    private void Rotation(float x)
+    {
+        _shipController.SetYaw(x);
+    }
 
     public void Direction(Vector2 dir)
     {
