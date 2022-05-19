@@ -107,6 +107,8 @@ public class ActionMenuScript : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+            // Default redirect to menu
+            changeScene();
         }
         
     }

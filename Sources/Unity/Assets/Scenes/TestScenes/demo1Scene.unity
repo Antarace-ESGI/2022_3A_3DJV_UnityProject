@@ -1775,11 +1775,6 @@ MonoBehaviour:
   currentPanel: {fileID: 558624295}
   nextPanel: {fileID: 0}
   dest: 0
---- !u!4 &1075534524 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8392480832693831957, guid: 3a5758ee13b880348b1c0b011ab586b8, type: 3}
-  m_PrefabInstance: {fileID: 1220103279}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1188615279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6416701373286507358, guid: 49504b9f779276149b7be44f94e9988a, type: 3}
@@ -2125,7 +2120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6416701373286507359, guid: 49504b9f779276149b7be44f94e9988a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49504b9f779276149b7be44f94e9988a, type: 3}
@@ -2386,7 +2381,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1748231287
 Transform:
   m_ObjectHideFlags: 0
@@ -2516,7 +2511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6416701373286507359, guid: 49504b9f779276149b7be44f94e9988a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49504b9f779276149b7be44f94e9988a, type: 3}
@@ -2617,6 +2612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enablingPanel: {fileID: 558624295}
+  text: {fileID: 1670420685}
   view: {fileID: 973779280}
 --- !u!1 &1873884471
 GameObject:

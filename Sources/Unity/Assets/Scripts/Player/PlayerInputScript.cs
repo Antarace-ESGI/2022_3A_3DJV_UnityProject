@@ -13,8 +13,6 @@ public class PlayerInputScript : MonoBehaviour
 
     private float _yawDiff;
 
-    private bool test = false;
-
     private void Start()
     {
         _shipController = GetComponent<ShipController>();
@@ -86,11 +84,9 @@ public class PlayerInputScript : MonoBehaviour
         gameObject.GetComponent<PlayerStatsScript>().unableBonusUse();
     }
 
-    public void Shoot(/*InputAction.CallbackContext context*/)
+    public void Shoot()
     {
         _blaster.GetComponent<PlayerBlaster>().Shoot();
-        // test = context.ReadValue<bool>();
-        // test = context.action.triggered;
     }
 
     public void Boost()
