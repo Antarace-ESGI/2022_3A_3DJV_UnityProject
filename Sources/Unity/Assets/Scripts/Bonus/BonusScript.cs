@@ -37,16 +37,17 @@ public class BonusScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.layer == 6)
+        if (col.CompareTag("Player"))
         {
             gameObject.transform.position = storagePosition;
             GameObject player = col.gameObject;
-            if (player.GetComponentInParent<PlayerStatsScript>().haveBonus == false)
+            if (player.GetComponent<PlayerStatsScript>().haveBonus == false)
             {
+                PlayerStatsScript stats = player.GetComponent<PlayerStatsScript>();
                 int bonusIndex = giveBonusItem();
-                col.gameObject.GetComponentInParent<PlayerStatsScript>().haveBonus = true;
-                col.gameObject.GetComponentInParent<PlayerStatsScript>().bonusIndex = bonusIndex;
-                col.gameObject.GetComponentInParent<PlayerStatsScript>().setBonus(_gameManager.GetComponent<BonusItemsLibrairyScript>().GetImage(bonusIndex));
+                stats.haveBonus = true;
+                stats.bonusIndex = bonusIndex;
+                stats.setBonus(_gameManager.GetComponent<BonusItemsLibrairyScript>().GetImage(bonusIndex));
             }
         }
     }
