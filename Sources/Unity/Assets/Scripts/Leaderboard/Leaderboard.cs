@@ -14,6 +14,8 @@ public class Leaderboard : MonoBehaviour
     private float _lastExecution;
     private readonly List<CheckpointController> _checkpointControllers = new List<CheckpointController>();
 
+    private int _rank;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,7 @@ public class Leaderboard : MonoBehaviour
             _checkpointControllers.Add(entity.GetComponent<CheckpointController>());
         
         _text = GetComponent<Text>();
+        _rank = _checkpointControllers.Count;
     }
 
     // Update is called once per frame
@@ -33,7 +36,8 @@ public class Leaderboard : MonoBehaviour
     {
         if (_lastExecution > 1)
         {
-            _text.text = $"{CalculatePosition() + 1} / {_checkpointControllers.Count}";
+            _rank = CalculatePosition() + 1;
+            _text.text = $"{_rank} / {_checkpointControllers.Count}";
         }
         _lastExecution += Time.deltaTime;
     }
@@ -54,5 +58,10 @@ public class Leaderboard : MonoBehaviour
         {
             return 0;
         }
+    }
+
+    public int GetRank()
+    {
+        return _rank;
     }
 }
