@@ -11,10 +11,11 @@ namespace Checkpoints
     public class CheckpointController : MonoBehaviour
     {
         private static GameObject[] _checkpoints;
-
+        
+        // Real checkpoint
         [ReadOnly] public int checkpointIndex;
         private GameObject _nextCheckpoint, _currentCheckpoint;
-
+        
         private void Start()
         {
             _checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
@@ -47,7 +48,7 @@ namespace Checkpoints
         {
             return _currentCheckpoint;
         }
-
+        
         public GameObject GetNextCheckpoint()
         {
             return _nextCheckpoint;

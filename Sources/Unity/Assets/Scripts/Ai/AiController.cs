@@ -9,11 +9,13 @@ public class AiController : MonoBehaviour
 
     private ShipController _shipController;
     private CheckpointController _checkpointController;
+    private AINavigation _aiNavigation;
     
     void Start()
     {
         _checkpointController = GetComponent<CheckpointController>();
         _shipController = GetComponent<ShipController>();
+        _aiNavigation = GetComponent<AINavigation>();
     }
 
     void Update()
@@ -35,7 +37,8 @@ public class AiController : MonoBehaviour
 
     private void GetYawValue()
     {
-        float yaw = transform.InverseTransformPoint(_checkpointController.GetNextCheckpoint().transform.position).x;
+        float yaw = transform.InverseTransformPoint(_aiNavigation.GetNextNode().transform.position).x;
+        //float yaw = transform.InverseTransformPoint(_checkpointController.GetNextCheckpoint().transform.position).x;
         _shipController.SetYaw(yaw);
     }
 }

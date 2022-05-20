@@ -37,7 +37,7 @@ public class BonusScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.CompareTag("Player"))
+        if (col.CompareTag("Player") && _gameManager)
         {
             gameObject.transform.position = storagePosition;
             GameObject player = col.gameObject;
