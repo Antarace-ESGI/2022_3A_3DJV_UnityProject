@@ -52,10 +52,11 @@ public class KeybindManager : MonoBehaviour
         {
             _controller = new PlayerController();
             Dictionary<string, string> keys = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText(path));
-
+            
             foreach (InputAction action in _controller)
             {
-                action.ApplyBindingOverride(_index,keys[action.actionMap+action.name]);
+                if(keys.ContainsKey(action.actionMap+action.name))
+                    action.ApplyBindingOverride(_index,keys[action.actionMap+action.name]);
             }
             
         }
