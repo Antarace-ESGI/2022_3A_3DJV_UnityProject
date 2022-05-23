@@ -11,7 +11,7 @@ namespace Checkpoints
     public class CheckpointController : MonoBehaviour
     {
         private static GameObject[] _checkpoints;
-        
+
         // Real checkpoint
         [ReadOnly] public int checkpointIndex;
         private GameObject _nextCheckpoint, _currentCheckpoint;
@@ -56,6 +56,10 @@ namespace Checkpoints
 
         public void RespawnEntity()
         {
+            if (gameObject.TryGetComponent(out AINavigation navigation))
+            {
+                navigation.SetCurrentNavigation(GetCurrentCheckpoint());
+            }
             transform.position = GetCurrentCheckpoint().transform.position + Vector3.up; // +1 up to make the ship float above ground
         }
 
