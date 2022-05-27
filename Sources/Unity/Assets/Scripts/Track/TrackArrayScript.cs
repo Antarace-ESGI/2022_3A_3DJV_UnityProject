@@ -1,13 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class TrackArrayScript : MonoBehaviour
 {
+    
+    // Track component
     private static TrackArrayScript Instance { get; set; }
     private static int[] _indexes;
     private int _index = 0;
+
+    // Leaderboard component
+
+    private static Dictionary<string, int> _leaderboard;
 
     private void Awake()
     {
@@ -21,6 +28,8 @@ public class TrackArrayScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    // Track 
 
     public void InitIndexes(int[] t)
     {
@@ -55,6 +64,23 @@ public class TrackArrayScript : MonoBehaviour
     public void SetIndex(int index)
     {
         _index = index;
+    }
+    
+    // Leaderboard
+
+    public void SetGameLeaderboard(Dictionary<string,int> turn)
+    {
+        if (_leaderboard != null)
+            _leaderboard = new Dictionary<string, int>();
+
+        _leaderboard = turn;
+
+    }
+
+    [CanBeNull]
+    public Dictionary<string,int> GetGameLeaderboard()
+    {
+        return _leaderboard;
     }
     
 }
