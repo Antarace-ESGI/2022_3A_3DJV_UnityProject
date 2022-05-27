@@ -66,13 +66,18 @@ public class EndRaceScript : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 enablingPanel.SetActive(true);
-                DisplayLeaderboard();
 
                 if (_gameManager != null)
                 {
                     TrackArrayScript script = _gameManager.GetComponent<TrackArrayScript>();
-                    SetGlobalLeaderboard(script);
+                    SetGlobalLeaderboard(script,_rank);
+                    
+                    if(script.IsEndTrack())
+                        GetGlobalLeaderboard(script);
+                    
                 }
+                
+                DisplayLeaderboard();
                 
             }
         }
@@ -96,32 +101,37 @@ public class EndRaceScript : MonoBehaviour
     {
         
         Dictionary<string,int> gameLeaderboard =  script.GetGameLeaderboard();
+        int size = script.GetSize();
         if (gameLeaderboard != null && _rank != null)
         {
-            AverageRank(gameLeaderboard);
+            foreach (KeyValuePair<string,int> val in gameLeaderboard)
+            {
+                if (_rank.ContainsKey(val.Key))
+                {
+                    _rank[val.Key] = val.Value / size;
+                }
+            }
         }
         
     }
 
-    private void SetGlobalLeaderboard(TrackArrayScript script)
+    private void SetGlobalLeaderboard(TrackArrayScript script, Dictionary<string,int> rank)
     {
         if (_gameManager != null)
         {
-            GetGlobalLeaderboard(script);
-            script.SetGameLeaderboard(_rank);
-        }
-    }
-
-    private void AverageRank(Dictionary<string,int> gameLeaderboard)
-    {
-        foreach (KeyValuePair<string,int> val in gameLeaderboard)
-        {
-            if (_rank.ContainsKey(val.Key))
+            Dictionary<string,int> gameLeaderboard =  script.GetGameLeaderboard();
+            if (gameLeaderboard != null && _rank != null)
             {
-                _rank[val.Key] = (_rank[val.Key] + val.Value) / 2;
+                foreach (KeyValuePair<string,int> val in gameLeaderboard)
+                {
+                    if (_rank.ContainsKey(val.Key))
+                    {
+                        rank[val.Key] += val.Value;
+                    }
+                }
             }
+            script.SetGameLeaderboard(rank);
         }
     }
-    
 
 }

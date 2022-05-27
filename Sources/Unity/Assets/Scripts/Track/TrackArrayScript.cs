@@ -38,6 +38,13 @@ public class TrackArrayScript : MonoBehaviour
         Debug.Log(_indexes);
     }
 
+    public bool IsEndTrack()
+    {
+        if (_indexes.Length - 1 == _index)
+            return true;
+        return false;
+    }
+
     public void FlushIndexes()
     {
         Array.Clear(_indexes,0,_indexes.Length);
@@ -49,6 +56,11 @@ public class TrackArrayScript : MonoBehaviour
             return _indexes[_index];
         else
             return 0;
+    }
+
+    public int GetSize()
+    {
+        return _indexes.Length;
     }
 
     public int GetFirstScene()
