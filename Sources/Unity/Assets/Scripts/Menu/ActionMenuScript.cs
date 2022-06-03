@@ -80,6 +80,11 @@ public class ActionMenuScript : MonoBehaviour
         SceneManager.LoadScene(dest);
     }
 
+    public void changeScene(int i)
+    {
+        SceneManager.LoadScene(i);
+    }
+    
     public void changeSceneWithIndex()
     {
         TrackArrayScript brain = FindObjectOfType<TrackArrayScript>();
@@ -108,7 +113,7 @@ public class ActionMenuScript : MonoBehaviour
         {
             gameObject.SetActive(false);
             // Default redirect to menu
-            changeScene();
+            changeScene(3);
         }
         
     }

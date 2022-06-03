@@ -65,15 +65,20 @@ public class EndRaceScript : MonoBehaviour
             if (runner == playingEntities.Count)
             {
                 Cursor.lockState = CursorLockMode.None;
+                Debug.Log(Cursor.lockState);
                 enablingPanel.SetActive(true);
 
                 if (_gameManager != null)
                 {
                     TrackArrayScript script = _gameManager.GetComponent<TrackArrayScript>();
-                    SetGlobalLeaderboard(script,_rank);
+
+                    if (script != null)
+                    {
+                        SetGlobalLeaderboard(script,_rank);
                     
-                    if(script.IsEndTrack())
-                        GetGlobalLeaderboard(script);
+                        if(script.IsEndTrack())
+                            GetGlobalLeaderboard(script);
+                    }
                     
                 }
                 
@@ -119,7 +124,7 @@ public class EndRaceScript : MonoBehaviour
     {
         if (_gameManager != null)
         {
-            Dictionary<string,int> gameLeaderboard =  script.GetGameLeaderboard();
+            Dictionary<string,int> gameLeaderboard = script.GetGameLeaderboard();
             if (gameLeaderboard != null && _rank != null)
             {
                 foreach (KeyValuePair<string,int> val in gameLeaderboard)

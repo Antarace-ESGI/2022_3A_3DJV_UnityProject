@@ -35,19 +35,27 @@ public class TrackArrayScript : MonoBehaviour
     {
         _indexes = new int[t.Length];
         _indexes = t;
-        Debug.Log(_indexes);
     }
 
     public bool IsEndTrack()
     {
-        if (_indexes.Length - 1 == _index)
-            return true;
+        if (_indexes != null)
+        {
+            if (_indexes.Length - 1 == _index)
+                return true;
+        }
         return false;
     }
 
     public void FlushIndexes()
     {
         Array.Clear(_indexes,0,_indexes.Length);
+    }
+
+    public void AutoFlush()
+    {
+        if(IsEndTrack())
+            FlushIndexes();
     }
 
     public int GetIndexOfTrack()
@@ -82,11 +90,10 @@ public class TrackArrayScript : MonoBehaviour
 
     public void SetGameLeaderboard(Dictionary<string,int> turn)
     {
-        if (_leaderboard != null)
+        if (_leaderboard == null)
             _leaderboard = new Dictionary<string, int>();
 
         _leaderboard = turn;
-
     }
 
     [CanBeNull]

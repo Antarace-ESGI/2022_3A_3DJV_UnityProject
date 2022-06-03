@@ -59,12 +59,14 @@ public class PlayerInputScript : MonoBehaviour
 
     private void OnDisable()
     {
-        _controls.Player.Disable();
+        if(_controls != null)
+            _controls.Player.Disable();
     }
 
     private void OnDestroy()
     {
-        _controls.Player.Disable();
+        if(_controls != null)
+            _controls.Player.Disable();
     }
 
     // Action function
