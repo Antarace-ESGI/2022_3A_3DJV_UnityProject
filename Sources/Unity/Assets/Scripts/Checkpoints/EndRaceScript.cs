@@ -65,7 +65,6 @@ public class EndRaceScript : MonoBehaviour
             if (runner == playingEntities.Count)
             {
                 Cursor.lockState = CursorLockMode.None;
-                Debug.Log(Cursor.lockState);
                 enablingPanel.SetActive(true);
 
                 if (_gameManager != null)
