@@ -4,34 +4,34 @@ using System.IO;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.PlayerLoop;
 
 public class keybindingMenuUIScript : MonoBehaviour
 {
     private PlayerController _controller;
-    
-    [SerializeField]private int _index = 0;
+
+    [SerializeField] private int _index;
     [SerializeField] private GameObject[] labels;
-    
+
     private void OnEnable()
     {
-         _controller ??= new PlayerController();
-         _controller = keybindingScript.controller;
+        _controller ??= new PlayerController();
+        _controller = keybindingScript.controller;
 
-         InputSystem.onDeviceChange += OnInputDeviceChange;
-         if (Gamepad.current != null)
-             _index = 1;
+        InputSystem.onDeviceChange += OnInputDeviceChange;
+        if (Gamepad.current != null)
+            _index = 1;
     }
 
     private InputAction InitInputAction(InputActionReference inputref)
     {
-        if(inputref)
+        if (inputref)
         {
-            return _controller.asset.FindAction(inputref.action.name); 
+            return _controller.asset.FindAction(inputref.action.name);
         }
+
         return null;
     }
-    
+
     private void OnInputDeviceChange(InputDevice device, InputDeviceChange change)
     {
         switch (change)
@@ -44,29 +44,29 @@ public class keybindingMenuUIScript : MonoBehaviour
                 break;
         }
     }
-    
+
     public void SaveBinding()
     {
-        String path =  $"{Application.dataPath}/{"keybind"}.txt";
+        String path = $"{Application.dataPath}/{"keybind"}.txt";
 
         Dictionary<string, string> bindings = new Dictionary<string, string>();
 
         foreach (InputAction action in _controller)
         {
             int bindingIndex = _index;
-            
+
             if (_index != 0)
             {
                 if (action.bindings[0].isComposite)
                     bindingIndex += action.bindings.Count - 1;
             }
-            
-            if(action.bindings[_index].overridePath != null)
-                bindings.Add(action.actionMap+action.name,action.bindings[bindingIndex].overridePath);
+
+            if (action.bindings[_index].overridePath != null)
+                bindings.Add(action.actionMap + action.name, action.bindings[bindingIndex].overridePath);
             else
-                bindings.Add(action.actionMap+action.name,action.bindings[bindingIndex].path);
+                bindings.Add(action.actionMap + action.name, action.bindings[bindingIndex].path);
         }
-        
+
         // writing 
 
         using (StreamWriter sw = new StreamWriter(path))
@@ -75,12 +75,10 @@ public class keybindingMenuUIScript : MonoBehaviour
             string json = JsonConvert.SerializeObject(bindings);
             sw.Write(json);
         }
-        
     }
-    
+
     public void ResetOriginalBindingUI()
     {
-
         InputAction action;
         int bindingIndex = _index;
 
@@ -90,13 +88,13 @@ public class keybindingMenuUIScript : MonoBehaviour
 
             action = InitInputAction(keyScript.GetInputReference());
             action.Disable();
-            
+
             if (_index != 0)
             {
                 if (action.bindings[0].isComposite)
                     bindingIndex += action.bindings.Count - 1;
             }
-            
+
             if (action.bindings[_index].isComposite)
             {
                 for (int n = bindingIndex; n < action.bindings.Count && action.bindings[n].isPartOfComposite; n++)
@@ -108,10 +106,9 @@ public class keybindingMenuUIScript : MonoBehaviour
             {
                 action.RemoveBindingOverride(bindingIndex);
             }
-            
+
             keyScript.UpdateUI(action.GetBindingDisplayString(bindingIndex));
             action.Enable();
         }
-        
     }
 }
