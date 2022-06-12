@@ -10,7 +10,8 @@ public class PlayerInputScript : MonoBehaviour
     [SerializeField] private GameObject _uiHUD;
 
     private ShipController _shipController;
-
+    private Canvas _pauseMenu;
+    
     private float _yawDiff;
 
     private InputActionAsset inputAsset;
@@ -64,12 +65,7 @@ public class PlayerInputScript : MonoBehaviour
 
         player.Disable();
     }
-
-    private void OnDestroy()
-    {
-        player.Disable();
-    }
-
+    
     // Action function
 
     private void Rotation(InputAction.CallbackContext obj)
@@ -110,21 +106,23 @@ public class PlayerInputScript : MonoBehaviour
 
     private void Pause(InputAction.CallbackContext obj)
     {
-        GameObject pause = GameObject.FindGameObjectWithTag("Pause");
-        if (pause)
+        if (_pauseMenu)
         {
-            Canvas pauseCanvas = pause.GetComponent<Canvas>();
-            if (pause.GetComponent<Canvas>().enabled)
+            if (_pauseMenu.enabled)
             {
+                _controls.Player.Shoot.Enable();
+                Cursor.lockState = CursorLockMode.Confined;
                 _uiHUD.SetActive(true);
                 Time.timeScale = 1.0f;
-                pauseCanvas.enabled = false;
+                _pauseMenu.enabled = false;
             }
             else
             {
+                _controls.Player.Shoot.Disable();
+                Cursor.lockState = CursorLockMode.None;
                 _uiHUD.SetActive(false);
                 Time.timeScale = 0.0f;
-                pauseCanvas.enabled = true;
+                _pauseMenu.enabled = true;
             }
         }
     }

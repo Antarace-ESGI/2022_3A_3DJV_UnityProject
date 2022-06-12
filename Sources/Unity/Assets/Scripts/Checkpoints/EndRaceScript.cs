@@ -15,7 +15,8 @@ public class EndRaceScript : MonoBehaviour
     private Dictionary<GameObject, bool> playingEntities = new Dictionary<GameObject, bool>();
     
     //Leaderboard
-    private static Dictionary<String, int> _rank = new Dictionary<string, int>();
+    private static Dictionary<string, int> _rank = new Dictionary<string, int>();
+    private GameObject _gameManager;
 
     private int runner = 0; 
 
@@ -33,6 +34,7 @@ public class EndRaceScript : MonoBehaviour
             playingEntities.Add(player,false);
         }
         
+        _gameManager = GameObject.FindGameObjectWithTag("GameController");
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -64,7 +66,23 @@ public class EndRaceScript : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 enablingPanel.SetActive(true);
+
+                if (_gameManager != null)
+                {
+                    TrackArrayScript script = _gameManager.GetComponent<TrackArrayScript>();
+
+                    if (script != null)
+                    {
+                        SetGlobalLeaderboard(script,_rank);
+                    
+                        if(script.IsEndTrack())
+                            GetGlobalLeaderboard(script);
+                    }
+                    
+                }
+                
                 DisplayLeaderboard();
+                
             }
         }
     }
@@ -74,12 +92,49 @@ public class EndRaceScript : MonoBehaviour
         String rankString = "";
         if (text)
         {
-            foreach (KeyValuePair<String,int> rank in _rank)
+            foreach (KeyValuePair<string,int> rank in _rank)
             {
                 rankString += $"{rank.Value}e - {rank.Key}\n";
             }
 
             text.text = rankString;   
+        }
+    }
+
+    private void GetGlobalLeaderboard(TrackArrayScript script)
+    {
+        
+        Dictionary<string,int> gameLeaderboard =  script.GetGameLeaderboard();
+        int size = script.GetSize();
+        if (gameLeaderboard != null && _rank != null)
+        {
+            foreach (KeyValuePair<string,int> val in gameLeaderboard)
+            {
+                if (_rank.ContainsKey(val.Key))
+                {
+                    _rank[val.Key] = val.Value / size;
+                }
+            }
+        }
+        
+    }
+
+    private void SetGlobalLeaderboard(TrackArrayScript script, Dictionary<string,int> rank)
+    {
+        if (_gameManager != null)
+        {
+            Dictionary<string,int> gameLeaderboard = script.GetGameLeaderboard();
+            if (gameLeaderboard != null && _rank != null)
+            {
+                foreach (KeyValuePair<string,int> val in gameLeaderboard)
+                {
+                    if (_rank.ContainsKey(val.Key))
+                    {
+                        rank[val.Key] += val.Value;
+                    }
+                }
+            }
+            script.SetGameLeaderboard(rank);
         }
     }
 

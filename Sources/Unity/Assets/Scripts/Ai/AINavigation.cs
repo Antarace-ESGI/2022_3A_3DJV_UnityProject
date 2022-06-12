@@ -18,9 +18,14 @@ public class AINavigation : MonoBehaviour
     {
         if (collider.gameObject.Equals(_nextNode))
         {
-            currentNode = _nextNode;
-            _nextNode = currentNode.GetComponent<AINode>().GetrChild();
+            SetCurrentNavigation(collider.gameObject);
         }
+    }
+
+    public void SetCurrentNavigation(GameObject currentNode)
+    {
+        this.currentNode = currentNode;
+        _nextNode = this.currentNode.GetComponent<AINode>().GetrChild();
     }
 
     public GameObject GetCurrentNode()
