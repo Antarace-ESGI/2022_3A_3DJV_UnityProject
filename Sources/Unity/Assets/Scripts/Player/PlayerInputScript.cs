@@ -34,6 +34,7 @@ public class PlayerInputScript : MonoBehaviour
         player.FindAction("Jump").started += Jump;
         player.FindAction("Use").started += UseBonus;
         player.FindAction("Boost").started += Boost;
+        player.FindAction("Boost").canceled += Boost;
         player.FindAction("Shoot").started += Shoot;
         player.FindAction("Pause").started += Pause;
         player.FindAction("Movement").performed += Direction;
@@ -51,6 +52,7 @@ public class PlayerInputScript : MonoBehaviour
         player.FindAction("Jump").started -= Jump;
         player.FindAction("Use").started -= UseBonus;
         player.FindAction("Boost").started -= Boost;
+        player.FindAction("Boost").canceled -= Boost;
         player.FindAction("Shoot").started -= Shoot;
         player.FindAction("Pause").started -= Pause;
         player.FindAction("Movement").performed -= Direction;
