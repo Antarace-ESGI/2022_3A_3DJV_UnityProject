@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,58 +16,74 @@ public class PlayerInputScript : MonoBehaviour
 
     private float _yawDiff;
 
+    private InputActionAsset inputAsset;
+    private InputActionMap player;
+    private InputAction move;
+    private InputAction rotate;
+
+
+
+    private void Awake(){
+
+      inputAsset = this.GetComponent<PlayerInput>().actions;
+      player = inputAsset.FindActionMap("Player");
+    }
+
     private void Start()
     {
         _shipController = GetComponent<ShipController>();
 
         // Load input map
 
-        _controls ??= new PlayerController();
+                                                              //_controls ??= new PlayerController();
 
         // Input callback
         // Use the bonus
-        _controls.Player.Use.performed += ctx => UseBonus();
+
 
         // Shoot
 
-        _controls.Player.Shoot.performed += ctx => Shoot();
+
 
         // Boost
 
-        _controls.Player.Boost.performed += ctx => Boost();
-        _controls.Player.Boost.canceled += ctx => UnBoost();
 
-        // Enabling/Disabling pause
+    ///    _controls.Player.Boost.canceled += ctx => UnBoost();
 
-        _controls.Player.Pause.performed += ctx => Pause();
-
-        // Jump
-
-        _controls.Player.Jump.performed += ctx => Jump();
-
-        // Movement
-
-        _controls.Player.Movement.performed += ctx => Direction(ctx.ReadValue<Vector2>());
-        _controls.Player.Movement.canceled += ctx => Direction(Vector2.zero);
-        
-        // Rotation
-
-        _controls.Player.Rotate.performed += ctx => Rotation(ctx.ReadValue<float>());
-        _controls.Player.Rotate.canceled += ctx => Rotation(0f);
-
-        _controls.Player.Enable();
     }
 
     // Enable or disable the input
 
+
+    private void OnEnable(){
+
+      player.FindAction("Jump").started += Jump;
+      player.FindAction("Use").started += UseBonus;
+      player.FindAction("Boost").started += Boost;
+      player.FindAction("Shoot").started += Shoot;
+      player.FindAction("Pause").started += Pause;
+
+      move = player.FindAction("Move");
+      rotate = player.FindAction("Rotate");
+
+      player.Enable();
+    }
+
     private void OnDisable()
     {
-        _controls.Player.Disable();
+
+      player.FindAction("Jump").started -= Jump;
+      player.FindAction("Use").started -= UseBonus;
+      player.FindAction("Boost").started -= Boost;
+      player.FindAction("Shoot").started -= Shoot;
+      player.FindAction("Pause").started -= Pause;
+
+      player.Disable();
     }
 
     private void OnDestroy()
     {
-        _controls.Player.Disable();
+        player.Disable();
     }
 
     // Action function
@@ -79,32 +98,32 @@ public class PlayerInputScript : MonoBehaviour
         _shipController.Move(dir);
     }
 
-    public void UseBonus()
+    public void UseBonus(InputAction.CallbackContext obj)
     {
         gameObject.GetComponent<PlayerStatsScript>().unableBonusUse();
     }
 
-    public void Shoot()
+    public void Shoot(InputAction.CallbackContext obj)
     {
         _blaster.GetComponent<PlayerBlaster>().Shoot();
     }
 
-    public void Boost()
+    public void Boost(InputAction.CallbackContext obj)
     {
         _shipController.ActiveBoost(true);
     }
 
-    public void UnBoost()
+    public void UnBoost(InputAction.CallbackContext obj)
     {
         _shipController.ActiveBoost(false);
     }
 
-    public void Jump()
+    public void Jump(InputAction.CallbackContext obj)
     {
 
     }
 
-    private void Pause()
+    private void Pause(InputAction.CallbackContext obj)
     {
         GameObject pause = GameObject.FindGameObjectWithTag("Pause");
         if (pause)

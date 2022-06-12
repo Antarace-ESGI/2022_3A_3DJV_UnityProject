@@ -17,7 +17,7 @@ public class CameraFollowScript : MonoBehaviour
 
         transform.position = Vector3.SmoothDamp(transform.position, position, ref _velocity, timeOffset);
         transform.LookAt(player.transform);
-        
+
         // Field of view
         float fov = player.GetComponent<Rigidbody>().velocity.magnitude + 60f;
         Camera camera = GetComponent<Camera>();
