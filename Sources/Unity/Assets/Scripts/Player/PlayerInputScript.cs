@@ -3,75 +3,64 @@ using UnityEngine.InputSystem;
 
 public class PlayerInputScript : MonoBehaviour
 {
-    private PlayerController _controls;
-
     // Accessor
     [SerializeField] private GameObject _blaster;
     [SerializeField] private GameObject _uiHUD;
 
     private ShipController _shipController;
     private Canvas _pauseMenu;
-    
-    private float _yawDiff;
 
-    private InputActionAsset inputAsset;
-    private InputActionMap player;
-    private InputAction move;
-    private InputAction rotate;
+    private InputActionAsset _inputAsset;
+    private InputActionMap _player;
 
     private void Awake()
     {
-        inputAsset = GetComponent<PlayerInput>().actions;
-        player = inputAsset.FindActionMap("Player");
-    }
-
-    private void Start()
-    {
+        _pauseMenu = GameObject.FindGameObjectWithTag("Pause").GetComponent<Canvas>();
+        _inputAsset = GetComponent<PlayerInput>().actions;
+        _player = _inputAsset.FindActionMap("Player");
         _shipController = GetComponent<ShipController>();
     }
 
     private void OnEnable()
     {
-        player.FindAction("Jump").started += Jump;
-        player.FindAction("Use").started += UseBonus;
-        player.FindAction("Boost").started += Boost;
-        player.FindAction("Boost").canceled += Boost;
-        player.FindAction("Shoot").started += Shoot;
-        player.FindAction("Pause").started += Pause;
-        player.FindAction("Movement").performed += Direction;
-        player.FindAction("Movement").canceled += Direction;
-        player.FindAction("Movement").started += Direction;
-        player.FindAction("Rotate").performed += Rotation;
-        player.FindAction("Rotate").canceled += Rotation;
-        player.FindAction("Rotate").started += Rotation;
+        _player.FindAction("Use").started += UseBonus;
+        _player.FindAction("Boost").started += Boost;
+        _player.FindAction("Boost").canceled += Boost;
+        _player.FindAction("Shoot").started += Shoot;
+        _player.FindAction("Pause").started += Pause;
+        _player.FindAction("Movement").performed += Direction;
+        _player.FindAction("Movement").canceled += Direction;
+        _player.FindAction("Movement").started += Direction;
+        _player.FindAction("Rotate").performed += Rotation;
+        _player.FindAction("Rotate").canceled += Rotation;
+        _player.FindAction("Rotate").started += Rotation;
 
-        player.Enable();
+        _player.Enable();
     }
 
     private void OnDisable()
     {
-        player.FindAction("Jump").started -= Jump;
-        player.FindAction("Use").started -= UseBonus;
-        player.FindAction("Boost").started -= Boost;
-        player.FindAction("Boost").canceled -= Boost;
-        player.FindAction("Shoot").started -= Shoot;
-        player.FindAction("Pause").started -= Pause;
-        player.FindAction("Movement").performed -= Direction;
-        player.FindAction("Movement").canceled -= Direction;
-        player.FindAction("Movement").started -= Direction;
-        player.FindAction("Rotate").performed -= Rotation;
-        player.FindAction("Rotate").canceled -= Rotation;
-        player.FindAction("Rotate").started -= Rotation;
+        _player.FindAction("Use").started -= UseBonus;
+        _player.FindAction("Boost").started -= Boost;
+        _player.FindAction("Boost").canceled -= Boost;
+        _player.FindAction("Shoot").started -= Shoot;
+        _player.FindAction("Pause").started -= Pause;
+        _player.FindAction("Movement").performed -= Direction;
+        _player.FindAction("Movement").canceled -= Direction;
+        _player.FindAction("Movement").started -= Direction;
+        _player.FindAction("Rotate").performed -= Rotation;
+        _player.FindAction("Rotate").canceled -= Rotation;
+        _player.FindAction("Rotate").started -= Rotation;
 
-        player.Disable();
+        _player.Disable();
     }
-    
+
     // Action function
 
     private void Rotation(InputAction.CallbackContext obj)
     {
-        float x = obj.ReadValue<float>();
-        _shipController.SetYaw(x);
+        double x = System.Math.Tanh(obj.ReadValue<float>()) * 2;
+        _shipController.SetYaw((float) x);
     }
 
     private void Direction(InputAction.CallbackContext obj)
@@ -80,28 +69,20 @@ public class PlayerInputScript : MonoBehaviour
         _shipController.Move(vec);
     }
 
-    public void UseBonus(InputAction.CallbackContext obj)
+    private void UseBonus(InputAction.CallbackContext obj)
     {
         gameObject.GetComponent<PlayerStatsScript>().unableBonusUse();
     }
 
-    public void Shoot(InputAction.CallbackContext obj)
+    private void Shoot(InputAction.CallbackContext obj)
     {
         _blaster.GetComponent<PlayerBlaster>().Shoot();
     }
 
-    public void Boost(InputAction.CallbackContext obj)
+    private void Boost(InputAction.CallbackContext obj)
     {
-        _shipController.ActiveBoost(true);
-    }
-
-    public void UnBoost(InputAction.CallbackContext obj)
-    {
-        _shipController.ActiveBoost(false);
-    }
-
-    public void Jump(InputAction.CallbackContext obj)
-    {
+        var isBoosting = obj.ReadValueAsButton();
+        _shipController.ActiveBoost(isBoosting);
     }
 
     private void Pause(InputAction.CallbackContext obj)
@@ -110,7 +91,7 @@ public class PlayerInputScript : MonoBehaviour
         {
             if (_pauseMenu.enabled)
             {
-                _controls.Player.Shoot.Enable();
+                _player.FindAction("Shoot").started += Shoot; // Enable shooting back
                 Cursor.lockState = CursorLockMode.Confined;
                 _uiHUD.SetActive(true);
                 Time.timeScale = 1.0f;
@@ -118,7 +99,7 @@ public class PlayerInputScript : MonoBehaviour
             }
             else
             {
-                _controls.Player.Shoot.Disable();
+                _player.FindAction("Shoot").started -= Shoot; // Disable shooting in pause menu
                 Cursor.lockState = CursorLockMode.None;
                 _uiHUD.SetActive(false);
                 Time.timeScale = 0.0f;

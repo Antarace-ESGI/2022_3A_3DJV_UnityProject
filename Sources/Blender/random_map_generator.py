@@ -36,6 +36,8 @@ bpy.ops.curve.primitive_bezier_curve_add(enter_editmode=False, align='WORLD', lo
 
 curve = bpy.context.object
 
+bpy.context.object.data.twist_mode = 'Z_UP'
+
 bpy.ops.object.editmode_toggle()
 bpy.ops.curve.delete(type='VERT')
 
@@ -55,3 +57,9 @@ bpy.context.object.modifiers["Array"].fit_type = 'FIT_CURVE'
 bpy.context.object.modifiers["Array"].curve = curve
 bpy.ops.object.modifier_add(type='CURVE')
 bpy.context.object.modifiers["Curve"].object = curve
+bpy.ops.object.convert(target='MESH')
+
+# Delete curve
+bpy.ops.object.select_all(action='DESELECT')
+bpy.data.objects[curve.name].select_set(True)
+bpy.ops.object.delete()

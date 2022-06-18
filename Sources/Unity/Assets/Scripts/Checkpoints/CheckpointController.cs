@@ -20,6 +20,11 @@ namespace Checkpoints
         {
             _checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
             _currentCheckpoint = _nextCheckpoint = _checkpoints[checkpointIndex];
+
+            // Teleports the player to spawn on first apparition
+            var startTransform = _checkpoints[0].transform;
+            transform.position = startTransform.position;
+            transform.rotation = startTransform.rotation;
         }
 
         private void IncrementCheckpoint(GameObject currentCheckpoint)
