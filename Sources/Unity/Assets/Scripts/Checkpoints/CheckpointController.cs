@@ -15,7 +15,7 @@ namespace Checkpoints
         // Real checkpoint
         [ReadOnly] public int checkpointIndex;
         private GameObject _nextCheckpoint, _currentCheckpoint;
-        
+
         private void Start()
         {
             _checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
@@ -53,7 +53,7 @@ namespace Checkpoints
         {
             return _currentCheckpoint;
         }
-        
+
         public GameObject GetNextCheckpoint()
         {
             return _nextCheckpoint;
@@ -75,7 +75,7 @@ namespace Checkpoints
             var distanceToNextCheckpoint = Vector3.Distance(transform.position, nextCheckpointPosition);
 
             var progressionBetweenCheckpoints = distanceToNextCheckpoint / distanceBetweenCheckpoint;
-            
+
             int progression = (int) (checkpointIndex * 100 + progressionBetweenCheckpoints * 100) / _checkpoints.Length * 100;
 
             return progression;

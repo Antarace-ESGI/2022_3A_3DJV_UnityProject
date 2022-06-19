@@ -11,6 +11,7 @@ TagManager:
   - Pause
   - HUD
   - Player2
+  - Node
   layers:
   - Default
   - TransparentFX

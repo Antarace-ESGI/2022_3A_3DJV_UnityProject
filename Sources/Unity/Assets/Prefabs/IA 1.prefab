@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 2315132206830102591}
   - component: {fileID: 7565597353745008555}
   - component: {fileID: 5277705826747312174}
+  - component: {fileID: 122320484778131712}
   m_Layer: 0
   m_Name: IA 1
   m_TagString: AI
@@ -368,5 +369,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db6217a0f5eb436b874a227ab1e3d001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpoints: []
-  playerSpawn: {fileID: 0}
+  checkpointIndex: 0
+--- !u!114 &122320484778131712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6416701373286507359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0686d382aaed18479de20c2e2153a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentNode: {fileID: 0}

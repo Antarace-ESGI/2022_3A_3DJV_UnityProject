@@ -10,7 +10,7 @@ public class AiController : MonoBehaviour
     private ShipController _shipController;
     private CheckpointController _checkpointController;
     private AINavigation _aiNavigation;
-    
+
     void Start()
     {
         _checkpointController = GetComponent<CheckpointController>();
@@ -20,25 +20,29 @@ public class AiController : MonoBehaviour
 
     void Update()
     {
-        InputUpdate();
+        var nextNode = _aiNavigation.GetNextNode();
+        var nextPosition = nextNode.transform.position;
+        var currentNode = _aiNavigation.GetCurrentNode();
+        var currentNodePosition = currentNode.transform.position;
+
+        var targetSpeed = currentNode.GetComponent<AINode>().targetSpeed;
+        var nextTargetSpeed = nextNode.GetComponent<AINode>().targetSpeed;
+
+        var yaw = transform.InverseTransformPoint(nextPosition).x;
+        _shipController.SetYaw(yaw);
+
+        var nodeDistance = Vector3.Distance(currentNodePosition, nextPosition);
+        var progressDistance = Vector3.Distance(transform.position, nextPosition);
+        var progress = progressDistance / nodeDistance;
+        var interpolatedSpeed = Mathf.Lerp(nextTargetSpeed, targetSpeed, progress);
+
+        var speed = Vector2.up * interpolatedSpeed;
+        _shipController.Move(speed);
 
         if (aiLife <= 0)
         {
             _checkpointController.RespawnEntity();
             aiLife = 50;
         }
-    }
-
-    void InputUpdate()
-    {
-        GetYawValue();
-        _shipController.Move(Vector2.up);
-    }
-
-    private void GetYawValue()
-    {
-        float yaw = transform.InverseTransformPoint(_aiNavigation.GetNextNode().transform.position).x;
-        //float yaw = transform.InverseTransformPoint(_checkpointController.GetNextCheckpoint().transform.position).x;
-        _shipController.SetYaw(yaw);
     }
 }

@@ -1,31 +1,29 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AINavigation : MonoBehaviour
 {
     [SerializeField] private GameObject currentNode;
 
-    private GameObject _nextNode;
-
     private void Start()
     {
-        _nextNode = currentNode.GetComponent<AINode>().GetrChild();
+        if (currentNode == null)
+        {
+            currentNode = GameObject.FindGameObjectWithTag("Node");
+        }
     }
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.Equals(_nextNode))
+        var nextNode = GetNextNode();
+        if (collider.CompareTag("Node"))
         {
-            SetCurrentNavigation(collider.gameObject);
+            SetCurrentNavigation(nextNode);
         }
     }
 
     public void SetCurrentNavigation(GameObject currentNode)
     {
         this.currentNode = currentNode;
-        _nextNode = this.currentNode.GetComponent<AINode>().GetrChild();
     }
 
     public GameObject GetCurrentNode()
@@ -35,7 +33,6 @@ public class AINavigation : MonoBehaviour
 
     public GameObject GetNextNode()
     {
-        return _nextNode;
+        return currentNode.GetComponent<AINode>().GetRightChild();
     }
-    
 }
