@@ -10,6 +10,19 @@ DATABASE_HOST=localhost
 JWT_SECRET=some random bytes # used to generate a secure jwt
 ```
 
+## Run with Docker CLI
+
+```shell
+docker build -t antarace-website .
+docker run -p 3000:3000 antarace-website
+```
+
+## Run with Docker compose
+
+```shell
+docker compose up
+```
+
 --- 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
