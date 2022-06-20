@@ -21,24 +21,26 @@ public class AiController : MonoBehaviour
     void Update()
     {
         var nextNode = _aiNavigation.GetNextNode();
-        var nextPosition = nextNode.transform.position;
-        var currentNode = _aiNavigation.GetCurrentNode();
-        var currentNodePosition = currentNode.transform.position;
+        if (nextNode != null)
+        {
+            var nextPosition = nextNode.transform.position;
+            var currentNode = _aiNavigation.GetCurrentNode();
+            var currentNodePosition = currentNode.transform.position;
 
-        var targetSpeed = currentNode.GetComponent<AINode>().targetSpeed;
-        var nextTargetSpeed = nextNode.GetComponent<AINode>().targetSpeed;
+            var targetSpeed = currentNode.GetComponent<AINode>().targetSpeed;
+            var nextTargetSpeed = nextNode.GetComponent<AINode>().targetSpeed;
 
-        var yaw = transform.InverseTransformPoint(nextPosition).x;
-        _shipController.SetYaw(yaw);
+            var yaw = transform.InverseTransformPoint(nextPosition).x;
+            _shipController.SetYaw(yaw);
 
-        var nodeDistance = Vector3.Distance(currentNodePosition, nextPosition);
-        var progressDistance = Vector3.Distance(transform.position, nextPosition);
-        var progress = progressDistance / nodeDistance;
-        var interpolatedSpeed = Mathf.Lerp(nextTargetSpeed, targetSpeed, progress);
+            var nodeDistance = Vector3.Distance(currentNodePosition, nextPosition);
+            var progressDistance = Vector3.Distance(transform.position, nextPosition);
+            var progress = progressDistance / nodeDistance;
+            var interpolatedSpeed = Mathf.Lerp(nextTargetSpeed, targetSpeed, progress);
 
-        var speed = Vector2.up * interpolatedSpeed;
-        _shipController.Move(speed);
-
+            var speed = Vector2.up * interpolatedSpeed;
+            _shipController.Move(speed);   
+        }
         if (aiLife <= 0)
         {
             _checkpointController.RespawnEntity();

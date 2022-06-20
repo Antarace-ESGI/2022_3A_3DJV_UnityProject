@@ -15,7 +15,7 @@ public class AINavigation : MonoBehaviour
     private void OnTriggerEnter(Collider collider)
     {
         var nextNode = GetNextNode();
-        if (collider.CompareTag("Node"))
+        if (collider.CompareTag("Node") && collider.gameObject.Equals(nextNode))
         {
             SetCurrentNavigation(nextNode);
         }
@@ -24,6 +24,7 @@ public class AINavigation : MonoBehaviour
     public void SetCurrentNavigation(GameObject currentNode)
     {
         this.currentNode = currentNode;
+        Debug.Log(currentNode.name);
     }
 
     public GameObject GetCurrentNode()

@@ -22,7 +22,7 @@ public class AINode : MonoBehaviour
         }
 
         var index = Array.FindIndex(_nodes, o => o == gameObject);
-        if (_nodes.Length > index)
+        if (_nodes.Length-1 > index)
         {
             rightNode = _nodes[index + 1];
         }
