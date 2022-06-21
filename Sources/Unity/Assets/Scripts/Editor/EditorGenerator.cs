@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class EditorGenerator : EditorWindow
 {
@@ -49,9 +51,23 @@ public class EditorGenerator : EditorWindow
         EditorGUILayout.LabelField("Generateur de Maps");
         if (GUILayout.Button("Generate"))
         {
-            Debug.Log("Afficher une map");
+            LaunchProcess();
         }
         
         EditorGUILayout.EndVertical();
+    }
+
+    private void LaunchProcess()
+    {
+        
+        // Passer les chemins en absolu via os.system()
+        ProcessStartInfo info = new ProcessStartInfo("random_map_generator.py");
+        Process process = new Process()
+        {
+            StartInfo = info
+        };
+        process.Start();
+        process.WaitForExit();
+        process.Close();
     }
 }
