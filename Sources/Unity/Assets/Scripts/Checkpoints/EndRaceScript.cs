@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class EndRaceScript : MonoBehaviour
@@ -13,6 +13,7 @@ public class EndRaceScript : MonoBehaviour
     
     //End race
     private Dictionary<GameObject, bool> playingEntities = new Dictionary<GameObject, bool>();
+    private PlayerInputManager _observer;
     
     //Leaderboard
     private static Dictionary<string, int> _rank = new Dictionary<string, int>();
@@ -24,22 +25,47 @@ public class EndRaceScript : MonoBehaviour
     {
         runner = 0;
         
+        // Find Gameobject everywhere !! EVERYWHERE !!!!!!!!!!!!!!!!!!!
+        
         foreach (GameObject ai in GameObject.FindGameObjectsWithTag("AI"))
         {
             playingEntities.Add(ai,false);
         }
-
-        foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            playingEntities.Add(player,false);
-        }
         
-        _gameManager = GameObject.FindGameObjectWithTag("GameController");
-    }
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
+        if (players != null && players.Length > 0)
+        {
+            foreach (GameObject player in players)
+            {
+                playingEntities.Add(player,false);
+            }   
+        }
+        else
+        {
+            _observer = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<PlayerInputManager>();
+        }
+
+        // General Game Manager
+        _gameManager = GameObject.FindGameObjectWithTag("GameController");
+
+    }
+    
+    public void OnEnable()
+    {
+        if (_observer != null)
+        {
+            _observer.onPlayerJoined += input =>
+            {
+                playingEntities.Add(input.gameObject,false);
+            };
+        }
+    }
+    
     private void OnTriggerEnter(Collider collision)
     {
-        if ((collision.CompareTag("Player") || collision.CompareTag("AI")) && playingEntities[collision.gameObject] == false)
+        if ((collision.CompareTag("Player") || collision.CompareTag("AI")) 
+            && playingEntities.Count > 0 && playingEntities[collision.gameObject] == false)
         {
             GameObject colEntity = collision.gameObject;
             runner++;
