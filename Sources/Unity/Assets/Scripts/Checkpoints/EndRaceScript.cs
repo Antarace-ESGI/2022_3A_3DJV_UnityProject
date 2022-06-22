@@ -57,6 +57,7 @@ public class EndRaceScript : MonoBehaviour
         {
             _observer.onPlayerJoined += input =>
             {
+                Debug.Log('o');
                 playingEntities.Add(input.gameObject,false);
             };
         }

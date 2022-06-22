@@ -61,7 +61,7 @@ public class EditorGenerator : EditorWindow
     {
         
         // Passer les chemins en absolu via os.system()
-        ProcessStartInfo info = new ProcessStartInfo("random_map_generator.py");
+        ProcessStartInfo info = new ProcessStartInfo("C:/Users/lefev/Desktop/Projet_annuel/2022_3A_3DJV_UnityProject/Sources/Blender/executor.py");
         Process process = new Process()
         {
             StartInfo = info
