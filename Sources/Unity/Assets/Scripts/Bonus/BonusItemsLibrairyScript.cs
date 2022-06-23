@@ -13,28 +13,11 @@ public class BonusItemsLibrairyScript : MonoBehaviour
         {
             case 0:
                 Debug.Log("Bomb");
-                GameObject bomb = Instantiate(bonus[0]);
-                bomb.GetComponent<BombScript>().SetUser(player);
+                SetupBomb(player);
                 break;
             case 1:
                 Debug.Log("Cloud");
-                
-                GameObject[] ais = GameObject.FindGameObjectsWithTag("AI");
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-                GameObject[] entities = new GameObject[ais.Length + players.Length];
-                ais.CopyTo(entities,0);
-                players.CopyTo(entities,ais.Length);
-                
-                foreach (GameObject obj in entities)
-                {
-                    if (obj.GetInstanceID() != player.GetInstanceID())
-                    {
-                        var elem = Instantiate(bonus[1]);
-                        elem.GetComponent<ElectricDragScript>().SetPlayerTarget(obj);
-                    }
-                }
-                
+                SetupCloud(player);
                 break;
             default: break;
         }
@@ -44,5 +27,31 @@ public class BonusItemsLibrairyScript : MonoBehaviour
     {
         return sprites[index];
     }
+    
+    // Bonus setup
 
+    private void SetupCloud(GameObject player)
+    {
+        GameObject[] ais = GameObject.FindGameObjectsWithTag("AI");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        
+        GameObject[] entities = new GameObject[ais.Length + players.Length];
+        ais.CopyTo(entities,0);
+        players.CopyTo(entities,ais.Length);
+                
+        foreach (GameObject obj in entities)
+        {
+            if (obj.GetInstanceID() != player.GetInstanceID())
+            {
+                var elem = Instantiate(bonus[1]);
+                elem.GetComponent<ElectricDragScript>().SetPlayerTarget(obj);
+            }
+        }
+    }
+
+    private void SetupBomb(GameObject player)
+    {
+        GameObject bomb = Instantiate(bonus[0]);
+        bomb.GetComponent<BombScript>().SetUser(player);
+    }
 }

@@ -1,34 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
+using Checkpoints;
 using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
-
-  private Transform playerSpawn;
-
-  private void Awake(){
-    playerSpawn =  GameObject.FindGameObjectWithTag("PlayerSpawn").transform;
-  }
-
-      private void OnTriggerEnter(Collider collision){
-
-        if(collision.CompareTag("Player")){
-
-          StartCoroutine(ReplacePlayer(collision));
-
+    private void OnTriggerEnter(Collider collision)
+    {
+        CheckpointController checkpointController = collision.gameObject.GetComponent<CheckpointController>();
+        
+        if (checkpointController != null)
+        {
+            StartCoroutine(ReplacePlayer(checkpointController));
         }
-      }
+    }
 
-      private IEnumerator ReplacePlayer(Collider collision){
+    private IEnumerator ReplacePlayer(CheckpointController checkpointController)
+    {
         yield return new WaitForSeconds(0.8f);
-      collision.transform.position = playerSpawn.position;
-      }
-
-
-
-
-
-
-
+        checkpointController.RespawnEntity();
+    }
 }

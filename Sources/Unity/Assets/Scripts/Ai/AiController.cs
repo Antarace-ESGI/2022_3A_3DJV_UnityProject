@@ -1,58 +1,50 @@
+using Checkpoints;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CheckpointController))]
+[RequireComponent(typeof(ShipController))]
 public class AiController : MonoBehaviour
 {
-    Rigidbody _ship;
-
-    public GameObject[] checkpoints;
-    private int _checkpointIndex = 0;
-    private GameObject _nextCheckpoint;
-
-    private GameObject _currentCheckpoint;
-
-    [FormerlySerializedAs("AiLife")] public int aiLife = 50;
+    public int aiLife = 50;
 
     private ShipController _shipController;
-    
+    private CheckpointController _checkpointController;
+    private AINavigation _aiNavigation;
+
     void Start()
     {
-        _ship = GetComponent<Rigidbody>();
-        _nextCheckpoint = checkpoints[_checkpointIndex];
+        _checkpointController = GetComponent<CheckpointController>();
         _shipController = GetComponent<ShipController>();
+        _aiNavigation = GetComponent<AINavigation>();
     }
 
     void Update()
     {
-        InputUpdate();
+        var nextNode = _aiNavigation.GetNextNode();
+        if (nextNode != null)
+        {
+            var nextPosition = nextNode.transform.position;
+            var currentNode = _aiNavigation.GetCurrentNode();
+            var currentNodePosition = currentNode.transform.position;
 
+            var targetSpeed = currentNode.GetComponent<AINode>().targetSpeed;
+            var nextTargetSpeed = nextNode.GetComponent<AINode>().targetSpeed;
+
+            var yaw = transform.InverseTransformPoint(nextPosition).x;
+            _shipController.SetYaw(yaw);
+
+            var nodeDistance = Vector3.Distance(currentNodePosition, nextPosition);
+            var progressDistance = Vector3.Distance(transform.position, nextPosition);
+            var progress = progressDistance / nodeDistance;
+            var interpolatedSpeed = Mathf.Lerp(nextTargetSpeed, targetSpeed, progress);
+
+            var speed = Vector2.up * interpolatedSpeed;
+            _shipController.Move(speed);   
+        }
         if (aiLife <= 0)
         {
-            _currentCheckpoint = checkpoints[_checkpointIndex - 1];
-            _ship.gameObject.GetComponent<Transform>().position = _currentCheckpoint.transform.position;
+            _checkpointController.RespawnEntity();
             aiLife = 50;
-        }
-    }
-    
-    void InputUpdate()
-    {
-        GetYawValue();
-        _shipController.Move(Vector2.up);
-    }
-
-    private void GetYawValue()
-    {
-        float yaw = transform.InverseTransformPoint(_nextCheckpoint.transform.position).x;
-        _shipController.SetYaw(yaw);
-    }
-
-    public void IncrementCheckpoint(GameObject currentCheckpoint)
-    {
-        if (currentCheckpoint.Equals(_nextCheckpoint))
-        {
-            _checkpointIndex = Mathf.Min(_checkpointIndex + 1, checkpoints.Length - 1);
-            _nextCheckpoint = checkpoints[_checkpointIndex];
         }
     }
 }

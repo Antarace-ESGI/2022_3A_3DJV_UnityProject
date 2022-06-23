@@ -69,7 +69,9 @@ public class ShipController : MonoBehaviour
     {
         // ADJUST YAW (LEFT/RIGHT/TURN/LOCAL Y)
         if (_adjustYaw)
+        {
             _ship.AddTorque(transform.up * (_yaw * yawStrength), ForceMode.Force);
+        }
 
         // ADJUST THRUST Z (FORWARD/BACK/LOCAL Z)
         if (_adjustThrustZ)
@@ -177,5 +179,10 @@ public class ShipController : MonoBehaviour
 
         _ship.velocity = nVeloc;
         _ship.angularVelocity = nAVeloc;
+    }
+
+    public void Rotate(Vector2 dir)
+    {
+        throw new System.NotImplementedException();
     }
 }

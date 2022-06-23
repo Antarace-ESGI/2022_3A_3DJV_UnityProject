@@ -1,140 +1,109 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputScript : MonoBehaviour
 {
-    private PlayerController _controls;
-    
     // Accessor
     [SerializeField] private GameObject _blaster;
     [SerializeField] private GameObject _uiHUD;
 
     private ShipController _shipController;
-    private Canvas _pauseCanvas;
+    private Canvas _pauseMenu;
 
-    private float _yawDiff;
+    private InputActionAsset _inputAsset;
+    private InputActionMap _player;
 
-    public RectTransform crosshair;
-    public float maxRadius = 128f;
-
-    private Vector3 _centerScreen;
-    private float _qtrScreenW;
-
-    private void Start()
+    private void Awake()
     {
+        _pauseMenu = GameObject.FindGameObjectWithTag("Pause").GetComponent<Canvas>();
+        _inputAsset = GetComponent<PlayerInput>().actions;
+        _player = _inputAsset.FindActionMap("Player");
         _shipController = GetComponent<ShipController>();
-        _pauseCanvas = GetComponent<Canvas>();
-        
-        _centerScreen = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
-        _qtrScreenW = Screen.width * 0.25f;
-        
-        // Load input map
-        
-        _controls ??= new PlayerController();
-        
-        // Input callback
-        // Use the bonus
-        _controls.Player.Use.performed += ctx => UseBonus();
-        
-        // Shoot
-        
-        _controls.Player.Shoot.performed += ctx => Shoot();
-        
-        // Boost
-        
-        _controls.Player.Boost.performed += ctx => Boost();
-        _controls.Player.Boost.canceled += ctx => UnBoost();
-        
-        // Enabling/Disabling pause
-        
-        _controls.Player.Pause.performed += ctx => Pause();
-
-        // Jump
-        
-        _controls.Player.Jump.performed += ctx => Jump();
-        
-        // Movement
-        
-        _controls.Player.Movement.performed += ctx => Direction(ctx.ReadValue<Vector2>());
-        _controls.Player.Movement.canceled += ctx => Direction(Vector2.zero);
-        
-        _controls.Player.Enable();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        GetYawValue();
+        _player.FindAction("Use").started += UseBonus;
+        _player.FindAction("Boost").started += Boost;
+        _player.FindAction("Boost").canceled += Boost;
+        _player.FindAction("Shoot").started += Shoot;
+        _player.FindAction("Pause").started += Pause;
+        _player.FindAction("Movement").performed += Direction;
+        _player.FindAction("Movement").canceled += Direction;
+        _player.FindAction("Movement").started += Direction;
+        _player.FindAction("Rotate").performed += Rotation;
+        _player.FindAction("Rotate").canceled += Rotation;
+        _player.FindAction("Rotate").started += Rotation;
+
+        _player.Enable();
     }
 
-    private void GetYawValue()
-    {
-        float x = Input.GetAxis("Mouse X");
-
-        _yawDiff = Mathf.Clamp(crosshair.position.x - _centerScreen.x + x, -maxRadius, maxRadius);
-        crosshair.position = new Vector3(_yawDiff + _centerScreen.x, _centerScreen.y, _centerScreen.z);
-
-        _shipController.SetYaw(_yawDiff / _qtrScreenW);
-    }
-    
-    // Enable or disable the input 
-    
     private void OnDisable()
     {
-        _controls.Player.Disable();
-    }
+        _player.FindAction("Use").started -= UseBonus;
+        _player.FindAction("Boost").started -= Boost;
+        _player.FindAction("Boost").canceled -= Boost;
+        _player.FindAction("Shoot").started -= Shoot;
+        _player.FindAction("Pause").started -= Pause;
+        _player.FindAction("Movement").performed -= Direction;
+        _player.FindAction("Movement").canceled -= Direction;
+        _player.FindAction("Movement").started -= Direction;
+        _player.FindAction("Rotate").performed -= Rotation;
+        _player.FindAction("Rotate").canceled -= Rotation;
+        _player.FindAction("Rotate").started -= Rotation;
 
-    private void OnDestroy()
-    {
-        _controls.Player.Disable();
+        _player.Disable();
     }
 
     // Action function
 
-    private void Direction(Vector2 dir)
+    private void Rotation(InputAction.CallbackContext obj)
     {
-        _shipController.Move(dir);
+        double x = System.Math.Tanh(obj.ReadValue<float>()) * 2;
+        _shipController.SetYaw((float) x);
     }
-    
-    private void UseBonus()
+
+    private void Direction(InputAction.CallbackContext obj)
+    {
+        Vector2 vec = obj.ReadValue<Vector2>();
+        _shipController.Move(vec);
+    }
+
+    private void UseBonus(InputAction.CallbackContext obj)
     {
         gameObject.GetComponent<PlayerStatsScript>().unableBonusUse();
     }
 
-    private void Shoot()
+    private void Shoot(InputAction.CallbackContext obj)
     {
         _blaster.GetComponent<PlayerBlaster>().Shoot();
     }
 
-    private void Boost()
+    private void Boost(InputAction.CallbackContext obj)
     {
-        _shipController.ActiveBoost(true);
+        var isBoosting = obj.ReadValueAsButton();
+        _shipController.ActiveBoost(isBoosting);
     }
 
-    private void UnBoost()
+    private void Pause(InputAction.CallbackContext obj)
     {
-        _shipController.ActiveBoost(false);
-    }
-    
-    private void Jump()
-    {
-        
-    }
-
-    private void Pause()
-    {
-        GameObject pause = GameObject.FindGameObjectWithTag("Pause");
-        if (pause)
+        if (_pauseMenu)
         {
-            if (_pauseCanvas.enabled)
+            if (_pauseMenu.enabled)
             {
+                _player.FindAction("Shoot").started += Shoot; // Enable shooting back
+                Cursor.lockState = CursorLockMode.Confined;
                 _uiHUD.SetActive(true);
                 Time.timeScale = 1.0f;
-                _pauseCanvas.enabled = false;
+                _pauseMenu.enabled = false;
             }
             else
             {
+                _player.FindAction("Shoot").started -= Shoot; // Disable shooting in pause menu
+                Cursor.lockState = CursorLockMode.None;
                 _uiHUD.SetActive(false);
                 Time.timeScale = 0.0f;
-                _pauseCanvas.enabled = true;
+                _pauseMenu.enabled = true;
             }
         }
     }

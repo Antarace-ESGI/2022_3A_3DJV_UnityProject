@@ -5,9 +5,10 @@ using UnityEngine.Serialization;
 public class AIBlaster : MonoBehaviour
 {
     public bool canShoot = true;
-    [FormerlySerializedAs("AICanon")] public GameObject aiCanon;
-    [FormerlySerializedAs("AImissile")] public GameObject aiMissile;
-    [FormerlySerializedAs("AImissileClone")] public GameObject aiMissileClone;
+    public GameObject aiCanon;
+    public GameObject aiMissile;
+    public GameObject aiMissileClone;
+
     public Transform canonTransform;
 
     // Update is called once per frame
@@ -25,11 +26,8 @@ public class AIBlaster : MonoBehaviour
                     StartCoroutine(EnemyBlaster());
                 }
             }
-
-            //IL Y A DES CENTAINES DE DEBUgS A CAUSE DES CHECKPOINTS
         }
     }
-
 
     private IEnumerator EnemyBlaster()
     {
