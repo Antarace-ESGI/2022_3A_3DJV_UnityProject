@@ -48,6 +48,9 @@ bpy.ops.curve.draw(error_threshold=-10,
                    stroke=bezier,
                    wait_for_input=False)
 
+
+print("Je tourne en background")
+
 # Rainbow road
 
 bpy.ops.mesh.primitive_cube_add(size=0.1, enter_editmode=False, align='WORLD', location=(0, 0, 0), scale=(1, 1, 1))

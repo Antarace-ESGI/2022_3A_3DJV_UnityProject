@@ -12,6 +12,7 @@ TagManager:
   - HUD
   - Player2
   - Node
+  - PlayerManager
   layers:
   - Default
   - TransparentFX
