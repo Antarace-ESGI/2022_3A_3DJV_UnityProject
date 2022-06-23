@@ -19,7 +19,9 @@ public class EndRaceScript : MonoBehaviour
     private static Dictionary<string, int> _rank = new Dictionary<string, int>();
     private GameObject _gameManager;
 
-    private int runner = 0; 
+    private int runner = 0;
+
+    public PlayerInputManager playerInputManager;
 
     private void Start()
     {
@@ -46,11 +48,18 @@ public class EndRaceScript : MonoBehaviour
             _observer = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<PlayerInputManager>();
         }
 
+        playerInputManager.onPlayerJoined += OnPlayerJoined;
+
         // General Game Manager
         _gameManager = GameObject.FindGameObjectWithTag("GameController");
 
     }
-    
+
+    private void OnPlayerJoined(PlayerInput obj)
+    {
+        playingEntities.Add(obj.gameObject, false);
+    }
+
     public void OnEnable()
     {
         if (_observer != null)
