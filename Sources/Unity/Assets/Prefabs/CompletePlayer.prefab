@@ -800,6 +800,10 @@ PrefabInstance:
       propertyPath: lifebar
       value: 
       objectReference: {fileID: 8392480832345388742}
+    - target: {fileID: 1470776040771183615, guid: 1c941bea6c5347c41a2711cf234cea26, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.426
+      objectReference: {fileID: 0}
     - target: {fileID: 2073770661784305857, guid: 1c941bea6c5347c41a2711cf234cea26, type: 3}
       propertyPath: m_Name
       value: Player
