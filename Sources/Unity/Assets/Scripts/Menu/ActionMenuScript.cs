@@ -88,7 +88,7 @@ public class ActionMenuScript : MonoBehaviour
     public void changeSceneWithIndex()
     {
         TrackArrayScript brain = FindObjectOfType<TrackArrayScript>();
-        if (brain)
+        if (brain != null)
             SceneManager.LoadScene(brain.GetIndexOfTrack());
     }
 

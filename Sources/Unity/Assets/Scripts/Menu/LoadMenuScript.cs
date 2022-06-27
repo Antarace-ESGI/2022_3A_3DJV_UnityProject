@@ -5,12 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class LoadMenuScript : MonoBehaviour
 {
-
-    public string menuScene = "MenuScene";
-
-    // Will be update later to unable only digit 
     void Start()
     {
-        SceneManager.LoadScene(menuScene, LoadSceneMode.Additive);
+        TrackArrayScript trackArrayScript = FindObjectOfType<TrackArrayScript>();
+        if(trackArrayScript != null)
+            SceneManager.LoadScene(trackArrayScript.GetFirstScene(), LoadSceneMode.Additive);
     }
 }

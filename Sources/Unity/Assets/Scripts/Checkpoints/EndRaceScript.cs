@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class EndRaceScript : MonoBehaviour
 {
 
     [SerializeField] private GameObject enablingPanel;
+    [SerializeField] private GameObject waitingPanel;
     [SerializeField] private Text text;
     [SerializeField] private Camera view;
     
@@ -20,6 +22,7 @@ public class EndRaceScript : MonoBehaviour
     private GameObject _gameManager;
 
     private int runner = 0;
+    private int _players = 0;
 
     public PlayerInputManager playerInputManager;
 
@@ -35,9 +38,10 @@ public class EndRaceScript : MonoBehaviour
         }
         
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
+        
         if (players != null && players.Length > 0)
         {
+            _players = players.Length;
             foreach (GameObject player in players)
             {
                 playingEntities.Add(player,false);
@@ -58,18 +62,7 @@ public class EndRaceScript : MonoBehaviour
     private void OnPlayerJoined(PlayerInput obj)
     {
         playingEntities.Add(obj.gameObject, false);
-    }
-
-    public void OnEnable()
-    {
-        if (_observer != null)
-        {
-            _observer.onPlayerJoined += input =>
-            {
-                Debug.Log('o');
-                playingEntities.Add(input.gameObject,false);
-            };
-        }
+        _players++;
     }
     
     private void OnTriggerEnter(Collider collision)
@@ -89,38 +82,71 @@ public class EndRaceScript : MonoBehaviour
             if (collision.CompareTag("Player"))
             {
                 colEntity.SetActive(false);
-                view.enabled = true;
                 
                 if (GameObject.FindGameObjectWithTag("HUD"))
                 {
                     GameObject.FindGameObjectWithTag("HUD").SetActive(false);
                 }
+                Cursor.lockState = CursorLockMode.None;
+                waitingPanel.SetActive(true);
+                
             }
 
             //Wait for every participant to finish the race
             if (runner == playingEntities.Count)
             {
-                Cursor.lockState = CursorLockMode.None;
-                enablingPanel.SetActive(true);
-
-                if (_gameManager != null)
-                {
-                    TrackArrayScript script = _gameManager.GetComponent<TrackArrayScript>();
-
-                    if (script != null)
-                    {
-                        SetGlobalLeaderboard(script,_rank);
-                    
-                        if(script.IsEndTrack())
-                            GetGlobalLeaderboard(script);
-                    }
-                    
-                }
-                
-                DisplayLeaderboard();
-                
+                EndRaceDisplay();
             }
         }
+    }
+
+    private void EndRaceDisplay()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        if(waitingPanel.activeSelf)
+            waitingPanel.SetActive(false);
+        enablingPanel.SetActive(true);
+        if (_gameManager != null)
+        {
+            TrackArrayScript script = _gameManager.GetComponent<TrackArrayScript>();
+
+            if (script != null)
+            {
+                SetGlobalLeaderboard(script,_rank);
+                    
+                if(script.IsEndTrack())
+                    GetGlobalLeaderboard(script);
+            }
+                    
+        }
+                
+        DisplayLeaderboard();
+    }
+
+    public void SetRank()
+    {
+        int position = _rank.Count + 1;
+        
+        //Set value in temporary Ai
+        foreach (KeyValuePair<GameObject,bool> player in playingEntities)
+        {
+            if (!_rank.ContainsKey(player.Key.name))
+            {
+                _rank[player.Key.name] = position;
+                position++;
+            }
+        }
+        EndRaceDisplay();
+    }
+
+    public Dictionary<GameObject,bool> GetPlayerEntities()
+    {
+        return playingEntities;
+    }
+
+    public int GetPlayersCount()
+    {
+        return _players;
     }
 
     private void DisplayLeaderboard()
