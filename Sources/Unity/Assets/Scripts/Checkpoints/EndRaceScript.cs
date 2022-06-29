@@ -70,6 +70,7 @@ public class EndRaceScript : MonoBehaviour
         if ((collision.CompareTag("Player") || collision.CompareTag("AI")) 
             && playingEntities.Count > 0 && playingEntities[collision.gameObject] == false)
         {
+            Debug.Log("ok");
             GameObject colEntity = collision.gameObject;
             runner++;
 

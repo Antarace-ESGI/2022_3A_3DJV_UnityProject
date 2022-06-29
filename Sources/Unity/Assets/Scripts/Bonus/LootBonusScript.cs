@@ -22,9 +22,10 @@ public class LootBonusScript : MonoBehaviour
             GameObject player = col.gameObject;
             if (player.GetComponentInParent<PlayerStatsScript>().haveBonus == false)
             {
-                col.gameObject.GetComponentInParent<PlayerStatsScript>().haveBonus = true;
-                col.gameObject.GetComponentInParent<PlayerStatsScript>().bonusIndex = itemIndex;
-                col.gameObject.GetComponentInParent<PlayerStatsScript>().setBonus(bonusImage);
+                PlayerStatsScript stats = col.gameObject.GetComponentInParent<PlayerStatsScript>();
+                stats.haveBonus = true;
+                stats.bonusIndex = itemIndex;
+                stats.setBonus(bonusImage);
                 Destroy(gameObject);
             }
         }

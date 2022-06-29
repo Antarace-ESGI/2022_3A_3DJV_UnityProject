@@ -17,7 +17,7 @@ public class BonusScript : MonoBehaviour
     
     void Start()
     {
-        _gameManager = _gameManager = GameObject.FindWithTag("GameController");
+        _gameManager = _gameManager = GameObject.FindWithTag("BonusController");
         storagePosition = new Vector3(0.0f, -500.0f, 0.0f);
     }
 

@@ -101,5 +101,9 @@ public class TrackArrayScript : MonoBehaviour
     {
         return _leaderboard;
     }
-    
+
+    private void OnDestroy()
+    {
+        FlushIndexes();
+    }
 }

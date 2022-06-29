@@ -13,6 +13,7 @@ TagManager:
   - Player2
   - Node
   - PlayerManager
+  - BonusController
   layers:
   - Default
   - TransparentFX
