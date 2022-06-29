@@ -54,7 +54,7 @@ public class Leaderboard : MonoBehaviour
         {
             return x.GetTotalProgression() - y.GetTotalProgression();
         }
-        catch (MissingReferenceException exception)
+        catch (MissingReferenceException)
         {
             return 0;
         }

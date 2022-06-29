@@ -1,46 +1,58 @@
 using Checkpoints;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(CheckpointController))]
 [RequireComponent(typeof(ShipController))]
+[RequireComponent(typeof(Rigidbody))]
 public class AiController : MonoBehaviour
 {
     public int aiLife = 50;
+    private NavMeshPath _path;
 
     private ShipController _shipController;
     private CheckpointController _checkpointController;
-    private AINavigation _aiNavigation;
+    private NavMeshAgent _agent;
+    private Rigidbody _body;
 
     void Start()
     {
         _checkpointController = GetComponent<CheckpointController>();
         _shipController = GetComponent<ShipController>();
-        _aiNavigation = GetComponent<AINavigation>();
+        _body = GetComponent<Rigidbody>();
+
+        _agent = GetComponent<NavMeshAgent>();
+        _agent.updatePosition = false;
+        _agent.updateRotation = false;
+        _agent.isStopped = true;
+
+        _path = _agent.path;
     }
 
     void Update()
     {
-        var nextNode = _aiNavigation.GetNextNode();
-        if (nextNode != null)
-        {
-            var nextPosition = nextNode.transform.position;
-            var currentNode = _aiNavigation.GetCurrentNode();
-            var currentNodePosition = currentNode.transform.position;
+        // Calculate paths
+        Vector3 nextCheckpoint = _checkpointController.GetNextCheckpoint().transform.position;
 
-            var targetSpeed = currentNode.GetComponent<AINode>().targetSpeed;
-            var nextTargetSpeed = nextNode.GetComponent<AINode>().targetSpeed;
+        var target = _agent.steeringTarget;
+        var desiredVelocity = _agent.desiredVelocity.normalized.magnitude;
+        Debug.DrawLine(transform.position, target, Color.blue);
 
-            var yaw = transform.InverseTransformPoint(nextPosition).x;
-            _shipController.SetYaw(yaw);
+        _agent.Warp(transform.position);
+        _agent.velocity = _body.velocity;
 
-            var nodeDistance = Vector3.Distance(currentNodePosition, nextPosition);
-            var progressDistance = Vector3.Distance(transform.position, nextPosition);
-            var progress = progressDistance / nodeDistance;
-            var interpolatedSpeed = Mathf.Lerp(nextTargetSpeed, targetSpeed, progress);
-
-            var speed = Vector2.up * interpolatedSpeed;
-            _shipController.Move(speed);   
+        if (_agent.isOnNavMesh) {
+            _agent.SetDestination(nextCheckpoint);
         }
+
+        // Moving methods
+        var yaw = transform.InverseTransformPoint(target).x;
+        Debug.DrawRay(transform.position, transform.forward * yaw * desiredVelocity, Color.yellow);
+        
+        _shipController.SetYaw(yaw);
+        _shipController.Move(Vector2.up * desiredVelocity);
+
+        // Respawn on death
         if (aiLife <= 0)
         {
             _checkpointController.RespawnEntity();
