@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -15,8 +14,7 @@ public class EndRaceScript : MonoBehaviour
     
     //End race
     private Dictionary<GameObject, bool> playingEntities = new Dictionary<GameObject, bool>();
-    private PlayerInputManager _observer;
-    
+
     //Leaderboard
     private static Dictionary<string, int> _rank = new Dictionary<string, int>();
     private GameObject _gameManager;
@@ -24,11 +22,13 @@ public class EndRaceScript : MonoBehaviour
     private int runner = 0;
     private int _players = 0;
 
-    public PlayerInputManager playerInputManager;
+    [SerializeField] private PlayerInputManager playerInputManager;
 
     private void Start()
     {
         runner = 0;
+        
+        playerInputManager = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<PlayerInputManager>();
         
         // Find Gameobject everywhere !! EVERYWHERE !!!!!!!!!!!!!!!!!!!
         
@@ -46,10 +46,6 @@ public class EndRaceScript : MonoBehaviour
             {
                 playingEntities.Add(player,false);
             }   
-        }
-        else
-        {
-            _observer = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<PlayerInputManager>();
         }
 
         playerInputManager.onPlayerJoined += OnPlayerJoined;

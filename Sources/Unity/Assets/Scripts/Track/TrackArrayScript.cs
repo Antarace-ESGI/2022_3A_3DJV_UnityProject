@@ -49,7 +49,8 @@ public class TrackArrayScript : MonoBehaviour
 
     public void FlushIndexes()
     {
-        Array.Clear(_indexes,0,_indexes.Length);
+        if(_indexes != null)
+            Array.Clear(_indexes,0,_indexes.Length);
     }
 
     public void AutoFlush()
