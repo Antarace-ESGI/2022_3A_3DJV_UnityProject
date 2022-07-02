@@ -3,7 +3,7 @@ import { FormikHelpers } from "formik/dist/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 
-import { loginSchema } from "@components/loginForm/models";
+import { signupSchema } from "@components/loginForm/models";
 import { setToken } from "@components/loginForm/slice";
 import Link from "next/link";
 
@@ -11,10 +11,18 @@ function LoginForm() {
 	const dispatch = useDispatch();
 
 	const handleSubmit = useCallback((values: any, helpers: FormikHelpers<any>) => {
-		const { username, password } = values;
+		const { username, password, confirmPassword } = values;
+		console.log(values);
 		const { setSubmitting, setErrors } = helpers;
 
-		fetch("/api/session", {
+		if (password !== confirmPassword) {
+			setErrors({
+				password: "password must match.",
+			});
+			return;
+		}
+
+		fetch("/api/account", {
 			method: "post",
 			headers: {
 				"Content-Type": "application/json",
@@ -35,11 +43,12 @@ function LoginForm() {
 
 	return (
 		<Formik
-			validationSchema={ loginSchema }
+			validationSchema={ signupSchema }
 			onSubmit={ handleSubmit }
 			initialValues={ {
 				username: "",
 				password: "",
+				confirmPassword: "",
 			} }
 		>
 			{ ({
@@ -86,27 +95,47 @@ function LoginForm() {
 								value={ values.password }
 							/>
 							<label className="label">
-									<span className="label-text-alt">
-										{ errors.password as string }
-									</span>
+								<span className="label-text-alt">
+									{ errors.password as string }
+								</span>
 							</label>
 						</div>
+
+						<div className="form-control">
+							<label className="label">
+								<span className="label-text">Confirm password</span>
+							</label>
+							<input
+								type="password"
+								placeholder="confirm password"
+								name="confirmPassword"
+								className="input input-bordered"
+								onChange={ handleChange }
+								value={ values.confirmPassword }
+							/>
+							<label className="label">
+								<span className="label-text-alt">
+									{ errors.confirmPassword as string }
+								</span>
+							</label>
+						</div>
+
 						<div className="form-control mt-6">
 							<button
 								className="btn btn-primary progress-btn"
 								type="submit"
 								disabled={ isSubmitting }
 							>
-								Login
+								Signup
 							</button>
 
 							<label className="label label-text-alt">
 								<Link
-									href="/signup"
+									href="/login"
 									passHref
 								>
 									<a className="link link-hover">
-										Don&apos;t have an account yet? Signup!
+										Already have an account? Login!
 									</a>
 								</Link>
 							</label>
