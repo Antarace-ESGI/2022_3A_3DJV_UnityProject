@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Checkpoints;
+using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -86,7 +88,11 @@ public class EndRaceScript : MonoBehaviour
                 }
                 Cursor.lockState = CursorLockMode.None;
                 waitingPanel.SetActive(true);
-                
+
+                // Send score
+                var vehicleIndex = colEntity.GetComponent<VehicleLoader>().vehicleIndex;
+                var vehicleName = Vehicle.Vehicles[vehicleIndex].name;
+                StartCoroutine(SubmitEndRaceTime.SendTime(0, vehicleName, gameObject.scene.name));
             }
 
             //Wait for every participant to finish the race

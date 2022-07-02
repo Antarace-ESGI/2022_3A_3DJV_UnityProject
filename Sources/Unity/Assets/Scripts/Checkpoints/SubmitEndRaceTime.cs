@@ -27,7 +27,7 @@ namespace Checkpoints
         /// <param name="time"></param>
         /// <param name="vehicle">Name of the vehicle used to make this time</param>
         /// <returns></returns>
-        IEnumerator SendTime(int time, string vehicle)
+        public static IEnumerator SendTime(int time, string vehicle, string track)
         {
             var loginRequest = new TimeRequest(time, vehicle);
             var json = JsonUtility.ToJson(loginRequest);
