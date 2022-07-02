@@ -544,6 +544,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8392480833456586577}
+  - component: {fileID: 7187925964521388689}
   m_Layer: 6
   m_Name: CompletePlayer
   m_TagString: Untagged
@@ -569,6 +570,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7187925964521388689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8392480833456586576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f409fbfd94cb984abc7d5fca49be432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSelMenu: {fileID: 5408947241605833811, guid: 671f18074628c7f49a10a47900fccb4e, type: 3}
 --- !u!1 &8392480833674382244
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,11 +892,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c941bea6c5347c41a2711cf234cea26, type: 3}
---- !u!23 &170489582212236993 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7083203995568248314, guid: 1c941bea6c5347c41a2711cf234cea26, type: 3}
-  m_PrefabInstance: {fileID: 6922362335849042747}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7292246443510697947 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 369972878287625440, guid: 1c941bea6c5347c41a2711cf234cea26, type: 3}
@@ -894,6 +903,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db6217a0f5eb436b874a227ab1e3d001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &170489582212236993 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7083203995568248314, guid: 1c941bea6c5347c41a2711cf234cea26, type: 3}
+  m_PrefabInstance: {fileID: 6922362335849042747}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &773752707140989148 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7687011393801937895, guid: 1c941bea6c5347c41a2711cf234cea26, type: 3}
