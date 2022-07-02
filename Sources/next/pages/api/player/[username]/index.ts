@@ -12,18 +12,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	const { username } = req.query;
 
 	if (req.method === "GET") {
-		const scores = await Scores.findAll({
-			attributes: ["creationDate", "time", "vehicle", "track"],
-			include: [{
-				model: User,
-				required: true,
-				where: { username },
-				attributes: [],
-			}],
-			order: [["time", "ASC"]],
-		});
+		const user = await User.findOne({where: { username }});
+		if (!user) {
+			res.status(404).end();
+			return;
+		}
 
-		res.status(200).json(scores);
+		res.status(200).end();
 	} else {
 		res.status(405).end();
 	}

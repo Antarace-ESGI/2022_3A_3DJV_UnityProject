@@ -2,17 +2,14 @@ export interface IScore {
 	creationDate: string,
 	time: number,
 	vehicle: string,
-}
-
-export interface IVehicle {
-	vehicle: string, // Name of the vehicle
-	count: number, // Number of time vehicles was used
+	track: string,
 }
 
 export interface IStats {
-	stats: {
-		played: string, // Total games played
-		time: string, // Total time played
+	played: string, // Total games played
+	time: string, // Total time played
+	vehicle: {
+		name: string, // The name of the vehicle
+		used: number, // Times used
 	},
-	vehicles: IVehicle[],
 }

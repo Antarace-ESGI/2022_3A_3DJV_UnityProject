@@ -4,22 +4,17 @@ import { useSelector } from "react-redux";
 import { RootState } from "@core/store";
 import moment from "moment-timezone";
 
-export default function Times() {
+export default function Times(props) {
 	const token = useSelector((state: RootState) => state.token.value);
+	const { username } = props;
 	const [times, setTimes] = useState<IScore[]>([]);
 
-	const fetchTimes = useCallback(async () => {
-		const response = await fetch("/api/time", {
-			headers: {
-				authorization: `Bearer ${ token }`,
-			}
-		});
-		setTimes(await response.json());
-	}, [token]);
-
 	useEffect(() => {
-		fetchTimes();
-	}, [fetchTimes]);
+		if (!username) return;
+		fetch(`/api/player/${ username }/time`)
+			.then(res => res.json())
+			.then(setTimes);
+	}, [username]);
 
 	return (
 		<div className="overflow-x-auto">
@@ -27,6 +22,7 @@ export default function Times() {
 				<thead>
 				<tr>
 					<th></th>
+					<th>Track</th>
 					<th>Vehicle</th>
 					<th>Time</th>
 					<th>Submit date</th>
@@ -34,15 +30,15 @@ export default function Times() {
 				</thead>
 				<tbody>
 				{ times.map((timeEntry, index) => {
-					const {vehicle, time, creationDate} = timeEntry;
+					const { vehicle, time, creationDate,track } = timeEntry;
 					const duration = moment.duration(time, "seconds");
-					const formattedDuration = `${duration.minutes()}:${duration.seconds()}`
 
 					return (
-						<tr key={index}>
+						<tr key={ index }>
 							<th>{ index + 1 }</th>
+							<td>{ track }</td>
 							<td>{ vehicle }</td>
-							<td>{ formattedDuration }</td>
+							<td>{ duration.humanize() }</td>
 							<td>{ moment(creationDate).format("yyyy-MM-DD") }</td>
 						</tr>
 					)

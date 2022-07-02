@@ -20,6 +20,8 @@ services:
       POSTGRES_PASSWORD: root
       POSTGRES_USER: root
       POSTGRES_DB: antarace
+    ports:
+      - "5432:5432"
     networks:
       - game-network
 

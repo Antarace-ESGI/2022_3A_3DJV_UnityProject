@@ -13,11 +13,13 @@ namespace Checkpoints
         {
             public int time;
             public string vehicle;
+            public string track;
 
-            public TimeRequest(int time, string vehicle)
+            public TimeRequest(int time, string vehicle, string track)
             {
                 this.time = time;
                 this.vehicle = vehicle;
+                this.track = track;
             }
         }
         
@@ -29,15 +31,17 @@ namespace Checkpoints
         /// <returns></returns>
         public static IEnumerator SendTime(int time, string vehicle, string track)
         {
-            var loginRequest = new TimeRequest(time, vehicle);
+            var loginRequest = new TimeRequest(time, vehicle, track);
             var json = JsonUtility.ToJson(loginRequest);
+            var token = PlayerPrefs.GetString("token");
 
-            UnityWebRequest request = new UnityWebRequest($"{LoginScript.BaseUrl}/time");
+            UnityWebRequest request = new UnityWebRequest($"{LoginScript.BaseUrl}/submitTime");
             
             request.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(json));
             request.downloadHandler = new DownloadHandlerBuffer();
             request.method = UnityWebRequest.kHttpVerbPOST;
             request.SetRequestHeader("Content-Type", "application/json");
+            request.SetRequestHeader("Authorization", $"Bearer {token}");
             request.useHttpContinue = false;
             request.redirectLimit = 0;
             request.timeout = 60;
