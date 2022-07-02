@@ -29,10 +29,12 @@ namespace Menu.LoginMenu
     {
         public Button okButton;
         public InputField usernameField;
-        public InputField passwordfield;
-        public bool register;
+        public InputField passwordField;
+        public bool registerMode;
+        public GameObject successPanel;
+        public Text feedbackText;
 
-        private static string url = "http://localhost:3000/api/session";
+        public static string BaseUrl = "http://localhost:3000/api";
 
         private void OnEnable()
         {
@@ -46,7 +48,7 @@ namespace Menu.LoginMenu
 
         void TaskOnClick()
         {
-            StartCoroutine(Login(usernameField.text, passwordfield.text));
+            StartCoroutine(Login(usernameField.text, passwordField.text));
         }
 
         IEnumerator Login(string username, string password)
@@ -54,10 +56,12 @@ namespace Menu.LoginMenu
             var loginRequest = new LoginRequest(username, password);
             var json = JsonUtility.ToJson(loginRequest);
 
+            var url = registerMode ? $"{BaseUrl}/account" : $"{BaseUrl}/session";
             UnityWebRequest request = new UnityWebRequest(url);
+            
             request.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(json));
             request.downloadHandler = new DownloadHandlerBuffer();
-            request.method = register ? UnityWebRequest.kHttpVerbPOST : UnityWebRequest.kHttpVerbGET;
+            request.method = UnityWebRequest.kHttpVerbPOST;
             request.SetRequestHeader("Content-Type", "application/json");
             request.useHttpContinue = false;
             request.redirectLimit = 0;
@@ -67,13 +71,15 @@ namespace Menu.LoginMenu
             
             if (request.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError(request.error);
+                feedbackText.text = request.error;
             }
             else
             {
                 var tokenResponse = JsonUtility.FromJson<TokenResponse>(request.downloadHandler.text);
                 Debug.Log("Got JWT!");
                 PlayerPrefs.SetString("token", tokenResponse.token);
+                gameObject.SetActive(false);
+                successPanel.SetActive(true);
             }
         }
     }

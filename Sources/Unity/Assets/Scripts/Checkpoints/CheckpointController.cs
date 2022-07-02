@@ -61,10 +61,6 @@ namespace Checkpoints
 
         public void RespawnEntity()
         {
-            if (gameObject.TryGetComponent(out AINavigation navigation))
-            {
-                navigation.SetCurrentNavigation(GetCurrentCheckpoint());
-            }
             transform.position = GetCurrentCheckpoint().transform.position + Vector3.up; // +1 up to make the ship float above ground
         }
 

@@ -180,9 +180,4 @@ public class ShipController : MonoBehaviour
         _ship.velocity = nVeloc;
         _ship.angularVelocity = nAVeloc;
     }
-
-    public void Rotate(Vector2 dir)
-    {
-        throw new System.NotImplementedException();
-    }
 }
