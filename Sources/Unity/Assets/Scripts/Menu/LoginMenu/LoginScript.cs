@@ -32,7 +32,8 @@ namespace Menu.LoginMenu
         public InputField passwordfield;
         public bool register;
 
-        private static string url = "http://localhost:3000/api/session";
+        public const string BaseUrl = "https://pa.quozul.dev";
+        private static readonly string LoginUrl = $"{BaseUrl}api/session";
 
         private void OnEnable()
         {
@@ -54,7 +55,7 @@ namespace Menu.LoginMenu
             var loginRequest = new LoginRequest(username, password);
             var json = JsonUtility.ToJson(loginRequest);
 
-            UnityWebRequest request = new UnityWebRequest(url);
+            UnityWebRequest request = new UnityWebRequest(LoginUrl);
             request.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(json));
             request.downloadHandler = new DownloadHandlerBuffer();
             request.method = register ? UnityWebRequest.kHttpVerbPOST : UnityWebRequest.kHttpVerbGET;
