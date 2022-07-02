@@ -1,9 +1,19 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@core/store";
 import Link from "next/link";
+import { useCallback } from "react";
+import { setToken } from "@components/loginForm/slice";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
 	const token = useSelector((state: RootState) => state.token.value);
+	const dispatch = useDispatch();
+	const router = useRouter()
+
+	const handleLogout = useCallback(() => {
+		dispatch(setToken(null));
+		router.push("/");
+	}, [dispatch]);
 
 	return (
 		<div className="navbar bg-base-100">
@@ -32,11 +42,18 @@ export default function Navbar() {
 								className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
 							>
 								<li>
-									<a className="justify-between">
-										Profile
-									</a>
+									<Link
+										href="/profile"
+										passHref
+									>
+										<a className="justify-between">
+											Profile
+										</a>
+									</Link>
 								</li>
-								<li><a>Logout</a></li>
+								<li>
+									<a onClick={ handleLogout }>Logout</a>
+								</li>
 							</ul>
 						</div>
 					)

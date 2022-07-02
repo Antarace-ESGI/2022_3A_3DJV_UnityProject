@@ -34,7 +34,7 @@ namespace Menu.LoginMenu
         public GameObject successPanel;
         public Text feedbackText;
 
-        public const string BaseUrl = "http://localhost:3000/api";
+        public static string BaseUrl = "http://localhost:3000/api";
 
         private void OnEnable()
         {

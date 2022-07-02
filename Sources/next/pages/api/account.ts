@@ -3,6 +3,7 @@ import { createHash } from "crypto";
 
 import { User } from "@models/User.model";
 import { sequelize } from "@components/database";
+import { UniqueConstraintError } from "sequelize";
 
 async function signup(username: string, password: string): Promise<void> {
 	await User.create({
@@ -23,8 +24,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			await signup(username, password);
 			res.status(201).end();
 		} catch (e) {
-			console.error(e);
-			res.status(400).end();
+			if (e instanceof UniqueConstraintError) {
+				res.status(409).end();
+			} else {
+				res.status(400).end();
+			}
 		}
 	} else {
 		res.status(405).end();

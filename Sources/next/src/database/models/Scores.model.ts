@@ -33,6 +33,10 @@ export class Scores extends Model {
 	@Column(DataType.INTEGER)
 	declare time: number;
 
+	@AllowNull(false)
+	@Column(DataType.STRING(64))
+	declare vehicle: string;
+
 	@CreatedAt
 	declare creationDate: Moment;
 

@@ -6,13 +6,14 @@ import { useDispatch } from "react-redux";
 import { signupSchema } from "@components/loginForm/models";
 import { setToken } from "@components/loginForm/slice";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 function LoginForm() {
 	const dispatch = useDispatch();
+	const router = useRouter()
 
 	const handleSubmit = useCallback((values: any, helpers: FormikHelpers<any>) => {
 		const { username, password, confirmPassword } = values;
-		console.log(values);
 		const { setSubmitting, setErrors } = helpers;
 
 		if (password !== confirmPassword) {
@@ -32,6 +33,7 @@ function LoginForm() {
 			.then((res) => res.json())
 			.then((json) => {
 				dispatch(setToken(json.token));
+				router.push("/login");
 			})
 			.catch((err) => {
 				setErrors(err);

@@ -1,45 +1,41 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import * as jwt from "jsonwebtoken";
-import { createHash } from "crypto";
 
-import { User } from "@models/User.model";
 import { sequelize } from "@components/database";
 import { IToken } from "@components/loginForm/models";
 import { Scores } from "@models/Scores.model";
+import { User } from "@models/User.model";
+import { getUserId } from "@core/helpers";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	await sequelize.authenticate();
+	await User.sync();
 	await Scores.sync();
 
-	const token = req.headers.authorization.replace("Bearer ", "");
-	try {
-		jwt.verify(
-			token,
-			process.env.JWT_SECRET,
-		);
-	} catch (e) {
+	const playerId = getUserId(req);
+	if (!playerId) {
 		res.status(401).end();
+		return;
 	}
-
-	const { id } = jwt.decode(token) as IToken;
 
 	if (req.method === "GET") {
 		const scores = await Scores.findAll({
-			attributes: ["creationDate", "time"],
+			attributes: ["creationDate", "time", "vehicle"],
 			where: {
-				playerId: id,
+				playerId,
 			},
 		});
 
 		res.status(200).json(scores);
 	} else if (req.method === "POST") {
 		// Save score
-		const { score } = req.body;
+		const { time, vehicle } = req.body;
 
 		try {
 			await Scores.create({
-				playerId: id,
-				time: score,
+				playerId,
+				time,
+				vehicle,
 			});
 
 			res.status(201).end();
