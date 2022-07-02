@@ -16,9 +16,7 @@ export default function Profile() {
 				<hr />
 
 				<Stats />
-
 				<h2>Scores</h2>
-
 				<Times />
 			</div>
 		</div>
