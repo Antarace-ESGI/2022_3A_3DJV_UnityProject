@@ -4,11 +4,15 @@ import Link from "next/link";
 import { useCallback } from "react";
 import { setToken } from "@components/loginForm/slice";
 import { useRouter } from "next/router";
+import * as jwt from "jsonwebtoken";
+import { IToken } from "@components/loginForm/models";
+import Image from "next/image";
 
 export default function Navbar() {
 	const token = useSelector((state: RootState) => state.token.value);
 	const dispatch = useDispatch();
-	const router = useRouter()
+	const router = useRouter();
+	const { username } = jwt.decode(token) as IToken;
 
 	const handleLogout = useCallback(() => {
 		dispatch(setToken(null));
@@ -29,21 +33,31 @@ export default function Navbar() {
 				{
 					token && (
 						<div className="dropdown dropdown-end">
-							<label
-								tabIndex={ 0 }
-								className="btn btn-ghost btn-circle avatar"
-							>
-								<div className="w-10 rounded-full">
-									<img src="https://placeimg.com/80/80/people" />
-								</div>
-							</label>
+							<div className="flex items-center">
+								{ username }
+
+								<label
+									tabIndex={ 0 }
+									className="btn btn-ghost btn-circle avatar ml-1"
+								>
+									<div className="w-10 rounded-full">
+										<Image
+											src="/abstract-user.svg"
+											alt="Profile picture"
+											width={ 80 }
+											height={ 80 }
+										/>
+									</div>
+								</label>
+							</div>
+
 							<ul
 								tabIndex={ 0 }
 								className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
 							>
 								<li>
 									<Link
-										href="/profile"
+										href={ `/player/${ username }` }
 										passHref
 									>
 										<a className="justify-between">

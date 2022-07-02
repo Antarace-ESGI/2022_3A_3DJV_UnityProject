@@ -3,12 +3,13 @@
 ## Environment file
 
 ```sh
-DATABASE_NAME=antarace
-DATABASE_USERNAME=red_player
-DATABASE_PASSWORD=imnotred
-DATABASE_HOST=localhost
+# .env.local
 JWT_SECRET=some random bytes # used to generate a secure jwt
 ```
+
+## Database
+
+The database schema will be automatically generated.
 
 ## Run with Docker CLI
 
