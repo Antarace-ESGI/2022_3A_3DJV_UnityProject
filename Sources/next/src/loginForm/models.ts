@@ -22,3 +22,9 @@ export const signupSchema = yup.object().shape({
 		.required()
 		.oneOf([yup.ref("password"), null], "passwords must match"),
 });
+
+export interface IToken {
+	id: string,
+	username: string,
+	iat: number,
+} ;

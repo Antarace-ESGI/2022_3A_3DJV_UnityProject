@@ -2,6 +2,7 @@ import * as pg from "pg";
 import { Sequelize } from "sequelize-typescript";
 
 import { User } from "@models/User.model";
+import { Scores } from "@models/Scores.model";
 
 export const sequelize = new Sequelize({
 	database: "antarace",
@@ -10,6 +11,6 @@ export const sequelize = new Sequelize({
 	username: "root",
 	password: "root",
 	host: "postgres",
-	models: [User],
+	models: [User, Scores],
 	logging: () => {},
 });

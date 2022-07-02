@@ -1,36 +1,37 @@
 import {
-	AllowNull,
+	AllowNull, BelongsTo,
 	Column,
 	CreatedAt,
 	DataType,
 	Default,
-	DeletedAt, HasMany,
+	DeletedAt, ForeignKey,
 	Model,
 	PrimaryKey,
 	Table,
-	Unique,
 	UpdatedAt,
 } from "sequelize-typescript";
 import { Moment } from "moment-timezone";
-import { Scores } from "@models/Scores.model";
+import { User } from "@models/User.model";
 
 @Table({
 	timestamps: true,
 })
-export class User extends Model {
+export class Scores extends Model {
 	@Default(DataType.UUIDV4)
 	@PrimaryKey
 	@Column(DataType.UUID)
 	declare id: string;
 
-	@Unique
-	@AllowNull(false)
-	@Column(DataType.STRING(32))
-	declare username: string;
+	@ForeignKey(() => User)
+	@Column(DataType.UUID)
+	declare playerId: string;
+
+	@BelongsTo(() => User, "playerId")
+	declare player: User;
 
 	@AllowNull(false)
-	@Column(DataType.STRING(64))
-	declare password: string;
+	@Column(DataType.INTEGER)
+	declare time: number;
 
 	@CreatedAt
 	declare creationDate: Moment;
