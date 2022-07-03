@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(ShipController))]
 public class PlayerInputScript : MonoBehaviour
 {
     // Accessor
