@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 public class EndRaceScript : MonoBehaviour
 {
-
     [SerializeField] private GameObject enablingPanel;
     [SerializeField] private GameObject waitingPanel;
     [SerializeField] private Text text;
@@ -30,8 +29,6 @@ public class EndRaceScript : MonoBehaviour
     {
         runner = 0;
         
-        playerInputManager = GameObject.FindGameObjectWithTag("PlayerManager").GetComponent<PlayerInputManager>();
-        
         // Find Gameobject everywhere !! EVERYWHERE !!!!!!!!!!!!!!!!!!!
         
         foreach (GameObject ai in GameObject.FindGameObjectsWithTag("AI"))
@@ -50,7 +47,12 @@ public class EndRaceScript : MonoBehaviour
             }   
         }
 
-        playerInputManager.onPlayerJoined += OnPlayerJoined;
+        var playerManager = GameObject.FindGameObjectWithTag("PlayerManager");
+        if (playerManager != null)
+        {
+            playerInputManager = playerManager.GetComponent<PlayerInputManager>();
+            playerInputManager.onPlayerJoined += OnPlayerJoined;
+        }
 
         // General Game Manager
         _gameManager = GameObject.FindGameObjectWithTag("GameController");

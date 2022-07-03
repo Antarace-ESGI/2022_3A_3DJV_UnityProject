@@ -2499,7 +2499,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 299840069}
   - {fileID: 1336548564}
   - {fileID: 902806141}
   - {fileID: 694273875}
