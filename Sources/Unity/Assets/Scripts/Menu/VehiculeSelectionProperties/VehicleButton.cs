@@ -9,6 +9,7 @@ public class VehicleButton : MonoBehaviour
     public Text buttonText;
     public Text previewPlaceholder;
     public Text previewText;
+    public WaitForAll waitForAll;
 
     private Button _button;
     private Vehicle _vehicle;
@@ -37,6 +38,6 @@ public class VehicleButton : MonoBehaviour
                            $"Boost duration: {_vehicle.boostDuration}\n" +
                            $"Yaw strength: {_vehicle.yawStrength}";
 
-        PlayerPrefs.SetInt("playerVehicle", vehicleIndex);
+        waitForAll.ChosenVehicle = vehicleIndex;
     }
 }

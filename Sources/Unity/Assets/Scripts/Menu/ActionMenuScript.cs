@@ -1,13 +1,8 @@
-using JetBrains.Annotations;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class ActionMenuScript : MonoBehaviour
 {
-    
     public GameObject currentPanel;
     public GameObject nextPanel;
 
@@ -85,12 +80,10 @@ public class ActionMenuScript : MonoBehaviour
     {
         SceneManager.LoadScene(i);
     }
-    
-    public void changeSceneWithIndex()
+
+    public void JustRemovePlayer(WaitForAll waitForAll)
     {
-        TrackArrayScript brain = FindObjectOfType<TrackArrayScript>();
-        if (brain != null)
-            SceneManager.LoadScene(brain.GetIndexOfTrack());
+        waitForAll.IsReady = true;
     }
 
     public void LoadAdditiveScene()
