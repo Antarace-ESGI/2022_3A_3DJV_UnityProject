@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 namespace Player
 {
-    [RequireComponent(typeof(PlayerInput))]
     public class VehicleLoader : MonoBehaviour
     {
         public ShipController shipController;
@@ -17,11 +16,18 @@ namespace Player
             Vehicle.InitializeVehicles();
 
             // Get vehicle index from SelectedVehiclesScript
-            var playerIndex = GetComponent<PlayerInput>().playerIndex;
-            vehicleIndex = SelectedVehiclesScript.GetSelectedVehicleIndex(playerIndex);
-            Debug.Log($"Found vehicle {vehicleIndex} for player {playerIndex}");
+            var playerInput = GetComponent<PlayerInput>();
+            if (playerInput)
+            {
+                var playerIndex = playerInput.playerIndex;
+                vehicleIndex = SelectedVehiclesScript.GetSelectedVehicleIndex(playerIndex);
+            }
+            else
+            {
+                vehicleIndex = 0; // TODO: Let AI chose their vehicle ?
+            }
 
-            Vehicle vehicle = Vehicle.Vehicles[vehicleIndex];
+            var vehicle = Vehicle.Vehicles[vehicleIndex];
 
             shipController.baseThrottle = vehicle.baseThrottle;
             shipController.boostMultiplier = vehicle.boostMultiplier;
