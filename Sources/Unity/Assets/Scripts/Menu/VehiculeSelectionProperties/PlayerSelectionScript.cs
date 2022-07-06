@@ -10,30 +10,30 @@ public class PlayerSelectionScript : MonoBehaviour
     private PlayerInputManager _playerInputManager;
     private readonly List<WaitForAll> _players = new List<WaitForAll>();
 
-    void Start()
+    private void Start()
     {
         _playerInputManager = GetComponent<PlayerInputManager>();
 
         // Join default player
         var gamepad = Gamepad.current.device;
         var input = _playerInputManager.JoinPlayer(pairWithDevice: gamepad);
-        var player = input.gameObject.GetComponent<WaitForAll>();
-        player.playerSelection = this;
-        _players.Add(player);
+        PlayerInputManagerOnPlayerJoined(input);
 
         _playerInputManager.onPlayerJoined += PlayerInputManagerOnPlayerJoined;
         _playerInputManager.onPlayerLeft += PlayerInputManagerOnPlayerLeft;
     }
 
-    private void PlayerInputManagerOnPlayerLeft(PlayerInput obj)
+    private void PlayerInputManagerOnPlayerLeft(PlayerInput input)
     {
-        _players.Remove(obj.gameObject.GetComponent<WaitForAll>());
+        _players.Remove(input.gameObject.GetComponent<WaitForAll>());
     }
 
-    private void PlayerInputManagerOnPlayerJoined(PlayerInput obj)
+    private void PlayerInputManagerOnPlayerJoined(PlayerInput input)
     {
-        var player = obj.gameObject.GetComponent<WaitForAll>();
+        var player = input.gameObject.GetComponent<WaitForAll>();
         player.playerSelection = this;
+        player.input = input;
+        SelectedVehiclesScript.SetDeviceForPlayer(input.playerIndex, input.devices[0]); // Unsafe?
         _players.Add(player);
     }
 

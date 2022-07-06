@@ -24,9 +24,17 @@ public class WaitForAll : MonoBehaviour
         set
         {
             _isReady = value;
-            selectionCanvas.SetActive(false);
-            selectedCanvas.SetActive(true);
-            playerSelection.CheckPlayerReady();
+            if (_isReady)
+            {
+                selectionCanvas.SetActive(false);
+                selectedCanvas.SetActive(true);
+                playerSelection.CheckPlayerReady();
+            }
+            else
+            {
+                selectionCanvas.SetActive(true);
+                selectedCanvas.SetActive(false);
+            }
         }
     }
 
@@ -34,5 +42,8 @@ public class WaitForAll : MonoBehaviour
     /// Index of the selected vehicle array (Vehicle._vehicles)
     /// Is updated by VehicleButton
     /// </summary>
-    public int ChosenVehicle { get; set; }
+    public int ChosenVehicle
+    {
+        set => SelectedVehiclesScript.SetSelectedVehicle(input.playerIndex, value);
+    }
 }

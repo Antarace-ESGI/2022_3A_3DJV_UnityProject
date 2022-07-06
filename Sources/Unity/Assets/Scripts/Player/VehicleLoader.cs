@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Player
 {
+    [RequireComponent(typeof(PlayerInput))]
     public class VehicleLoader : MonoBehaviour
     {
         public ShipController shipController;
@@ -14,7 +16,10 @@ namespace Player
             // Should not be loaded in a normal usage
             Vehicle.InitializeVehicles();
 
-            vehicleIndex = PlayerPrefs.GetInt("playerVehicle");
+            // Get vehicle index from SelectedVehiclesScript
+            var playerIndex = GetComponent<PlayerInput>().playerIndex;
+            vehicleIndex = SelectedVehiclesScript.GetSelectedVehicleIndex(playerIndex);
+            Debug.Log($"Found vehicle {vehicleIndex} for player {playerIndex}");
 
             Vehicle vehicle = Vehicle.Vehicles[vehicleIndex];
 
