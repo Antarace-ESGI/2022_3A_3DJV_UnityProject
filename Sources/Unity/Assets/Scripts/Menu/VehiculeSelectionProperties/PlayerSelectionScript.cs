@@ -53,11 +53,6 @@ public class PlayerSelectionScript : MonoBehaviour
     private static void StartGame()
     {
         Debug.Log("Start level");
-
-        var brain = FindObjectOfType<TrackArrayScript>();
-        if (brain != null)
-        {
-            SceneManager.LoadScene(brain.GetIndexOfTrack());
-        }
+        SceneManager.LoadScene(5); // Go to TrackScene
     }
 }
