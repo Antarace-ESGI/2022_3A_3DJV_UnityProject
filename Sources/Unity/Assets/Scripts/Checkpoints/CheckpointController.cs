@@ -19,8 +19,6 @@ namespace Checkpoints
         private void Start()
         {
             _checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
-
-            Debug.Log(_checkpoints.Length);
             
             _currentCheckpoint = _nextCheckpoint = _checkpoints[checkpointIndex];
 

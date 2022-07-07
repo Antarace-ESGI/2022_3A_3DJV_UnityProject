@@ -94,7 +94,7 @@ public class EndRaceScript : MonoBehaviour
                 // Send score
                 var vehicleIndex = colEntity.GetComponent<VehicleLoader>().vehicleIndex;
                 var vehicleName = Vehicle.Vehicles[vehicleIndex].name;
-                //StartCoroutine(SubmitEndRaceTime.SendTime(0, vehicleName, gameObject.scene.name));
+                StartCoroutine(SubmitEndRaceTime.SendTime(0, vehicleName, gameObject.scene.name));
             }
 
             //Wait for every participant to finish the race

@@ -10,14 +10,17 @@ public class PlayerInputScript : MonoBehaviour
     [SerializeField] private GameObject _uiHUD;
 
     private ShipController _shipController;
-    private Canvas _pauseMenu;
+    private GameObject _pauseMenu;
 
     private InputActionAsset _inputAsset;
     private InputActionMap _player;
 
     private void Awake()
     {
-        _pauseMenu = GameObject.FindGameObjectWithTag("Pause").GetComponent<Canvas>();
+        _pauseMenu = GameObject.FindGameObjectWithTag("Pause");
+        // find this solution not the best but i have no other idea
+        _pauseMenu.SetActive(false);
+        
         _inputAsset = GetComponent<PlayerInput>().actions;
         _player = _inputAsset.FindActionMap("Player");
         _shipController = GetComponent<ShipController>();
@@ -91,13 +94,13 @@ public class PlayerInputScript : MonoBehaviour
     {
         if (_pauseMenu)
         {
-            if (_pauseMenu.enabled)
+            if (_pauseMenu.activeSelf)
             {
                 _player.FindAction("Shoot").started += Shoot; // Enable shooting back
                 Cursor.lockState = CursorLockMode.Confined;
                 _uiHUD.SetActive(true);
                 Time.timeScale = 1.0f;
-                _pauseMenu.enabled = false;
+                _pauseMenu.SetActive(false);
             }
             else
             {
@@ -105,7 +108,7 @@ public class PlayerInputScript : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 _uiHUD.SetActive(false);
                 Time.timeScale = 0.0f;
-                _pauseMenu.enabled = true;
+                _pauseMenu.SetActive(true);
             }
         }
     }
