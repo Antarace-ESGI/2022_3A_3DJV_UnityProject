@@ -14,12 +14,17 @@ public class LoadSceneManager : MonoBehaviour
         _trackArrayScript = FindObjectOfType<TrackArrayScript>();
         _inputManager = GetComponent<PlayerInputManager>();
 
+        StartLoading();
+    }
+
+    public void StartLoading()
+    {
         StartCoroutine(LoadYourAsyncScene());
     }
 
     IEnumerator LoadYourAsyncScene()
     {
-        var asyncLoad = SceneManager.LoadSceneAsync(_trackArrayScript.GetFirstScene(), LoadSceneMode.Additive);
+        var asyncLoad = SceneManager.LoadSceneAsync(_trackArrayScript.GetIndexOfTrack(), LoadSceneMode.Additive);
 
         while (!asyncLoad.isDone)
         {

@@ -92,15 +92,16 @@ public class ActionMenuScript : MonoBehaviour
         TrackArrayScript brain = FindObjectOfType<TrackArrayScript>();
         if (brain)
         {
+            int actual = brain.GetIndexOfTrack();
             brain.SetIndex(brain.GetIndex()+1);
-            int i = brain.GetIndexOfTrack();
-            if(i == 0)
+            int next = brain.GetIndexOfTrack();
+            if(next == 0)
                 gameObject.SetActive(false);
             else
             {
-                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
-                SceneManager.LoadSceneAsync(i, LoadSceneMode.Additive);
+                SceneManager.UnloadSceneAsync(actual);
                 inGamePanel.SetActive(false);
+                FindObjectOfType<LoadSceneManager>().StartLoading();
             }
         }
         else
@@ -110,6 +111,13 @@ public class ActionMenuScript : MonoBehaviour
             changeScene(3);
         }
         
+    }
+
+    public void KillTrack()
+    {
+        TrackArrayScript track = FindObjectOfType<TrackArrayScript>();
+        if(track)
+            track.CleanTrackArray();
     }
 
     public void Update()

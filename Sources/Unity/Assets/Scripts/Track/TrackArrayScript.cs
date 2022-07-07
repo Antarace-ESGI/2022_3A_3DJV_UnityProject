@@ -107,4 +107,16 @@ public class TrackArrayScript : MonoBehaviour
     {
         FlushIndexes();
     }
+    
+    // Delete every data
+
+    public void CleanTrackArray()
+    {
+        // Reset all value
+        FlushIndexes();
+        _leaderboard.Clear();
+        _leaderboard = null;
+        _index = 0;
+    }
+    
 }
