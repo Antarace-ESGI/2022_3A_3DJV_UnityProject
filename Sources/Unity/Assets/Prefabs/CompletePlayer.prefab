@@ -711,6 +711,10 @@ PrefabInstance:
       propertyPath: _uiHUD
       value: 
       objectReference: {fileID: 8392480833032017551}
+    - target: {fileID: 893275696481842048, guid: 1c941bea6c5347c41a2711cf234cea26, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 8392480833037856033}
     - target: {fileID: 1470776040043959769, guid: 1c941bea6c5347c41a2711cf234cea26, type: 3}
       propertyPath: m_Mass
       value: 1
