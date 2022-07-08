@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 4900559204341016441}
   - component: {fileID: 893275696481842048}
   - component: {fileID: 369972878287625440}
+  - component: {fileID: 2568804049833934689}
   - component: {fileID: 6922362336847772141}
   - component: {fileID: 7971496379812990752}
   - component: {fileID: 4478715769487998499}
@@ -165,6 +166,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpointIndex: 0
+--- !u!114 &2568804049833934689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073770661784305857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226acc9a8a0b45a6af92b65347abf4b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6922362336847772141
 MonoBehaviour:
   m_ObjectHideFlags: 0
