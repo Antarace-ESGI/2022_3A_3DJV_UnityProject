@@ -1,5 +1,6 @@
 ﻿using Unity.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Checkpoints
 {
@@ -18,16 +19,13 @@ namespace Checkpoints
 
         private void Start()
         {
-            _checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
-
-            Debug.Log(_checkpoints.Length);
-            
+            _checkpoints ??= GameObject.FindGameObjectsWithTag("Checkpoint");
             _currentCheckpoint = _nextCheckpoint = _checkpoints[checkpointIndex];
+        }
 
-            // Teleports the player to spawn on first apparition
-            var startTransform = _checkpoints[0].transform;
-            transform.position = startTransform.position;
-            transform.rotation = startTransform.rotation;
+        public static GameObject GetSpawnCheckpoint()
+        {
+            return _checkpoints[0];
         }
 
         private void IncrementCheckpoint(GameObject currentCheckpoint)

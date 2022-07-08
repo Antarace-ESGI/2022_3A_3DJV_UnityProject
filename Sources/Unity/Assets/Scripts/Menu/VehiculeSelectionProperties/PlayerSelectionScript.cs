@@ -15,7 +15,7 @@ public class PlayerSelectionScript : MonoBehaviour
         _playerInputManager = GetComponent<PlayerInputManager>();
 
         // Join default player
-        var gamepad = Gamepad.current.device;
+        var gamepad = Gamepad.current?.device ?? Keyboard.current?.device ?? Mouse.current?.device;
         var input = _playerInputManager.JoinPlayer(pairWithDevice: gamepad);
         PlayerInputManagerOnPlayerJoined(input);
 
@@ -42,8 +42,6 @@ public class PlayerSelectionScript : MonoBehaviour
         var playerCount = _playerInputManager.playerCount;
         var readyPlayers = _players.Count(player => player.IsReady);
 
-        Debug.Log($"{readyPlayers} players out of {playerCount} are ready");
-
         if (readyPlayers == playerCount)
         {
             StartGame();
@@ -52,7 +50,6 @@ public class PlayerSelectionScript : MonoBehaviour
 
     private static void StartGame()
     {
-        Debug.Log("Start level");
         SceneManager.LoadScene(5); // Go to TrackScene
     }
 }

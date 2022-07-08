@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(PlayerInputManager))]
 public class LoadSceneManager : MonoBehaviour
 {
+    public GameObject aiPrefab;
+
     private TrackArrayScript _trackArrayScript;
     private PlayerInputManager _inputManager;
-    
+    private const uint TotalPlayers = 4;
+
     void Start()
     {
         _trackArrayScript = FindObjectOfType<TrackArrayScript>();
@@ -38,8 +41,11 @@ public class LoadSceneManager : MonoBehaviour
             var playerIndex = player.Key;
             var playerDevice = player.Value;
             _inputManager.JoinPlayer(playerIndex, pairWithDevice: playerDevice);
-            Debug.Log($"Joining player {playerIndex} with device {playerDevice.name}");
+        }
+
+        for (var i = players.Count; i < TotalPlayers; i++)
+        {
+            Instantiate(aiPrefab);
         }
     }
-    
 }

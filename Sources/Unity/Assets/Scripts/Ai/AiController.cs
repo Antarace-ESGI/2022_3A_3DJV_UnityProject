@@ -36,7 +36,6 @@ public class AiController : MonoBehaviour
 
         var target = _agent.steeringTarget;
         var desiredVelocity = _agent.desiredVelocity.normalized.magnitude;
-        Debug.DrawLine(transform.position, target, Color.blue);
 
         _agent.Warp(transform.position);
         _agent.velocity = _body.velocity;
@@ -47,7 +46,6 @@ public class AiController : MonoBehaviour
 
         // Moving methods
         var yaw = transform.InverseTransformPoint(target).x;
-        Debug.DrawRay(transform.position, transform.forward * yaw * desiredVelocity, Color.yellow);
         
         _shipController.SetYaw(yaw);
         _shipController.Move(Vector2.up * desiredVelocity);
