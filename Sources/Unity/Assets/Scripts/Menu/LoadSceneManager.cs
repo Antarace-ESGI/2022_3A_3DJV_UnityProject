@@ -59,19 +59,14 @@ public class LoadSceneManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1);
         countdownText.text = "4";
-        Debug.Log("4");
         yield return new WaitForSecondsRealtime(1);
         countdownText.text = "3";
-        Debug.Log("3");
         yield return new WaitForSecondsRealtime(1);
         countdownText.text = "2";
-        Debug.Log("2");
         yield return new WaitForSecondsRealtime(1);
         countdownText.text = "1";
-        Debug.Log("1");
         yield return new WaitForSecondsRealtime(1);
         countdownText.text = "Go!";
-        Debug.Log("Go!");
 
         Time.timeScale = 1.0f;
         
