@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Checkpoints;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,20 +11,13 @@ public class Leaderboard : MonoBehaviour
 
     private Text _text;
     private float _lastExecution;
-    private readonly List<CheckpointController> _checkpointControllers = new List<CheckpointController>();
-
-    private int _rank;
+    private List<CheckpointController> _checkpointControllers;
+    public int _rank;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObject[] ais = GameObject.FindGameObjectsWithTag("AI");
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-        foreach (var entity in ais)
-            _checkpointControllers.Add(entity.GetComponent<CheckpointController>());
-        foreach (var entity in players)
-            _checkpointControllers.Add(entity.GetComponent<CheckpointController>());
+        _checkpointControllers = FindObjectsOfType<CheckpointController>().ToList();
         
         _text = GetComponent<Text>();
         _rank = _checkpointControllers.Count;
@@ -50,7 +44,7 @@ public class Leaderboard : MonoBehaviour
     {
         try
         {
-            return x.GetTotalProgression() - y.GetTotalProgression();
+            return (int) ((x.GetTotalProgression() - y.GetTotalProgression()) * 100);
         }
         catch (MissingReferenceException)
         {

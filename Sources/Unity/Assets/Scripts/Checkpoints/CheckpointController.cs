@@ -65,17 +65,16 @@ namespace Checkpoints
             transform.position = GetCurrentCheckpoint().transform.position + Vector3.up; // +1 up to make the ship float above ground
         }
 
-        public int GetTotalProgression()
+        public float GetTotalProgression()
         {
             var nextCheckpointPosition = _nextCheckpoint.transform.position;
             var distanceBetweenCheckpoint = Vector3.Distance(_currentCheckpoint.transform.position, nextCheckpointPosition);
             var distanceToNextCheckpoint = Vector3.Distance(transform.position, nextCheckpointPosition);
 
             var progressionBetweenCheckpoints = distanceToNextCheckpoint / distanceBetweenCheckpoint;
+            var progression = 1 - checkpointIndex / (_checkpoints?.Length ?? 1.0f);
 
-            int progression = (int) (checkpointIndex * 100 + progressionBetweenCheckpoints * 100) / _checkpoints.Length * 100;
-
-            return progression;
+            return progression * 10 + progressionBetweenCheckpoints;
         }
     }
 }
