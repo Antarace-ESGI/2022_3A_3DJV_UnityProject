@@ -2,12 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(PlayerInputManager))]
 public class LoadSceneManager : MonoBehaviour
 {
     public GameObject aiPrefab;
-
+    public Text countdownText;
+    
     private TrackArrayScript _trackArrayScript;
     private PlayerInputManager _inputManager;
     private const uint TotalPlayers = 4;
@@ -34,6 +36,8 @@ public class LoadSceneManager : MonoBehaviour
 
     private void SpawnPlayers()
     {
+        Time.timeScale = 0.0f;
+        
         var players = SelectedVehiclesScript.GetAllPlayers();
 
         foreach (var player in players)
@@ -47,5 +51,31 @@ public class LoadSceneManager : MonoBehaviour
         {
             Instantiate(aiPrefab);
         }
+
+        StartCoroutine(StartCountdown());
+    }
+
+    private IEnumerator StartCountdown()
+    {
+        yield return new WaitForSecondsRealtime(1);
+        countdownText.text = "4";
+        Debug.Log("4");
+        yield return new WaitForSecondsRealtime(1);
+        countdownText.text = "3";
+        Debug.Log("3");
+        yield return new WaitForSecondsRealtime(1);
+        countdownText.text = "2";
+        Debug.Log("2");
+        yield return new WaitForSecondsRealtime(1);
+        countdownText.text = "1";
+        Debug.Log("1");
+        yield return new WaitForSecondsRealtime(1);
+        countdownText.text = "Go!";
+        Debug.Log("Go!");
+
+        Time.timeScale = 1.0f;
+        
+        yield return new WaitForSecondsRealtime(1);
+        countdownText.enabled = false;
     }
 }
