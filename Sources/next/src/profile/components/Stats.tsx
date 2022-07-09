@@ -1,20 +1,8 @@
-import { useSelector } from "react-redux";
-import { RootState } from "@core/store";
-import { useEffect, useState } from "react";
-import { IStats } from "@components/profile/models";
 import moment from "moment-timezone";
 
 export default function Stats(props) {
-	const token = useSelector((state: RootState) => state.token.value);
-	const { username } = props;
-	const [stats, setStats] = useState<IStats>(null);
-
-	useEffect(() => {
-		if (!username) return;
-		fetch(`/api/player/${ username }/stats`)
-			.then(res => res.json())
-			.then(setStats);
-	}, [setStats, token, username]);
+	const { stats } = props;
+	console.log(stats);
 
 	const duration = moment.duration(stats?.time || 0, "seconds");
 

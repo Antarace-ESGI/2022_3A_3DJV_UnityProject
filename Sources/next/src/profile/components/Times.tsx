@@ -1,20 +1,7 @@
-import { useCallback, useEffect, useState } from "react";
-import { IScore } from "@components/profile/models";
-import { useSelector } from "react-redux";
-import { RootState } from "@core/store";
 import moment from "moment-timezone";
 
 export default function Times(props) {
-	const token = useSelector((state: RootState) => state.token.value);
-	const { username } = props;
-	const [times, setTimes] = useState<IScore[]>([]);
-
-	useEffect(() => {
-		if (!username) return;
-		fetch(`/api/player/${ username }/time`)
-			.then(res => res.json())
-			.then(setTimes);
-	}, [username]);
+	const { times } = props;
 
 	return (
 		<div className="overflow-x-auto">
