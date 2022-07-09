@@ -12,7 +12,7 @@ export default function Navbar() {
 	const token = useSelector((state: RootState) => state.token.value);
 	const dispatch = useDispatch();
 	const router = useRouter();
-	const { username } = jwt.decode(token) as IToken;
+	const { username } = jwt.decode(token) as IToken ?? {};
 
 	const handleLogout = useCallback(() => {
 		dispatch(setToken(null));
