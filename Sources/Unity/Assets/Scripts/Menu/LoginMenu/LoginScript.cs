@@ -34,7 +34,7 @@ namespace Menu.LoginMenu
         public GameObject successPanel;
         public Text feedbackText;
 
-        public static string BaseUrl = "http://localhost:3000/api";
+        public const string BaseUrl = "https://pa.quozul.dev/api";
 
         private void OnEnable()
         {

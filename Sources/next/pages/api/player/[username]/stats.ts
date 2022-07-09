@@ -41,7 +41,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			order: [[sequelize.col("used"), "DESC"]],
 		});
 
-		res.status(200).json({ ...stats.toJSON(), vehicle });
+		if (stats && vehicle) {
+			res.status(200).json({ ...stats.toJSON(), vehicle });
+		} else {
+			res.status(404).end();
+		}
 	} else {
 		res.status(405).end();
 	}
