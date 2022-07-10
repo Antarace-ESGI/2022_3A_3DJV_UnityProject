@@ -89,6 +89,11 @@ public class EndRaceScript : MonoBehaviour
                     GameObject.FindGameObjectWithTag("HUD").SetActive(false);
                 }
                 Cursor.lockState = CursorLockMode.None;
+
+                Canvas c = waitingPanel.GetComponentInParent<Canvas>();
+                c.worldCamera = colEntity.GetComponent<PlayerInputScript>().GetCamera();
+                c.planeDistance = 1.0f;
+                
                 waitingPanel.SetActive(true);
 
                 // Send score
@@ -191,11 +196,11 @@ public class EndRaceScript : MonoBehaviour
         if (_gameManager != null)
         {
             Dictionary<string,int> gameLeaderboard = script.GetGameLeaderboard();
-            if (gameLeaderboard != null && _rank != null)
+            if (gameLeaderboard != null && rank != null)
             {
                 foreach (KeyValuePair<string,int> val in gameLeaderboard)
                 {
-                    if (_rank.ContainsKey(val.Key))
+                    if (rank.ContainsKey(val.Key))
                     {
                         rank[val.Key] += val.Value;
                     }

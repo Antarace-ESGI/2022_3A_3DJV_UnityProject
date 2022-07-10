@@ -19,6 +19,8 @@ public class AccelerateEndRaceScript : MonoBehaviour
         if (_end)
         {
             int? players = CheckPlayerState();
+            Debug.Log(players);
+            Debug.Log(_end.GetPlayersCount());
             if (players != null && players == _end.GetPlayersCount())
             {
                 // Changing panel : 
@@ -37,13 +39,11 @@ public class AccelerateEndRaceScript : MonoBehaviour
         {
             Dictionary<GameObject,bool> playingEntities =  _end.GetPlayerEntities();
             int playerCount =  0;
-
-            foreach (GameObject player in playingEntities.Keys)
+            
+            foreach (KeyValuePair<GameObject,bool> player in  playingEntities)
             {
-                if (player.CompareTag("Player"))
-                {
+                if (player.Key.CompareTag("Player") && player.Value)
                     playerCount++;
-                }
             }
 
             return playerCount;
