@@ -10,11 +10,17 @@ public class PlayerBlaster : MonoBehaviour
     public GameObject missile;
     public GameObject missileClone;
 
+    public AudioClip BlasterSound;
+    public AudioSource audioSource;
+
     public void Shoot()
     {
         if (canShoot)
         {
             StartCoroutine(ShootMissile());
+            audioSource.clip = BlasterSound;
+            audioSource.Play();
+
         }
     }
 

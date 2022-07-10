@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ShipController : MonoBehaviour
@@ -12,6 +13,8 @@ public class ShipController : MonoBehaviour
 
     public float mouseDeadZone = 0.05f;
 
+    //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
     private float _yaw;
 
     public Vector3 thrust = Vector3.zero;
@@ -24,11 +27,17 @@ public class ShipController : MonoBehaviour
     private float _throttle;
     private float _boostTime;
 
+    private bool canBoost = true;
+
     // FLIGHT CONTROL PARAMETERS
     [Range(0, 100f)] public float yawStrength = 1.5f;
 
     public float floatDistance = 2;
     private bool _isStuck;
+
+
+    public AudioClip BoostSound;
+    public AudioSource audioSource;
 
     private Vector2 axis;
 
@@ -50,12 +59,14 @@ public class ShipController : MonoBehaviour
         {
             if (_boostTime < boostDuration)
             {
+              //  canBoost = false;
                 _boostTime += Time.deltaTime; // Consume boost
                 _throttle = baseThrottle * boostMultiplier;
             }
             else
             {
                 _throttle = baseThrottle; // Just set to default speed
+              //  canBoost = true;
             }
         }
         else
@@ -140,7 +151,22 @@ public class ShipController : MonoBehaviour
     public void ActiveBoost(bool active)
     {
         _boostActive = active;
+        StartCoroutine(BoostNoise());
     }
+
+
+    private IEnumerator BoostNoise()
+    {
+      if(canBoost == true){
+          canBoost = false;
+          audioSource.clip = BoostSound;
+          audioSource.Play();
+          yield return new WaitForSeconds(2.5f);
+          canBoost = true;
+      }
+    }
+
+
 
     private float GetThrustY()
     {
