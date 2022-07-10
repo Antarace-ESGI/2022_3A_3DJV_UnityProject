@@ -1,5 +1,6 @@
 import bpy
 import random
+import os
 
 # Clear everything
 bpy.ops.object.select_all(action='SELECT')
@@ -48,9 +49,6 @@ bpy.ops.curve.draw(error_threshold=-10,
                    stroke=bezier,
                    wait_for_input=False)
 
-
-print("Je tourne en background")
-
 # Rainbow road
 
 bpy.ops.mesh.primitive_cube_add(size=0.1, enter_editmode=False, align='WORLD', location=(0, 0, 0), scale=(1, 1, 1))
@@ -66,3 +64,10 @@ bpy.ops.object.convert(target='MESH')
 bpy.ops.object.select_all(action='DESELECT')
 bpy.data.objects[curve.name].select_set(True)
 bpy.ops.object.delete()
+
+#Export mesh
+output_path = os.getenv("OUTPUT_PATH")
+
+bpy.ops.object.select_by_type(type='MESH')
+bpy.ops.object.origin_set(type="ORIGIN_GEOMETRY")
+bpy.ops.export_scene.fbx(filepath=output_path)

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
@@ -26,6 +27,8 @@ public class EditorGenerator : EditorWindow
         DrawGUI(data);
     }
 
+    private string _blenderExecutable;
+
     private void DrawGUI(GeneratorData data)
     {
         // Main structure : 
@@ -38,34 +41,55 @@ public class EditorGenerator : EditorWindow
         // Min / Max
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("Valeur min : ");
+        
         data.min = EditorGUILayout.IntField(data.min);
         GUILayout.Label("Valeur max : ");
+        
         data.max = EditorGUILayout.IntField(data.max);
         EditorGUILayout.EndHorizontal();
         // Height
         
         GUILayout.Label("Hauteur max du circuit");
         data.height = EditorGUILayout.IntField(data.height);
-        
+
+        EditorGUILayout.LabelField("Sélectionner Blender");
+        if (GUILayout.Button("Sélectionner Blender"))
+        {
+            _blenderExecutable = EditorUtility.OpenFilePanel("Sélectionner Blender", "/", "exe");
+        }
+        GUILayout.Label(_blenderExecutable?.Length > 0 ? _blenderExecutable : "null");
+
         // Button
         EditorGUILayout.LabelField("Generateur de Maps");
         if (GUILayout.Button("Generate"))
         {
             LaunchProcess();
         }
-        
+
         EditorGUILayout.EndVertical();
     }
 
     private void LaunchProcess()
     {
+        var pwd = Directory.GetCurrentDirectory() + "/Assets/Editor/map.fbx";
         
         // Passer les chemins en absolu via os.system()
-        ProcessStartInfo info = new ProcessStartInfo("C:/Users/lefev/Desktop/Projet_annuel/2022_3A_3DJV_UnityProject/Sources/Blender/executor.py");
-        Process process = new Process()
+        var info = new ProcessStartInfo
         {
-            StartInfo = info
+            FileName = _blenderExecutable,
+            Arguments = "--background --python \"../Blender/random_map_generator.py\"",
+            EnvironmentVariables =
+            {
+                {"OUTPUT_PATH", pwd}
+            },
+            UseShellExecute = false,
         };
+
+        var process = new Process
+        {
+            StartInfo = info,
+        };
+
         process.Start();
         process.WaitForExit();
         process.Close();
