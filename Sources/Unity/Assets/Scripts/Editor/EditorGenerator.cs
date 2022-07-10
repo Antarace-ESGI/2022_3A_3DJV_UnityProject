@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.IO;
 using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -71,7 +72,8 @@ public class EditorGenerator : EditorWindow
 
     private void LaunchProcess()
     {
-        var pwd = Directory.GetCurrentDirectory() + "/Assets/Editor/map.fbx";
+        const string fileName = "Assets/Editor/map.fbx";
+        var pwd = Directory.GetCurrentDirectory() + "/" + fileName;
         
         // Passer les chemins en absolu via os.system()
         var info = new ProcessStartInfo
@@ -93,5 +95,10 @@ public class EditorGenerator : EditorWindow
         process.Start();
         process.WaitForExit();
         process.Close();
+
+        // Add game object to scene
+        AssetDatabase.Refresh();
+        var gameObject = AssetDatabase.LoadAssetAtPath(fileName, typeof(GameObject));
+        Instantiate(gameObject);
     }
 }
