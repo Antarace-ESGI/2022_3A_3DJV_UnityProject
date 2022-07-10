@@ -33,10 +33,10 @@ public class VehicleButton : MonoBehaviour
         previewMeshRenderer.material = _vehicle.material;
         previewPlaceholder.text = _vehicle.name;
 
-        previewText.text = $"Throttle: {_vehicle.baseThrottle}\n" +
-                           $"Boost multiplier: {_vehicle.boostMultiplier}\n" +
-                           $"Boost duration: {_vehicle.boostDuration}\n" +
-                           $"Yaw strength: {_vehicle.yawStrength}";
+        previewText.text = $"{TranslateSelector.GetTranslation("throttle")}: {_vehicle.baseThrottle}\n" +
+                           $"{TranslateSelector.GetTranslation("boost_multiplier")}: {_vehicle.boostMultiplier}\n" +
+                           $"{TranslateSelector.GetTranslation("boost_duration")}: {_vehicle.boostDuration}\n" +
+                           $"{TranslateSelector.GetTranslation("yaw_strength")}: {_vehicle.yawStrength}";
 
         waitForAll.ChosenVehicle = vehicleIndex;
     }
