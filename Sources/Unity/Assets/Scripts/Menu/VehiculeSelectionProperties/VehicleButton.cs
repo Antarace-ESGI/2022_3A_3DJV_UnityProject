@@ -32,7 +32,7 @@ public class VehicleButton : MonoBehaviour
     {
         previewMeshRenderer.material = _vehicle.material;
         previewPlaceholder.text = _vehicle.name;
-
+    
         previewText.text = $"{TranslateSelector.GetTranslation("throttle")}: {_vehicle.baseThrottle}\n" +
                            $"{TranslateSelector.GetTranslation("boost_multiplier")}: {_vehicle.boostMultiplier}\n" +
                            $"{TranslateSelector.GetTranslation("boost_duration")}: {_vehicle.boostDuration}\n" +

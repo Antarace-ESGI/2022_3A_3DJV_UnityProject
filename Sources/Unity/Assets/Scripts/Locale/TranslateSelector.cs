@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,15 +27,36 @@ public class TranslateSelector : MonoBehaviour
     private const string Language = "fr";
     private static Dictionary<string, Dictionary<string, string>> _translation;
 
+    private Dictionary<string, Dictionary<string, string>> translation;
+
     void Start()
     {
         var path =  $"{Application.dataPath}/translation.json";
 
         var rawJson = File.ReadAllText(path);
+        
+        translation ??= JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(rawJson);
+        
+        _translation = translation;
 
-        _translation ??= JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(rawJson);
+        string lang = PlayerPrefs.GetString("Language");
+        if(lang == "")
+            GetComponent<Text>().text = _translation[Language][translationKey];
+        else 
+            GetComponent<Text>().text = _translation[lang][translationKey];
+    }
+    
+    private void OnEnable()
+    {
+        string translate = PlayerPrefs.GetString("Language");
+        
+        if (translate != "" && translation != null) 
+            TranslateText(translate);
+    }
 
-        GetComponent<Text>().text = _translation[Language][translationKey];
+    public void TranslateText(string language)
+    {
+        GetComponent<Text>().text = translation[language][translationKey];
     }
 
     public static string GetTranslation(string key)

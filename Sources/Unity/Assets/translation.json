@@ -33,6 +33,7 @@
 	"next_race": "Course suivante",
 	"main_menu": "Retour au menu",
 	"waiting_for_players": "En attente des autres joueurs...",
+    "language_settings" : "Paramètres de la langue",
 	"end_race": "Terminer la course"
   },
   "en": {
@@ -69,6 +70,7 @@
 	"next_race": "Next race",
 	"main_menu": "Back to menu",
 	"waiting_for_players": "Waiting for other players...",
+    "language_settings" : "Language settings",  
 	"end_race": "End race"
   }
 }
