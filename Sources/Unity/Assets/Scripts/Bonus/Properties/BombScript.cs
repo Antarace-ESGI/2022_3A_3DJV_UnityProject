@@ -4,9 +4,9 @@ using UnityEngine;
 public class BombScript : MonoBehaviour
 {
 
-    [SerializeField] private float timer = 5.0f;
+    [SerializeField] private float timer = 1.0f;
     [SerializeField] private float radius = 5.0f;
-    [SerializeField] private int damage = 5;
+    [SerializeField] private int damage = 50;
     [SerializeField] private GameObject explosionArea;
 
     private GameObject _user;
@@ -41,11 +41,11 @@ public class BombScript : MonoBehaviour
         
         var center = _user.transform.position;
 
-        Collider[] colliders = Physics.OverlapSphere(center, radius,LayerMask.NameToLayer("Player"));
-
+        Collider[] colliders = Physics.OverlapSphere(center, radius);
         foreach (Collider collider in colliders)
         {
-            collider.gameObject.GetComponent<PlayerStatsScript>().healthPoint -= damage;
+            if(collider.CompareTag("Player") || collider.CompareTag("AI"))
+                collider.gameObject.GetComponent<PlayerStatsScript>().healthPoint -= damage;
         }
         
         Destroy(gameObject);

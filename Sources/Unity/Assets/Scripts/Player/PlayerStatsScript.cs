@@ -24,6 +24,7 @@ public class PlayerStatsScript : MonoBehaviour
     private void Start()
     {
         lifebar.value = healthPoint;
+        
         _gameManager = GameObject.FindWithTag("BonusController");
         _checkpointController = GetComponent<CheckpointController>();
     }

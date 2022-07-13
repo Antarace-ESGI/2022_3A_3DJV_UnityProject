@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e221c63b03d67a48b5c14ef8944dc36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 8
+  timer: 3
   radius: 10
-  damage: 5
+  damage: 25
   explosionArea: {fileID: 7413772306127531722}
 --- !u!1 &7413772306127531722
 GameObject:
