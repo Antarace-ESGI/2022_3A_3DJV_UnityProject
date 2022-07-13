@@ -54,7 +54,8 @@ public class LoadSceneManager : MonoBehaviour
 
         for (var i = players.Count; i < TotalPlayers; i++)
         {
-            Instantiate(aiPrefab);
+            GameObject ai = Instantiate(aiPrefab);
+            ai.name += i;
         }
 
         StartCoroutine(StartCountdown());
