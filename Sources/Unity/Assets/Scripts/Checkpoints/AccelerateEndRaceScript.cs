@@ -1,17 +1,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Checkpoints;
 using UnityEngine;
 
 public class AccelerateEndRaceScript : MonoBehaviour
 {
     private EndRaceScript _end;
-    [SerializeField] private GameObject endPanel;
+    private GameObject _endPanel;
+    
     [SerializeField] private GameObject actualPanel;
-
+    [SerializeField] private GameObject selfPlayer;
+    
     private void Start()
     {
         _end = GameObject.FindObjectOfType<EndRaceScript>();
+        _endPanel = selfPlayer.GetComponent<CheckpointController>().EndCheckpoint().GetComponent<EndRaceScript>()
+            .GetEnablingPanel();
     }
 
     public void EndRace()
@@ -24,9 +29,10 @@ public class AccelerateEndRaceScript : MonoBehaviour
             if (players != null && players == _end.GetPlayersCount())
             {
                 // Changing panel : 
-                endPanel.SetActive(true);
+                _endPanel.SetActive(true);
                 actualPanel.SetActive(false);
-            
+                // Close All waitings panels;
+                CloseAllWaiting();
                 // Set the ranking manually
                 _end.SetRank();
             }
@@ -42,7 +48,7 @@ public class AccelerateEndRaceScript : MonoBehaviour
             
             foreach (KeyValuePair<GameObject,bool> player in  playingEntities)
             {
-                if (player.Key.CompareTag("Player") && player.Value)
+                if (player.Key != null && player.Key.CompareTag("Player") && player.Value)
                     playerCount++;
             }
 
@@ -50,6 +56,16 @@ public class AccelerateEndRaceScript : MonoBehaviour
         }
 
         return null;
+    }
+
+    private void CloseAllWaiting()
+    {
+        Dictionary<GameObject,bool> players =  _end.GetPlayerEntities();
+        foreach (GameObject player in players.Keys)
+        {
+            if(player != selfPlayer && player.CompareTag("Player"))
+                player.GetComponent<PlayerInputScript>().GetWaitingScreen().SetActive(false);
+        }
     }
     
 }

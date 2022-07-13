@@ -8,6 +8,7 @@ public class PlayerInputScript : MonoBehaviour
     // Accessor
     [SerializeField] private GameObject _blaster;
     [SerializeField] private GameObject _uiHUD;
+    [SerializeField] private GameObject waitingScreen;
     [SerializeField] private Camera _camera;
 
     private ShipController _shipController;
@@ -99,4 +100,10 @@ public class PlayerInputScript : MonoBehaviour
     {
         return _camera;
     }
+
+    public GameObject GetWaitingScreen()
+    {
+        return waitingScreen;
+    }
+    
 }

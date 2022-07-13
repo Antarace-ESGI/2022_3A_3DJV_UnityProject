@@ -33,7 +33,6 @@ public class PlayerPauseMenu : MonoBehaviour
         MainUI.SetActive(false);
         Time.timeScale = 0.0f;
         panel.SetActive(true);
-        Cursor.lockState = CursorLockMode.Confined;
     }
 
     public void OffPause(GameObject MainUI)
@@ -41,7 +40,6 @@ public class PlayerPauseMenu : MonoBehaviour
         MainUI.SetActive(true);
         Time.timeScale = 1.0f;
         panel.SetActive(false);
-        Cursor.lockState = CursorLockMode.None;
     }
     
 }

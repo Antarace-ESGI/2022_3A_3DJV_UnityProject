@@ -10,12 +10,11 @@ using UnityEngine.UI;
 public class EndRaceScript : MonoBehaviour
 {
     [SerializeField] private GameObject enablingPanel;
-    [SerializeField] private GameObject waitingPanel;
     [SerializeField] private Text text;
-    [SerializeField] private Camera view;
-    
+
     //End race
     private Dictionary<GameObject, bool> playingEntities = new Dictionary<GameObject, bool>();
+    private Dictionary<GameObject, GameObject> waitingPanels = new Dictionary<GameObject, GameObject>();
 
     //Leaderboard
     private static Dictionary<string, int> _rank = new Dictionary<string, int>();
@@ -64,7 +63,10 @@ public class EndRaceScript : MonoBehaviour
 
     private void OnPlayerJoined(PlayerInput obj)
     {
-        playingEntities.Add(obj.gameObject, false);
+        GameObject nPlayer = obj.gameObject;
+        nPlayer.gameObject.name = "Player" + _players;
+        playingEntities.Add(nPlayer, false);
+        waitingPanels.Add(obj.gameObject,obj.GetComponent<PlayerInputScript>().GetWaitingScreen());
         _players++;
     }
 
@@ -97,12 +99,8 @@ public class EndRaceScript : MonoBehaviour
                     GameObject.FindGameObjectWithTag("HUD").SetActive(false);
                 }
                 Cursor.lockState = CursorLockMode.None;
-
-                Canvas c = waitingPanel.GetComponentInParent<Canvas>();
-                c.worldCamera = colEntity.GetComponent<PlayerInputScript>().GetCamera();
-                c.planeDistance = 1.0f;
                 
-                waitingPanel.SetActive(true);
+                waitingPanels[colEntity].SetActive(true);
 
                 // Send score
                 var vehicleIndex = colEntity.GetComponent<VehicleLoader>().vehicleIndex;
@@ -121,8 +119,13 @@ public class EndRaceScript : MonoBehaviour
     private void EndRaceDisplay()
     {
         Cursor.lockState = CursorLockMode.None;
-        if(waitingPanel.activeSelf)
-            waitingPanel.SetActive(false);
+    
+        // Disable all waiting screens
+        foreach (KeyValuePair<GameObject,GameObject> panel in waitingPanels)
+        {
+            panel.Value.SetActive(false);
+        }
+        
         enablingPanel.SetActive(true);
         if (_gameManager != null)
         {
@@ -166,7 +169,7 @@ public class EndRaceScript : MonoBehaviour
     {
         return _players;
     }
-
+    
     private void DisplayLeaderboard()
     {
         String rankString = "";
@@ -218,4 +221,8 @@ public class EndRaceScript : MonoBehaviour
         }
     }
 
+    public GameObject GetEnablingPanel()
+    {
+        return enablingPanel;
+    }
 }
