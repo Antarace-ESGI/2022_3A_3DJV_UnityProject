@@ -8,9 +8,10 @@ bpy.ops.object.delete(use_global=False, confirm=False)
 
 # Generate bezier curve
 bezier = []
-y = 0
-x = 0
-length = int(random.random() * 10) + 10
+y = 0#os.getenv("MIN_Y")
+print(os.getenv("MIN_Y"))
+x = 0#int(os.getenv("MIN_X"))
+length = 10#int(os.getenv("TRACK_LENGTH"))
 
 for i in range(0, length):
     x += random.random()

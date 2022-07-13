@@ -38,6 +38,12 @@ namespace Checkpoints
             }
         }
 
+        public GameObject EndCheckpoint()
+        {
+            GameObject end = _checkpoints[_checkpoints.Length-1];
+            return end;
+        }
+
         public void OnTriggerEnter(Collider collision)
         {
             IncrementCheckpoint(collision.gameObject);

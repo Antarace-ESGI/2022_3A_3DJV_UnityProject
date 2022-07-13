@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Checkpoints;
 using Player;
 using UnityEngine;
@@ -54,6 +55,8 @@ public class EndRaceScript : MonoBehaviour
             playerInputManager.onPlayerJoined += OnPlayerJoined;
         }
 
+        Debug.Log(playingEntities.Count);
+        
         // General Game Manager
         _gameManager = GameObject.FindGameObjectWithTag("GameController");
 
@@ -63,6 +66,11 @@ public class EndRaceScript : MonoBehaviour
     {
         playingEntities.Add(obj.gameObject, false);
         _players++;
+    }
+
+    public void AddAI(GameObject ai)
+    {
+        playingEntities.Add(ai,false);
     }
     
     private void OnTriggerEnter(Collider collision)
@@ -180,7 +188,7 @@ public class EndRaceScript : MonoBehaviour
         int size = script.GetSize();
         if (gameLeaderboard != null && _rank != null)
         {
-            foreach (KeyValuePair<string,int> val in gameLeaderboard)
+            foreach (KeyValuePair<string,int> val in gameLeaderboard.ToList())
             {
                 if (_rank.ContainsKey(val.Key))
                 {
@@ -198,7 +206,7 @@ public class EndRaceScript : MonoBehaviour
             Dictionary<string,int> gameLeaderboard = script.GetGameLeaderboard();
             if (gameLeaderboard != null && rank != null)
             {
-                foreach (KeyValuePair<string,int> val in gameLeaderboard)
+                foreach (KeyValuePair<string,int> val in gameLeaderboard.ToList())
                 {
                     if (rank.ContainsKey(val.Key))
                     {

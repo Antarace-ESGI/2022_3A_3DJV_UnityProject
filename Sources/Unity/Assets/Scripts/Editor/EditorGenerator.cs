@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.IO;
 using UnityEditor;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -16,6 +15,8 @@ public class EditorGenerator : EditorWindow
         public int height;
     }
 
+    private Object _lastGameObject;
+
     [MenuItem("Tools/Generator")]
     public static void ExecButton()
     {
@@ -25,6 +26,10 @@ public class EditorGenerator : EditorWindow
     private void OnGUI()
     {
         GeneratorData data = new GeneratorData();
+        // Set default values:
+        data.min = 0;
+        data.max = 0;
+        data.length = 1;
         DrawGUI(data);
     }
 
@@ -64,41 +69,50 @@ public class EditorGenerator : EditorWindow
         EditorGUILayout.LabelField("Generateur de Maps");
         if (GUILayout.Button("Generate"))
         {
-            LaunchProcess();
+            LaunchProcess(data);
         }
 
         EditorGUILayout.EndVertical();
     }
-
-    private void LaunchProcess()
+    
+    private void LaunchProcess(GeneratorData data)
     {
         const string fileName = "Assets/Editor/map.fbx";
         var pwd = Directory.GetCurrentDirectory() + "/" + fileName;
+
+        Debug.Log(data.min.ToString());
         
-        // Passer les chemins en absolu via os.system()
-        var info = new ProcessStartInfo
+        if (_blenderExecutable != "")
         {
-            FileName = _blenderExecutable,
-            Arguments = "--background --python \"../Blender/random_map_generator.py\"",
-            EnvironmentVariables =
+            // Passer les chemins en absolu via os.system()
+            var info = new ProcessStartInfo
             {
-                {"OUTPUT_PATH", pwd}
-            },
-            UseShellExecute = false,
-        };
+                FileName = _blenderExecutable,
+                Arguments = "--background --python \"../Blender/random_map_generator.py\"",
+                EnvironmentVariables =
+                {
+                    {"OUTPUT_PATH", pwd},
+                    {"MIN_X",data.min.ToString()},
+                    {"MIN_Y",data.max.ToString()},
+                    {"TRACK_LENGTH",data.length.ToString()}
+                },
+                UseShellExecute = false,
+            };
 
-        var process = new Process
-        {
-            StartInfo = info,
-        };
+            var process = new Process
+            {
+                StartInfo = info,
+            };
 
-        process.Start();
-        process.WaitForExit();
-        process.Close();
+            process.Start();
+            process.WaitForExit();
+            process.Close();
 
-        // Add game object to scene
-        AssetDatabase.Refresh();
-        var gameObject = AssetDatabase.LoadAssetAtPath(fileName, typeof(GameObject));
-        Instantiate(gameObject);
+            // Add game object to scene
+            AssetDatabase.Refresh();
+            
+            var gameObject = AssetDatabase.LoadAssetAtPath(fileName, typeof(GameObject));
+            _lastGameObject = Instantiate(gameObject);
+        }
     }
 }
