@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Checkpoints;
 using UnityEngine;
@@ -14,7 +12,7 @@ public class AccelerateEndRaceScript : MonoBehaviour
     
     private void Start()
     {
-        _end = GameObject.FindObjectOfType<EndRaceScript>();
+        _end = FindObjectOfType<EndRaceScript>();
         _endPanel = selfPlayer.GetComponent<CheckpointController>().EndCheckpoint().GetComponent<EndRaceScript>()
             .GetEnablingPanel();
     }
@@ -35,6 +33,12 @@ public class AccelerateEndRaceScript : MonoBehaviour
                 CloseAllWaiting();
                 // Set the ranking manually
                 _end.SetRank();
+
+                var ais = GameObject.FindGameObjectsWithTag("AI");
+                foreach (var ai in ais)
+                {
+                    Destroy(ai);
+                }
             }
         }
     }

@@ -16,11 +16,19 @@ namespace Checkpoints
         [ReadOnly] public int checkpointIndex;
         private GameObject _nextCheckpoint, _currentCheckpoint;
 
-        private void Start()
+        private void OnEnable()
+        {
+            _currentCheckpoint = _nextCheckpoint = _checkpoints[checkpointIndex];
+            Debug.Log("Loaded current and next checkpoints");
+        }
+
+        /// <summary>
+        /// Reloads the checkpoint array, must be called once on every level change.
+        /// </summary>
+        public static void LoadCheckpoints()
         {
             _checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
             Debug.Log($"Found {_checkpoints.Length} checkpoints!");
-            _currentCheckpoint = _nextCheckpoint = _checkpoints[checkpointIndex];
         }
 
         public static GameObject GetSpawnCheckpoint()

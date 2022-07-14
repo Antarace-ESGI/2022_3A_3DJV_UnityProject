@@ -15,7 +15,7 @@ public class LoadSceneManager : MonoBehaviour
     private PlayerInputManager _inputManager;
     private const uint TotalPlayers = 4;
 
-    void Start()
+    private void Start()
     {
         _trackArrayScript = FindObjectOfType<TrackArrayScript>();
         _inputManager = GetComponent<PlayerInputManager>();
@@ -28,7 +28,7 @@ public class LoadSceneManager : MonoBehaviour
         StartCoroutine(LoadYourAsyncScene());
     }
 
-    IEnumerator LoadYourAsyncScene()
+    private IEnumerator LoadYourAsyncScene()
     {
         var asyncLoad = SceneManager.LoadSceneAsync(_trackArrayScript.GetIndexOfTrack(), LoadSceneMode.Additive);
 
@@ -37,6 +37,7 @@ public class LoadSceneManager : MonoBehaviour
             yield return null;
         }
 
+        CheckpointController.LoadCheckpoints();
         SpawnPlayers();
     }
 
