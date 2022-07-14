@@ -7,7 +7,7 @@ public class ActionMenuScript : MonoBehaviour
     public GameObject nextPanel;
 
     public int dest = 0;
-    
+
     private void CurrentPanelClose()
     {
         currentPanel.SetActive(false);
@@ -33,7 +33,7 @@ public class ActionMenuScript : MonoBehaviour
         CurrentPanelClose();
         NextPanelOpen();
     }
-    
+
     public void enablePause()
     {
         Time.timeScale = 0.0f;
@@ -53,7 +53,7 @@ public class ActionMenuScript : MonoBehaviour
         #endif
             Application.Quit();
     }
-    
+
     private void controllerActionButton()
     {
         GameObject inGamePanel = currentPanel;
@@ -68,7 +68,7 @@ public class ActionMenuScript : MonoBehaviour
             {
                 enablePause();
             }
-            
+
         }
     }
     public void changeScene()
@@ -110,7 +110,7 @@ public class ActionMenuScript : MonoBehaviour
             // Default redirect to menu
             changeScene(3);
         }
-        
+
     }
 
     public void KillTrack()
@@ -125,6 +125,9 @@ public class ActionMenuScript : MonoBehaviour
         if (Input.GetJoystickNames().Length > 0)
         {
             controllerActionButton();
+
         }
+
+
     }
 }
