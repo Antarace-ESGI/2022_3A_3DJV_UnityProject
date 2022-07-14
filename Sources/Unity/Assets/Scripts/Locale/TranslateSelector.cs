@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,46 +20,56 @@ public class TranslateSelector : MonoBehaviour
             this.fr = fr;
         }
     }
-    
+
     public string translationKey;
 
-    private const string Language = "fr";
+    private static string _language = "fr";
     private static Dictionary<string, Dictionary<string, string>> _translation;
+    private static bool _loaded;
 
-    private Dictionary<string, Dictionary<string, string>> translation;
-
-    void Start()
-    {
-        var path =  $"{Application.dataPath}/translation.json";
-
-        var rawJson = File.ReadAllText(path);
-        
-        translation ??= JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(rawJson);
-        
-        _translation = translation;
-
-        string lang = PlayerPrefs.GetString("Language");
-        if(lang == "")
-            GetComponent<Text>().text = _translation[Language][translationKey];
-        else 
-            GetComponent<Text>().text = _translation[lang][translationKey];
-    }
-    
     private void OnEnable()
     {
-        string translate = PlayerPrefs.GetString("Language");
-        
-        if (translate != "" && translation != null) 
-            TranslateText(translate);
+        LoadTranslations();
+        UpdateTranslation();
+        TranslateText();
     }
 
-    public void TranslateText(string language)
+    public static void RefreshEnabledTexts()
     {
-        GetComponent<Text>().text = translation[language][translationKey];
+        var texts = FindObjectsOfType<TranslateSelector>();
+
+        foreach (var text in texts)
+        {
+            text.TranslateText();
+        }
+    }
+
+    private void TranslateText()
+    {
+        GetComponent<Text>().text = _translation[_language][translationKey];
     }
 
     public static string GetTranslation(string key)
     {
-        return _translation[Language][key];
+        return _translation[_language][key];
+    }
+
+    private static void LoadTranslations()
+    {
+        if (_loaded) return;
+
+        var path = $"{Application.dataPath}/translation.json";
+        var rawJson = File.ReadAllText(path);
+
+        _translation ??= JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(rawJson);
+        _loaded = true;
+    }
+
+    public static void UpdateTranslation()
+    {
+        if (PlayerPrefs.HasKey("Language"))
+        {
+            _language = PlayerPrefs.GetString("Language");
+        }
     }
 }
