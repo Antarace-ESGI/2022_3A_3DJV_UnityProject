@@ -54,8 +54,6 @@ public class EndRaceScript : MonoBehaviour
             playerInputManager.onPlayerJoined += OnPlayerJoined;
         }
 
-        Debug.Log(playingEntities.Count);
-        
         // General Game Manager
         _gameManager = GameObject.FindGameObjectWithTag("GameController");
 
@@ -80,7 +78,6 @@ public class EndRaceScript : MonoBehaviour
         if ((collision.CompareTag("Player") || collision.CompareTag("AI")) 
             && playingEntities.Count > 0 && playingEntities[collision.gameObject] == false)
         {
-            Debug.Log("ok");
             GameObject colEntity = collision.gameObject;
             runner++;
 

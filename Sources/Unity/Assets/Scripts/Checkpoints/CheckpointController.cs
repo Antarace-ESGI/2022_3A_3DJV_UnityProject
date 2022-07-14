@@ -19,7 +19,6 @@ namespace Checkpoints
         private void OnEnable()
         {
             _currentCheckpoint = _nextCheckpoint = _checkpoints[checkpointIndex];
-            Debug.Log("Loaded current and next checkpoints");
         }
 
         /// <summary>
@@ -28,7 +27,6 @@ namespace Checkpoints
         public static void LoadCheckpoints()
         {
             _checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
-            Debug.Log($"Found {_checkpoints.Length} checkpoints!");
         }
 
         public static GameObject GetSpawnCheckpoint()

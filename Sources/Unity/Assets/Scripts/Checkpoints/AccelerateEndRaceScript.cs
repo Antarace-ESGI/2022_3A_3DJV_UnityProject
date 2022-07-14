@@ -22,8 +22,6 @@ public class AccelerateEndRaceScript : MonoBehaviour
         if (_end)
         {
             int? players = CheckPlayerState();
-            Debug.Log(players);
-            Debug.Log(_end.GetPlayersCount());
             if (players != null && players == _end.GetPlayersCount())
             {
                 // Changing panel : 
