@@ -84,9 +84,13 @@ public class EndRaceScript : MonoBehaviour
             playingEntities[colEntity] = true;
             _rank[colEntity.name] = runner;
             
-            if(collision.CompareTag("AI"))
+            // If it is an AI, simply destroy it
+            if (collision.CompareTag("AI"))
+            {
                 Destroy(colEntity);
+            }
 
+            // If it is a player, do some more stuff
             if (collision.CompareTag("Player"))
             {
                 colEntity.SetActive(false);
@@ -99,10 +103,13 @@ public class EndRaceScript : MonoBehaviour
                 
                 waitingPanels[colEntity].SetActive(true);
 
-                // Send score
-                var vehicleIndex = colEntity.GetComponent<VehicleLoader>().vehicleIndex;
-                var vehicleName = Vehicle.Vehicles[vehicleIndex].name;
-                StartCoroutine(SubmitEndRaceTime.SendTime(0, vehicleName, gameObject.scene.name));
+                // Send score only if there is 1 human playing
+                if (_players == 1)
+                {
+                    var vehicleIndex = colEntity.GetComponent<VehicleLoader>().vehicleIndex;
+                    var vehicleName = Vehicle.Vehicles[vehicleIndex].name;
+                    StartCoroutine(SubmitEndRaceTime.SendTime(0, vehicleName, gameObject.scene.name));
+                }
             }
 
             //Wait for every participant to finish the race
