@@ -26,7 +26,7 @@ export default function Times(props) {
 							<td>{ track }</td>
 							<td>{ vehicle }</td>
 							<td>{ duration.humanize() }</td>
-							<td>{ moment(creationDate).format("yyyy-MM-DD") }</td>
+							<td>{ moment(creationDate).format("yyyy-MM-DD HH:mm:ss") }</td>
 						</tr>
 					)
 				}) }
