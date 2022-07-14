@@ -8,14 +8,13 @@ using UnityEngine.AI;
 public class AiController : MonoBehaviour
 {
     public int aiLife = 50;
-    private NavMeshPath _path;
 
     private ShipController _shipController;
     private CheckpointController _checkpointController;
     private NavMeshAgent _agent;
     private Rigidbody _body;
 
-    void Start()
+    private void Start()
     {
         _checkpointController = GetComponent<CheckpointController>();
         _shipController = GetComponent<ShipController>();
@@ -25,14 +24,12 @@ public class AiController : MonoBehaviour
         _agent.updatePosition = false;
         _agent.updateRotation = false;
         _agent.isStopped = true;
-
-        _path = _agent.path;
     }
 
-    void Update()
+    private void Update()
     {
         // Calculate paths
-        Vector3 nextCheckpoint = _checkpointController.GetNextCheckpoint().transform.position;
+        var nextCheckpoint = _checkpointController.GetNextCheckpoint().transform.position;
 
         var target = _agent.steeringTarget;
         var desiredVelocity = _agent.desiredVelocity.normalized.magnitude;

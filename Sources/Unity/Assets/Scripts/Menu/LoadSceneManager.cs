@@ -1,4 +1,5 @@
 using System.Collections;
+using Checkpoints;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -9,7 +10,7 @@ public class LoadSceneManager : MonoBehaviour
 {
     public GameObject aiPrefab;
     public Text countdownText;
-    
+
     private TrackArrayScript _trackArrayScript;
     private PlayerInputManager _inputManager;
     private const uint TotalPlayers = 4;
@@ -42,7 +43,8 @@ public class LoadSceneManager : MonoBehaviour
     private void SpawnPlayers()
     {
         Time.timeScale = 0.0f;
-        
+        SpawnScript.ResetPlayerCount();
+
         var players = SelectedVehiclesScript.GetAllPlayers();
 
         foreach (var player in players)
@@ -75,7 +77,7 @@ public class LoadSceneManager : MonoBehaviour
         countdownText.text = "Go!";
 
         Time.timeScale = 1.0f;
-        
+
         yield return new WaitForSecondsRealtime(1);
         countdownText.enabled = false;
     }

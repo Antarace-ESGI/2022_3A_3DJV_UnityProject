@@ -1,6 +1,5 @@
 ﻿using Unity.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Checkpoints
 {
@@ -19,7 +18,8 @@ namespace Checkpoints
 
         private void Start()
         {
-            _checkpoints ??= GameObject.FindGameObjectsWithTag("Checkpoint");
+            _checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+            Debug.Log($"Found {_checkpoints.Length} checkpoints!");
             _currentCheckpoint = _nextCheckpoint = _checkpoints[checkpointIndex];
         }
 

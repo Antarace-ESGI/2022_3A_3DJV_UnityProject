@@ -12,6 +12,11 @@ namespace Checkpoints
             SpawnPlayer();
         }
 
+        public static void ResetPlayerCount()
+        {
+            _spawnedPlayerCount = 0;
+        }
+
         /// <summary>
         /// Teleports the player to spawn on first apparition
         /// </summary>
