@@ -1203,6 +1203,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 0}
   nextPanel: {fileID: 0}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 2185846709468780851}
   dest: 0
 --- !u!1 &3668807828569190306
 GameObject:
@@ -1444,6 +1446,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 3088931005093554440}
   nextPanel: {fileID: 0}
+  MenuSelectSound: {fileID: 0}
+  audioSource: {fileID: 0}
   dest: 0
 --- !u!1 &3930267283118850387
 GameObject:

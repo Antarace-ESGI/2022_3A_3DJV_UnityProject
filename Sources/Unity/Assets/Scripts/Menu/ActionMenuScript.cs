@@ -23,10 +23,9 @@ public class ActionMenuScript : MonoBehaviour
 
     private void NextPanelOpen()
     {
-        nextPanel.SetActive(true);
-
-        audioSource.clip = MenuSelectSound;
-        audioSource.Play();
+      audioSource.clip = MenuSelectSound;
+      audioSource.Play();
+      nextPanel.SetActive(true);
     }
 
     private void NextPanelClose()
