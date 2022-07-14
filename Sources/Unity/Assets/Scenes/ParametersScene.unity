@@ -364,8 +364,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 0}
-  audioSource: {fileID: 0}
+  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
+  audioSource: {fileID: 1155403693}
 --- !u!1 &24785395
 GameObject:
   m_ObjectHideFlags: 0
@@ -2986,7 +2986,7 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 45424746}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 1957236799}
   m_Transition: 1
@@ -7345,10 +7345,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnUp: {fileID: 29053458}
+    m_SelectOnDown: {fileID: 7708109}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -9669,8 +9669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 0}
-  audioSource: {fileID: 0}
+  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
+  audioSource: {fileID: 1155403693}
 --- !u!114 &1636770997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11664,7 +11664,7 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_SelectOnDown: {fileID: 45424746}
     m_SelectOnLeft: {fileID: 448915130}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
