@@ -499,6 +499,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 738256487}
   nextPanel: {fileID: 782917752}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &29053458
 MonoBehaviour:
@@ -742,6 +744,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 1601670747}
   nextPanel: {fileID: 127056383}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!1 &75356933
 GameObject:
@@ -873,6 +877,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 782917752}
   nextPanel: {fileID: 6312103}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &80827191
 MonoBehaviour:
@@ -1759,6 +1765,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 24785395}
   nextPanel: {fileID: 0}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &218153381
 MonoBehaviour:
@@ -2959,6 +2967,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 1601670747}
   nextPanel: {fileID: 1762562614}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &448915130
 MonoBehaviour:
@@ -3865,6 +3875,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 782917752}
   nextPanel: {fileID: 626603876}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &639528729
 MonoBehaviour:
@@ -4013,6 +4025,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 127056383}
   nextPanel: {fileID: 1601670747}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &661781136
 MonoBehaviour:
@@ -4569,6 +4583,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 1762562614}
   nextPanel: {fileID: 782917752}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &762407948
 MonoBehaviour:
@@ -5169,6 +5185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 24785395}
   nextPanel: {fileID: 1601670747}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &845911180
 MonoBehaviour:
@@ -7178,6 +7196,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 0}
   nextPanel: {fileID: 0}
+  MenuSelectSound: {fileID: 0}
+  audioSource: {fileID: 0}
   dest: 0
 --- !u!1 &1247426748
 GameObject:
@@ -7430,6 +7450,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 626603876}
   nextPanel: {fileID: 782917752}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &1269842211
 MonoBehaviour:
@@ -8019,6 +8041,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 6312103}
   nextPanel: {fileID: 782917752}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &1428915871
 MonoBehaviour:
@@ -8289,6 +8313,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 0}
   nextPanel: {fileID: 0}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &1465092478
 MonoBehaviour:
@@ -8952,6 +8978,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 1762562614}
   nextPanel: {fileID: 1601670747}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &1529459915
 MonoBehaviour:
@@ -9113,6 +9141,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 782917752}
   nextPanel: {fileID: 1762562614}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &1592259014
 MonoBehaviour:
@@ -10966,6 +10996,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 1776445411}
   nextPanel: {fileID: 1601670747}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &1826128901
 MonoBehaviour:
@@ -11224,6 +11256,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 1601670747}
   nextPanel: {fileID: 24785395}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &1826216769
 MonoBehaviour:
@@ -11611,6 +11645,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 1601670747}
   nextPanel: {fileID: 1776445411}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &1957236799
 MonoBehaviour:
@@ -11853,6 +11889,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 782917752}
   nextPanel: {fileID: 738256487}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 0
 --- !u!114 &1978435503
 MonoBehaviour:
@@ -12314,6 +12352,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 24785395}
   nextPanel: {fileID: 0}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
   dest: 6
 --- !u!114 &2037863743
 MonoBehaviour:

@@ -6,6 +6,9 @@ public class ActionMenuScript : MonoBehaviour
     public GameObject currentPanel;
     public GameObject nextPanel;
 
+    public AudioClip MenuSelectSound;
+    public AudioSource audioSource;
+
     public int dest = 0;
 
     private void CurrentPanelClose()
@@ -21,6 +24,9 @@ public class ActionMenuScript : MonoBehaviour
     private void NextPanelOpen()
     {
         nextPanel.SetActive(true);
+
+        audioSource.clip = MenuSelectSound;
+        audioSource.Play();
     }
 
     private void NextPanelClose()

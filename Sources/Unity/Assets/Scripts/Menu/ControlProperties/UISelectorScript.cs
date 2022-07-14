@@ -21,7 +21,6 @@ public class UISelectorScript : MonoBehaviour
 
 
       if(EventSystem.current.currentSelectedGameObject != go){
-        Debug.Log("DIFFERENT");
         audioSource.clip = MenuMoveSound;
         audioSource.Play();
         go = EventSystem.current.currentSelectedGameObject;
