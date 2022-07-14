@@ -2,8 +2,6 @@ import moment from "moment-timezone";
 
 export default function Stats(props) {
 	const { stats } = props;
-	console.log(stats);
-
 	const duration = moment.duration(stats?.time || 0, "seconds");
 
 	return (
