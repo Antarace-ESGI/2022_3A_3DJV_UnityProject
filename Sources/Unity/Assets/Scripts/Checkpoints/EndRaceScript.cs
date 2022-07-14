@@ -106,9 +106,7 @@ public class EndRaceScript : MonoBehaviour
                 // Send score only if there is 1 human playing
                 if (_players == 1)
                 {
-                    var vehicleIndex = colEntity.GetComponent<VehicleLoader>().vehicleIndex;
-                    var vehicleName = Vehicle.Vehicles[vehicleIndex].name;
-                    StartCoroutine(SubmitEndRaceTime.SendTime(0, vehicleName, gameObject.scene.name));
+                    SubmitScore(colEntity);
                 }
             }
 
@@ -118,6 +116,14 @@ public class EndRaceScript : MonoBehaviour
                 EndRaceDisplay();
             }
         }
+    }
+
+    private void SubmitScore(GameObject player)
+    {
+        var duration = DateTime.Now.Subtract(LoadSceneManager.startTime);
+        var vehicleIndex = player.GetComponent<VehicleLoader>().vehicleIndex;
+        var vehicleName = Vehicle.Vehicles[vehicleIndex].name;
+        StartCoroutine(SubmitEndRaceTime.SendTime(duration.Seconds, vehicleName, gameObject.scene.name));
     }
 
     private void EndRaceDisplay()

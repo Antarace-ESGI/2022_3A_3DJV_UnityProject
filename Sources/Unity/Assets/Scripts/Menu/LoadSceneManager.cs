@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Checkpoints;
 using UnityEngine;
@@ -14,6 +15,8 @@ public class LoadSceneManager : MonoBehaviour
     private TrackArrayScript _trackArrayScript;
     private PlayerInputManager _inputManager;
     private const uint TotalPlayers = 4;
+
+    public static DateTime startTime;
 
     private void Start()
     {
@@ -81,5 +84,7 @@ public class LoadSceneManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1);
         countdownText.enabled = false;
+        
+        startTime = DateTime.Now;
     }
 }
