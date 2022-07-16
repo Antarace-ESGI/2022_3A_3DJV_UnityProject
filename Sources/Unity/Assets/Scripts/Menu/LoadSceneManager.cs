@@ -64,6 +64,8 @@ public class LoadSceneManager : MonoBehaviour
             ai.name += i;
         }
 
+        countdownText.enabled = true;
+        countdownText.text = "5";
         StartCoroutine(StartCountdown());
     }
 
