@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 7827384145391590045}
   - component: {fileID: 8024387618677985047}
   - component: {fileID: 4662419275044984025}
+  - component: {fileID: 3246514445365649425}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -426,6 +427,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actualPanel: {fileID: 4980303842364482825}
   selfPlayer: {fileID: 8995562795618833402}
+--- !u!114 &3246514445365649425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2205478261178310797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MenuMoveSound: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!1 &3751514668045519903
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,7 +1370,6 @@ MonoBehaviour:
   canShoot: 1
   canon: {fileID: 8392480834229186757}
   missile: {fileID: 224817473580224026, guid: ae86430099e8e084ba941d5cff6d7463, type: 3}
-  missileClone: {fileID: 0}
   BlasterSound: {fileID: 8300000, guid: eeac64cc1a767124f957a4d4c651302a, type: 3}
   audioSource: {fileID: 4788378554985526043}
 --- !u!82 &4788378554985526043
