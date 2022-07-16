@@ -51,7 +51,7 @@ public class TranslateSelector : MonoBehaviour
 
     public static string GetTranslation(string key)
     {
-        return _translation[_language][key];
+        return _translation[_language][key] ?? $"No translation found for {key}";
     }
 
     private static void LoadTranslations()

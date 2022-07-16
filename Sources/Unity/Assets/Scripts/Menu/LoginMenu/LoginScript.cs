@@ -51,7 +51,7 @@ namespace Menu.LoginMenu
             StartCoroutine(Login(usernameField.text, passwordField.text));
         }
 
-        IEnumerator Login(string username, string password)
+        private IEnumerator Login(string username, string password)
         {
             var loginRequest = new LoginRequest(username, password);
             var json = JsonUtility.ToJson(loginRequest);
@@ -68,8 +68,12 @@ namespace Menu.LoginMenu
             request.timeout = 60;
 
             yield return request.SendWebRequest();
-            
-            if (request.result != UnityWebRequest.Result.Success)
+
+            if (request.responseCode == 400)
+            {
+                feedbackText.text = TranslateSelector.GetTranslation("bad_creds");
+            } 
+            else if (request.result != UnityWebRequest.Result.Success)
             {
                 feedbackText.text = request.error;
             }

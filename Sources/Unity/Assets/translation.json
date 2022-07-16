@@ -34,7 +34,8 @@
 	"main_menu": "Retour au menu",
 	"waiting_for_players": "En attente des autres joueurs...",
     "language_settings" : "Paramètres de la langue",
-	"end_race": "Terminer la course"
+	"end_race": "Terminer la course",
+	"bad_creds": "Mauvais identifiants"
   },
   "en": {
 	"game_title": "Antarace",
@@ -71,6 +72,7 @@
 	"main_menu": "Back to menu",
 	"waiting_for_players": "Waiting for other players...",
     "language_settings" : "Language settings",  
-	"end_race": "End race"
+	"end_race": "End race",
+	"bad_creds": "Bad credentials"
   }
 }
