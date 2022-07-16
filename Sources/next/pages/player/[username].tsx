@@ -8,8 +8,14 @@ import Times from "@components/profile/components/Times";
 import { getScores } from "@components/profile/helpers";
 import { useCallback, useState } from "react";
 import { IScore } from "@components/profile/models";
+import * as jwt from "jsonwebtoken";
+import { IToken } from "@components/loginForm/models";
+import { useSelector } from "react-redux";
+import { RootState } from "@core/store";
+import Link from "next/link";
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps(context) {
+	const { res, query } = context;
 	const { username } = query;
 
 	await sequelize.authenticate();
@@ -28,6 +34,15 @@ export async function getServerSideProps({ query }) {
 		group: "player.id",
 		raw: true,
 	});
+
+	if (!stats) {
+		res.statusCode = 404;
+		return {
+			props: {
+				stats: null,
+			},
+		}
+	}
 
 	const vehicle = await Scores.findOne({
 		attributes: [
@@ -64,9 +79,15 @@ export default function Profile(props) {
 	const router = useRouter()
 	const { username } = router.query
 	const { stats } = props;
-	const description = `${ stats.played } played games for a total of ${ stats.time } seconds.`;
 
-	const [times, setTimes] = useState<IScore[]>(stats.times);
+	const token = useSelector((state: RootState) => state.token.value);
+	const { username: selfUsername } = jwt.decode(token) as IToken ?? {};
+
+	const description = stats
+		? `${ stats.played } played games for a total of ${ stats.time } seconds.`
+		: "Player not found.";
+
+	const [times, setTimes] = useState<IScore[]>(stats?.times ?? []);
 	const [page, setPage] = useState<number>(0);
 	const [lastPage, setLastPage] = useState<boolean>(false);
 
@@ -100,20 +121,46 @@ export default function Profile(props) {
 				<h1 className="text-5xl font-bold">{ username }</h1>
 				<hr />
 
-				<Stats
-					stats={ stats }
-				/>
-				<Times
-					times={ times }
-				/>
+				{ stats && (
+					<>
+						<Stats
+							stats={ stats }
+						/>
+						<Times
+							times={ times }
+						/>
 
-				<button
-					className="btn btn-primary"
-					onClick={ handleLoadMore }
-					disabled={ lastPage }
-				>
-					Load more
-				</button>
+						<button
+							className="btn btn-primary"
+							onClick={ handleLoadMore }
+							disabled={ lastPage }
+						>
+							Load more
+						</button>
+					</>
+				) }
+
+				{ !stats && selfUsername !== username && (
+					"Player not found."
+				) }
+
+				{ !stats && selfUsername === username && (
+					<>
+						Download the game and register your first time now!.
+						<Link
+							href="https://github.com/Quozul/2022_3A_3DJV_UnityProject/releases"
+							passHref
+						>
+							<a
+								className="btn btn-primary"
+								target="_blank"
+								rel="noreferrer noopener"
+							>
+								Download
+							</a>
+						</Link>
+					</>
+				) }
 			</div>
 		</div>
 	);

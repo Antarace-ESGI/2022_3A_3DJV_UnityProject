@@ -10,16 +10,15 @@ const Home: NextPage = () => {
 					<p className="py-6">
 						Download the game now and discover unique races in a space environment!
 					</p>
+
 					<Link
-						href="https://github.com/Quozul/2022_3A_3DJV_UnityProject/releases"
+						href="/signup"
 						passHref
 					>
 						<a
 							className="btn btn-primary"
-							target="_blank"
-							rel="noreferrer noopener"
 						>
-							Download
+							Register
 						</a>
 					</Link>
 				</div>

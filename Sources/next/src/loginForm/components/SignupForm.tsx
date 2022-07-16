@@ -3,10 +3,11 @@ import { FormikHelpers } from "formik/dist/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 
-import { signupSchema } from "@components/loginForm/models";
+import { IToken, signupSchema } from "@components/loginForm/models";
 import { setToken } from "@components/loginForm/slice";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import * as jwt from "jsonwebtoken";
 
 function LoginForm() {
 	const dispatch = useDispatch();
@@ -33,7 +34,8 @@ function LoginForm() {
 			.then((res) => res.json())
 			.then((json) => {
 				dispatch(setToken(json.token));
-				router.push("/login");
+				const { username } = jwt.decode(json.token) as IToken ?? {};
+				router.push(`/player/${username}`);
 			})
 			.catch((err) => {
 				setErrors(err);

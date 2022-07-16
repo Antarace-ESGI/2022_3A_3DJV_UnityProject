@@ -10,7 +10,7 @@ export const sequelize = new Sequelize({
 	dialectModule: pg,
 	username: "root",
 	password: "root",
-	host: "192.168.2.1",
+	host: process.env.DATABASE_HOST ?? "localhost",
 	models: [User, Scores],
 	logging: () => {},
 });
