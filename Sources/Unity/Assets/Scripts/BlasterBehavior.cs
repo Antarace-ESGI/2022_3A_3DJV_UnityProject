@@ -5,8 +5,9 @@ using UnityEngine.Serialization;
 public class BlasterBehavior : MonoBehaviour
 {
     [FormerlySerializedAs("VanishTime")] public float vanishTime = 4;
+    public GameObject owner;
 
-    void Update()
+    private void Update()
     {
         transform.Translate(new Vector3(0, 0, 30 * Time.deltaTime));
 
@@ -22,6 +23,9 @@ public class BlasterBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        // If the collision if owner, ignore
+        if (owner == collision.gameObject) return;
+
         // TODO: Factoriser ces deux méthodes
         if (collision.CompareTag("AI"))
         {
