@@ -104,7 +104,11 @@ public class PlayerInputScript : MonoBehaviour
 
     private void Pause(InputAction.CallbackContext obj)
     {
-        _pauseMenu.PauseProcess(_uiHUD);
+        // If the game is not loading, allow pause
+        if (!LoadSceneManager.loading)
+        {
+            _pauseMenu.PauseProcess(_uiHUD);
+        }
     }
 
     public Camera GetCamera()

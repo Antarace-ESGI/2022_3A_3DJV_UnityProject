@@ -9,6 +9,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(PlayerInputManager))]
 public class LoadSceneManager : MonoBehaviour
 {
+    public static bool loading;
+
     public GameObject aiPrefab;
     public Text countdownText;
 
@@ -28,6 +30,7 @@ public class LoadSceneManager : MonoBehaviour
 
     public void StartLoading()
     {
+        loading = true;
         StartCoroutine(LoadYourAsyncScene());
     }
 
@@ -88,5 +91,6 @@ public class LoadSceneManager : MonoBehaviour
         countdownText.enabled = false;
         
         startTime = DateTime.Now;
+        loading = false;
     }
 }
