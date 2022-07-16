@@ -1,8 +1,10 @@
+using Checkpoints;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInput))]
 [RequireComponent(typeof(ShipController))]
+[RequireComponent(typeof(CheckpointController))]
 public class PlayerInputScript : MonoBehaviour
 {
     // Accessor
@@ -13,7 +15,8 @@ public class PlayerInputScript : MonoBehaviour
 
     private ShipController _shipController;
     private PlayerPauseMenu _pauseMenu;
-
+    private CheckpointController _checkpointController;
+    private PlayerStatsScript _playerStatsScript;
     private InputActionAsset _inputAsset;
     private InputActionMap _player;
 
@@ -25,6 +28,8 @@ public class PlayerInputScript : MonoBehaviour
         _inputAsset = GetComponent<PlayerInput>().actions;
         _player = _inputAsset.FindActionMap("Player");
         _shipController = GetComponent<ShipController>();
+        _checkpointController = gameObject.GetComponent<CheckpointController>();
+        _playerStatsScript = gameObject.GetComponent<PlayerStatsScript>();
     }
 
     private void OnEnable()
@@ -40,6 +45,7 @@ public class PlayerInputScript : MonoBehaviour
         _player.FindAction("Rotate").performed += Rotation;
         _player.FindAction("Rotate").canceled += Rotation;
         _player.FindAction("Rotate").started += Rotation;
+        _player.FindAction("Respawn").started += Respawn;
 
         _player.Enable();
     }
@@ -56,9 +62,14 @@ public class PlayerInputScript : MonoBehaviour
         _player.FindAction("Movement").started -= Direction;
         _player.FindAction("Rotate").performed -= Rotation;
         _player.FindAction("Rotate").canceled -= Rotation;
-        _player.FindAction("Rotate").started -= Rotation;
+        _player.FindAction("Respawn").started -= Respawn;
 
         _player.Disable();
+    }
+
+    private void Respawn(InputAction.CallbackContext obj)
+    {
+        _checkpointController.RespawnEntity();
     }
 
     // Action function
@@ -77,7 +88,7 @@ public class PlayerInputScript : MonoBehaviour
 
     private void UseBonus(InputAction.CallbackContext obj)
     {
-        gameObject.GetComponent<PlayerStatsScript>().unableBonusUse();
+        _playerStatsScript.unableBonusUse();
     }
 
     private void Shoot(InputAction.CallbackContext obj)

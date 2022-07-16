@@ -1,4 +1,5 @@
-﻿using Unity.Collections;
+﻿using System;
+using Unity.Collections;
 using UnityEngine;
 
 namespace Checkpoints
@@ -15,6 +16,12 @@ namespace Checkpoints
         // Real checkpoint
         [ReadOnly] public int checkpointIndex;
         private GameObject _nextCheckpoint, _currentCheckpoint;
+        private Rigidbody _rigidBody;
+
+        private void Start()
+        {
+            _rigidBody = GetComponent<Rigidbody>();
+        }
 
         private void OnEnable()
         {
@@ -74,7 +81,14 @@ namespace Checkpoints
 
         public void RespawnEntity()
         {
-            transform.position = GetCurrentCheckpoint().transform.position + Vector3.up; // +1 up to make the ship float above ground
+            var currentCheckpointTransform = GetCurrentCheckpoint().transform;
+
+            transform.rotation = currentCheckpointTransform.rotation;
+            transform.position = currentCheckpointTransform.position + Vector3.up; // +1 up to make the ship float above ground
+
+            // Stop the ship from moving
+            _rigidBody.velocity = Vector3.zero;
+            _rigidBody.angularVelocity = Vector3.zero;
         }
 
         public float GetTotalProgression()
