@@ -9,6 +9,9 @@ public class AIBlaster : MonoBehaviour
     public GameObject aiMissile;
     public GameObject aiMissileClone;
 
+    public AudioClip IABlasterSound;
+    public AudioSource audioSource;
+
     public Transform canonTransform;
 
     // Update is called once per frame
@@ -38,6 +41,8 @@ public class AIBlaster : MonoBehaviour
             Vector3 aiPos = new Vector3(position.x, position.y, position.z);
             aiMissileClone = Instantiate(aiMissile, aiPos, aiCanon.transform.rotation * Quaternion.Euler(0f, 0f, 90f));
             yield return new WaitForSeconds(0.5f);
+            audioSource.clip = IABlasterSound;
+            audioSource.Play();
             canShoot = true;
         }
     }
