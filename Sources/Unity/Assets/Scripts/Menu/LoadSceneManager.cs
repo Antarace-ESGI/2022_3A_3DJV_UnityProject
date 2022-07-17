@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Checkpoints;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,6 +18,8 @@ public class LoadSceneManager : MonoBehaviour
     private TrackArrayScript _trackArrayScript;
     private PlayerInputManager _inputManager;
     private const uint TotalPlayers = 4;
+    
+    public static Dictionary<GameObject, bool> playingEntities;
 
     public static DateTime startTime;
 
@@ -24,6 +27,7 @@ public class LoadSceneManager : MonoBehaviour
     {
         _trackArrayScript = FindObjectOfType<TrackArrayScript>();
         _inputManager = GetComponent<PlayerInputManager>();
+        playingEntities = new Dictionary<GameObject, bool>();
 
         StartLoading();
     }
@@ -58,13 +62,20 @@ public class LoadSceneManager : MonoBehaviour
         {
             var playerIndex = player.Key;
             var playerDevice = player.Value;
-            _inputManager.JoinPlayer(playerIndex, pairWithDevice: playerDevice);
+            var input = _inputManager.JoinPlayer(playerIndex, pairWithDevice: playerDevice);
+
+            var completePlayer = input.GetComponent<PlayerInputScript>().completePlayer;
+            completePlayer.name = $"{TranslateSelector.GetTranslation("player")} {playerIndex + 1}";
+
+            var o = input.gameObject;
+            playingEntities.Add(o, false);
         }
 
         for (var i = players.Count; i < TotalPlayers; i++)
         {
-            GameObject ai = Instantiate(aiPrefab);
-            ai.name += i;
+            var ai = Instantiate(aiPrefab);
+            ai.name = $"{TranslateSelector.GetTranslation("ai")} {i - players.Count + 1}";
+            playingEntities.Add(ai, false);
         }
 
         countdownText.enabled = true;

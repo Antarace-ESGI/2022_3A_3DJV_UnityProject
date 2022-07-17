@@ -18,7 +18,7 @@ public class Leaderboard : MonoBehaviour
     void Start()
     {
         _checkpointControllers = FindObjectsOfType<CheckpointController>().ToList();
-        
+
         _text = GetComponent<Text>();
         _rank = _checkpointControllers.Count;
     }

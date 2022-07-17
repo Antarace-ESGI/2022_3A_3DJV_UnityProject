@@ -1578,7 +1578,8 @@ MonoBehaviour:
   _blaster: {fileID: 8392480834229186757}
   _uiHUD: {fileID: 8392480833032017551}
   waitingScreen: {fileID: 5044850262733073706}
-  _camera: {fileID: 0}
+  _camera: {fileID: 8392480833037856033}
+  completePlayer: {fileID: 8392480833456586576}
 --- !u!114 &7292246443510697947
 MonoBehaviour:
   m_ObjectHideFlags: 0

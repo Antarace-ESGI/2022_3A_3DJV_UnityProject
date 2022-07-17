@@ -11,7 +11,8 @@ public class PlayerInputScript : MonoBehaviour
     [SerializeField] private GameObject _blaster;
     [SerializeField] private GameObject _uiHUD;
     [SerializeField] private GameObject waitingScreen;
-    [SerializeField] private Camera _camera;
+
+    public GameObject completePlayer;
 
     private ShipController _shipController;
     private PlayerPauseMenu _pauseMenu;
@@ -114,18 +115,14 @@ public class PlayerInputScript : MonoBehaviour
         }
     }
 
-    public Camera GetCamera()
+    public void DisableWaitingScreen()
     {
-        return _camera;
+        waitingScreen.SetActive(true);
     }
 
-    public GameObject GetWaitingScreen()
+    public void DisplayWaitingScreen()
     {
-        return waitingScreen;
-    }
-
-    public void DisableHUD()
-    {
+        waitingScreen.SetActive(true);
         _uiHUD.SetActive(false);
     }
 }
