@@ -11,8 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 	if (req.method === "GET") {
 		const { username, page: rawPage, size: rawSize } = req.query;
-		const page = rawPage ? parseInt(rawPage) : 0;
-		const size = rawSize ? parseInt(rawSize) : 6;
+		const page = parseInt(typeof rawPage === "string" ? rawPage : "0");
+		const size = parseInt(typeof rawSize === "string" ? rawSize : "6");
 
 		const totalRequest = await Scores.findOne({
 			attributes: [
