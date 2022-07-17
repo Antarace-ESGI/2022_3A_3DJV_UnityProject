@@ -20,6 +20,9 @@ public class LoadSceneManager : MonoBehaviour
 
     public static DateTime startTime;
 
+    public AudioClip StartingSound;
+    public AudioSource audioSource;
+
     private void Start()
     {
         _trackArrayScript = FindObjectOfType<TrackArrayScript>();
@@ -74,6 +77,8 @@ public class LoadSceneManager : MonoBehaviour
 
     private IEnumerator StartCountdown()
     {
+        audioSource.clip = StartingSound;
+        audioSource.Play();
         yield return new WaitForSecondsRealtime(1);
         countdownText.text = "4";
         yield return new WaitForSecondsRealtime(1);
@@ -89,7 +94,7 @@ public class LoadSceneManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(1);
         countdownText.enabled = false;
-        
+
         startTime = DateTime.Now;
         loading = false;
     }
