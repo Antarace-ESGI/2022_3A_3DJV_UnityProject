@@ -2424,7 +2424,6 @@ GameObject:
   - component: {fileID: 5154496692597133086}
   - component: {fileID: 8070448869181453306}
   - component: {fileID: 2700095964982836252}
-  - component: {fileID: 3683964972676560183}
   m_Layer: 5
   m_Name: VehicleButton1
   m_TagString: Untagged
@@ -2552,20 +2551,6 @@ MonoBehaviour:
   previewPlaceholder: {fileID: 8759345272782376710}
   previewText: {fileID: 6118444116327416206}
   waitForAll: {fileID: 740456785674951077}
---- !u!114 &3683964972676560183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6840470629243227002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 2185846709468780851}
 --- !u!1 &7668479620277371520
 GameObject:
   m_ObjectHideFlags: 0

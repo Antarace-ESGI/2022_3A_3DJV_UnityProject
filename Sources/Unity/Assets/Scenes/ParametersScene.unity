@@ -364,8 +364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!1 &24785395
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,8 +984,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!1 &115780268
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,8 +1616,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!1 &212711783
 GameObject:
   m_ObjectHideFlags: 0
@@ -3371,8 +3365,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!1 &466258206
 GameObject:
   m_ObjectHideFlags: 0
@@ -4518,8 +4510,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!1 &738256487
 GameObject:
   m_ObjectHideFlags: 0
@@ -6639,6 +6629,8 @@ GameObject:
   - component: {fileID: 1155403690}
   - component: {fileID: 1155403689}
   - component: {fileID: 1155403693}
+  - component: {fileID: 1155403694}
+  - component: {fileID: 1155403695}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6735,6 +6727,118 @@ RectTransform:
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!82 &1155403693
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155403688}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -2302216852499942912, guid: dc0b6398224c6cf45be120a5c98ba56d, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1155403694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155403688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e0ac648efd1504c93ef0851424c30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
+  SelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 1155403693}
+  audioSource2: {fileID: 1155403695}
+--- !u!82 &1155403695
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7639,8 +7743,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!1 &1269842208
 GameObject:
   m_ObjectHideFlags: 0
@@ -8979,8 +9081,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!1 &1500865194
 GameObject:
   m_ObjectHideFlags: 0
@@ -9249,6 +9349,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1155403694}
+        m_TargetAssemblyTypeName: MenuSound, Assembly-CSharp
+        m_MethodName: selSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1529459912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9316,8 +9428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!1 &1547694696
 GameObject:
   m_ObjectHideFlags: 0
@@ -9992,8 +10102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!114 &1636770997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11226,8 +11334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!1 &1776445411
 GameObject:
   m_ObjectHideFlags: 0
@@ -11575,8 +11681,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 0}
-  audioSource: {fileID: 0}
 --- !u!1 &1826216763
 GameObject:
   m_ObjectHideFlags: 0
@@ -11741,8 +11845,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!1 &1828659496
 GameObject:
   m_ObjectHideFlags: 0
@@ -13128,8 +13230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 8300000, guid: 877dd784b4777df4b975cd5ef3998ec6, type: 3}
-  audioSource: {fileID: 1155403693}
 --- !u!1 &2062386648
 GameObject:
   m_ObjectHideFlags: 0
