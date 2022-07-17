@@ -93,12 +93,14 @@ public class EndRaceScript : MonoBehaviour
             // If it is a player, do some more stuff
             if (collision.CompareTag("Player"))
             {
-                colEntity.SetActive(false);
-                
-                if (GameObject.FindGameObjectWithTag("HUD"))
-                {
-                    GameObject.FindGameObjectWithTag("HUD").SetActive(false);
-                }
+                // colEntity.SetActive(false);
+                var playerInput = colEntity.GetComponent<PlayerInputScript>();
+                playerInput.UnregisterEvents();
+                playerInput.DisableHUD();
+                var body = colEntity.GetComponentInChildren<Rigidbody>();
+                body.constraints = RigidbodyConstraints.FreezeAll;
+                colEntity.transform.position = new Vector3(1000, 1000, 1000);
+
                 Cursor.lockState = CursorLockMode.None;
                 
                 waitingPanels[colEntity].SetActive(true);
@@ -113,6 +115,15 @@ public class EndRaceScript : MonoBehaviour
             //Wait for every participant to finish the race
             if (runner == playingEntities.Count)
             {
+                // Disable all entities
+                foreach (var player in playingEntities.Keys)
+                {
+                    if (player.CompareTag("Player"))
+                    {
+                        Destroy(player);
+                    }
+                }
+                
                 EndRaceDisplay();
             }
         }

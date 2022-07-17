@@ -21,8 +21,8 @@ public class AccelerateEndRaceScript : MonoBehaviour
     {
         if (_end)
         {
-            int? players = CheckPlayerState();
-            if (players != null && players == _end.GetPlayersCount())
+            int? playerState = CheckPlayerState();
+            if (playerState != null && playerState == _end.GetPlayersCount())
             {
                 // Changing panel : 
                 _endPanel.SetActive(true);
@@ -36,6 +36,13 @@ public class AccelerateEndRaceScript : MonoBehaviour
                 foreach (var ai in ais)
                 {
                     Destroy(ai);
+                }
+                
+                // Disable all entities
+                var players = GameObject.FindGameObjectsWithTag("Player");
+                foreach (var player in players)
+                {
+                    Destroy(player);
                 }
             }
         }

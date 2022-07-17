@@ -50,6 +50,11 @@ public class PlayerInputScript : MonoBehaviour
         _player.Enable();
     }
 
+    public void UnregisterEvents()
+    {
+        _player.Disable();
+    }
+
     private void OnDisable()
     {
         _player.FindAction("Use").started -= UseBonus;
@@ -63,8 +68,6 @@ public class PlayerInputScript : MonoBehaviour
         _player.FindAction("Rotate").performed -= Rotation;
         _player.FindAction("Rotate").canceled -= Rotation;
         _player.FindAction("Respawn").started -= Respawn;
-
-        _player.Disable();
     }
 
     private void Respawn(InputAction.CallbackContext obj)
@@ -120,5 +123,9 @@ public class PlayerInputScript : MonoBehaviour
     {
         return waitingScreen;
     }
-    
+
+    public void DisableHUD()
+    {
+        _uiHUD.SetActive(false);
+    }
 }
