@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 public class UISelectorScript : MonoBehaviour
 {
@@ -8,7 +9,16 @@ public class UISelectorScript : MonoBehaviour
 
     private void OnEnable()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(this.gameObject);
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(gameObject);
+        }
+
+        if (MultiplayerEventSystem.current != null)
+        {
+            MultiplayerEventSystem.current.SetSelectedGameObject(null);
+            MultiplayerEventSystem.current.SetSelectedGameObject(gameObject);
+        }
     }
 }

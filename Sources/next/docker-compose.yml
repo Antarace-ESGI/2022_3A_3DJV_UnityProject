@@ -7,6 +7,9 @@ services:
     restart: always
     ports:
       - "3000:3000"
+    environment:
+      JWT_SECRET: "4n1RaC3"
+      DATABASE_HOST: "postgres"
     depends_on:
       - game-postgres
     networks:
@@ -20,8 +23,10 @@ services:
       POSTGRES_PASSWORD: root
       POSTGRES_USER: root
       POSTGRES_DB: antarace
-    ports:
-      - "5432:5432"
+    expose:
+      - 5432
+    networks:
+      - game-network
 
 networks:
   game-network:

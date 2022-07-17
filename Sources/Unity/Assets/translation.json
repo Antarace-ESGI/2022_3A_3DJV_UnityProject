@@ -35,7 +35,9 @@
 	"waiting_for_players": "En attente des autres joueurs...",
     "language_settings" : "Paramètres de la langue",
 	"end_race": "Terminer la course",
-	"bad_creds": "Mauvais identifiants"
+	"bad_creds": "Mauvais identifiants",
+	"ai": "Ordinateur",
+	"player": "Joueur"
   },
   "en": {
 	"game_title": "Antarace",
@@ -73,6 +75,8 @@
 	"waiting_for_players": "Waiting for other players...",
     "language_settings" : "Language settings",  
 	"end_race": "End race",
-	"bad_creds": "Bad credentials"
+	"bad_creds": "Bad credentials",
+	"ai": "Computer",
+	"player": "Player"
   }
 }

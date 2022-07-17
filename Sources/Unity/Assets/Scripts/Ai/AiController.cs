@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class AiController : MonoBehaviour
 {
     public int aiLife = 50;
+    public bool canMove = true;
 
     private ShipController _shipController;
     private CheckpointController _checkpointController;
@@ -28,6 +29,8 @@ public class AiController : MonoBehaviour
 
     private void Update()
     {
+        if (!canMove) return;
+
         // Calculate paths
         var nextCheckpoint = _checkpointController.GetNextCheckpoint().transform.position;
 

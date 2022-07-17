@@ -34,7 +34,7 @@ namespace Menu.LoginMenu
         public GameObject successPanel;
         public Text feedbackText;
 
-        public const string BaseUrl = "https://pa.quozul.dev/api";
+        public const string BaseUrl = "https://antarace.quozul.dev/api";
 
         private void OnEnable()
         {
@@ -80,7 +80,6 @@ namespace Menu.LoginMenu
             else
             {
                 var tokenResponse = JsonUtility.FromJson<TokenResponse>(request.downloadHandler.text);
-                Debug.Log("Got JWT!");
                 PlayerPrefs.SetString("token", tokenResponse.token);
                 gameObject.SetActive(false);
                 successPanel.SetActive(true);

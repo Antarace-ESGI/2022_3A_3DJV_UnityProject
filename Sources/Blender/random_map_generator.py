@@ -8,18 +8,21 @@ bpy.ops.object.delete(use_global=False, confirm=False)
 
 # Generate bezier curve
 bezier = []
-y = 0#os.getenv("MIN_Y")
-print(os.getenv("MIN_Y"))
-x = 0#int(os.getenv("MIN_X"))
-length = 10#int(os.getenv("TRACK_LENGTH"))
+min = int(os.getenv("MIN_Y"))
+max = int(os.getenv("MIN_X"))
+length = int(os.getenv("TRACK_LENGTH"))
+height = int(os.getenv("HEIGHT"))
+
+x = 0
+y = 0
 
 for i in range(0, length):
     x += random.random()
-    y += random.random() * 16 - 8
+    y += random.random() * (max - min) + min
 
     segment = {
         "name": "",
-        "location": (x * 8, y, random.random() * 2),
+        "location": (x * 8, y, random.random() * height),
         "mouse": (random.random() * 100, random.random() * 100),
         "mouse_event": (0, 0),
         "pressure": 1,
