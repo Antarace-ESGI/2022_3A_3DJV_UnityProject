@@ -11,7 +11,7 @@ namespace Checkpoints
     /// </summary>
     public class CheckpointController : MonoBehaviour
     {
-        private static GameObject[] _checkpoints;
+        private static GameObject[] _checkpoints = {};
 
         // Real checkpoint
         [ReadOnly] public int checkpointIndex;
@@ -33,7 +33,12 @@ namespace Checkpoints
         /// </summary>
         public static void LoadCheckpoints()
         {
-            _checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+            var manager = FindObjectOfType<CheckpointManager>();
+
+            if (manager != null)
+            {
+                _checkpoints = manager.checkpoints;
+            }
         }
 
         public static GameObject GetSpawnCheckpoint()

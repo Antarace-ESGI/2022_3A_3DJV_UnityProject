@@ -64,10 +64,8 @@ public class LoadSceneManager : MonoBehaviour
             var playerDevice = player.Value;
             var input = _inputManager.JoinPlayer(playerIndex, pairWithDevice: playerDevice);
 
-            var completePlayer = input.GetComponent<PlayerInputScript>().completePlayer;
-            completePlayer.name = $"{TranslateSelector.GetTranslation("player")} {playerIndex + 1}";
-
             var o = input.gameObject;
+            o.name = $"{TranslateSelector.GetTranslation("player")} {playerIndex + 1}";
             playingEntities.Add(o, false);
         }
 

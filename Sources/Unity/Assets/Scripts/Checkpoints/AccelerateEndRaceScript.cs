@@ -12,8 +12,12 @@ public class AccelerateEndRaceScript : MonoBehaviour
     private void Start()
     {
         _end = FindObjectOfType<EndRaceScript>();
-        _endPanel = selfPlayer.GetComponent<CheckpointController>().EndCheckpoint().GetComponent<EndRaceScript>()
-            .GetEnablingPanel();
+        var lastCheckpoint = selfPlayer.GetComponent<CheckpointController>().EndCheckpoint();
+        Debug.Log($"last : {lastCheckpoint}");
+
+        _endPanel = lastCheckpoint.GetComponent<EndRaceScript>().GetEnablingPanel();
+        
+        Debug.Log($"Accelerate : {_end} {_endPanel}");
     }
 
     public void EndRace()
