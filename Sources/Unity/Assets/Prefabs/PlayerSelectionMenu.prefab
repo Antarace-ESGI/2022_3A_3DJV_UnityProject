@@ -1432,8 +1432,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPanel: {fileID: 3088931005093554440}
   nextPanel: {fileID: 0}
-  MenuSelectSound: {fileID: 0}
-  audioSource: {fileID: 0}
+  MenuSelectSound: {fileID: 8300000, guid: 238a12a2c39a84f48b318aa1ed23afef, type: 3}
+  audioSource: {fileID: 2185846709468780851}
   dest: 0
 --- !u!1 &3930267283118850387
 GameObject:
@@ -2953,13 +2953,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 339e67193680ecb438a44db7ec98fb7c, type: 3}
---- !u!23 &220735015536089676 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 339e67193680ecb438a44db7ec98fb7c, type: 3}
-  m_PrefabInstance: {fileID: 1500157113948063432}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1394736611884474659 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 339e67193680ecb438a44db7ec98fb7c, type: 3}
+  m_PrefabInstance: {fileID: 1500157113948063432}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &220735015536089676 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 339e67193680ecb438a44db7ec98fb7c, type: 3}
   m_PrefabInstance: {fileID: 1500157113948063432}
   m_PrefabAsset: {fileID: 0}
