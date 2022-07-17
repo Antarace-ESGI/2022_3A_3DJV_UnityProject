@@ -80,7 +80,6 @@ public class EndRaceScript : MonoBehaviour
     public bool AllPlayersHaveFinished()
     {
         var playerCount = SelectedVehiclesScript.GetAllPlayers().Count;
-        Debug.Log($"player count : {playerCount} ; crossed : {_players}");
         return _players >= playerCount;
     }
 

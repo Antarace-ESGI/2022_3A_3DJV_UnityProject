@@ -56,6 +56,8 @@ public class LoadSceneManager : MonoBehaviour
         Time.timeScale = 0.0f;
         SpawnScript.ResetPlayerCount();
 
+        playingEntities.Clear();
+
         var players = SelectedVehiclesScript.GetAllPlayers();
 
         foreach (var player in players)

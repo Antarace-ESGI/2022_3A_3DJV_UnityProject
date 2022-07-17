@@ -13,17 +13,13 @@ public class AccelerateEndRaceScript : MonoBehaviour
     {
         _end = FindObjectOfType<EndRaceScript>();
         var lastCheckpoint = selfPlayer.GetComponent<CheckpointController>().EndCheckpoint();
-        Debug.Log($"last : {lastCheckpoint}");
 
         _endPanel = lastCheckpoint.GetComponent<EndRaceScript>().GetEnablingPanel();
-        
-        Debug.Log($"Accelerate : {_end} {_endPanel}");
     }
 
     public void EndRace()
     {
         if (!_end || !_end.AllPlayersHaveFinished()) return;
-        Debug.Log("EndRace");
 
         // Changing panel : 
         _endPanel.SetActive(true);

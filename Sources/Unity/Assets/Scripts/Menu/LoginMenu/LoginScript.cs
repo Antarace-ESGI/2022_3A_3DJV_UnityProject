@@ -80,7 +80,6 @@ namespace Menu.LoginMenu
             else
             {
                 var tokenResponse = JsonUtility.FromJson<TokenResponse>(request.downloadHandler.text);
-                Debug.Log("Got JWT!");
                 PlayerPrefs.SetString("token", tokenResponse.token);
                 gameObject.SetActive(false);
                 successPanel.SetActive(true);
