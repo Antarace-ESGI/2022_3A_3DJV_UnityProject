@@ -16,7 +16,12 @@ public class MenuSound : MonoBehaviour
 
   private void OnEnable()
   {
+    Debug.Log(go);
+    Debug.Log(EventSystem.current.currentSelectedGameObject);
+
+    if(EventSystem.current.currentSelectedGameObject != null){
       go = EventSystem.current.currentSelectedGameObject;
+    }
   }
 
   private void Update(){
@@ -35,6 +40,12 @@ public class MenuSound : MonoBehaviour
   public void selSound()
   {
     audioSource2.clip = SelectSound;
+    audioSource2.Play();
+  }
+
+  public void MoveSound()
+  {
+    audioSource2.clip = MenuMoveSound;
     audioSource2.Play();
   }
 
