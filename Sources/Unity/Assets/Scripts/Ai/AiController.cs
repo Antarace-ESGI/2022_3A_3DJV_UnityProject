@@ -10,6 +10,9 @@ public class AiController : MonoBehaviour
     public int aiLife = 50;
     public bool canMove = true;
 
+    public AudioClip AIDeathSound;
+    public AudioSource audioSource;
+
     private ShipController _shipController;
     private CheckpointController _checkpointController;
     private NavMeshAgent _agent;
@@ -46,7 +49,7 @@ public class AiController : MonoBehaviour
 
         // Moving methods
         var yaw = transform.InverseTransformPoint(target).x;
-        
+
         _shipController.SetYaw(yaw);
         _shipController.Move(Vector2.up * desiredVelocity);
 
@@ -55,6 +58,8 @@ public class AiController : MonoBehaviour
         {
             _checkpointController.RespawnEntity();
             aiLife = 50;
+            audioSource.clip = AIDeathSound;
+            audioSource.Play();
         }
     }
 }
