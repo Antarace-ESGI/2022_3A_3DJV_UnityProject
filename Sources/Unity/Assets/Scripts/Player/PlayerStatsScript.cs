@@ -18,17 +18,21 @@ public class PlayerStatsScript : MonoBehaviour
     public bool haveBonus;
     public int bonusIndex = -1;
     public Image bonus;
-    
+
+    public AudioClip DeathSound;
+    public AudioSource audioSource;
+
+
     private CheckpointController _checkpointController;
 
     private void Start()
     {
         lifebar.value = healthPoint;
-        
+
         _gameManager = GameObject.FindWithTag("BonusController");
         _checkpointController = GetComponent<CheckpointController>();
     }
-    
+
     // Main
 
     public void setBonus(Sprite item = null)
@@ -89,6 +93,8 @@ public class PlayerStatsScript : MonoBehaviour
 
         if (healthPoint <= 0)
         {
+          audioSource.clip = DeathSound;
+          audioSource.Play();
             if (haveBonus)
             {
                 generateLoot(transform.position);
