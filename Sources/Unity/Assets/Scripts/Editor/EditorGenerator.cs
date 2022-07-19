@@ -120,6 +120,7 @@ public class EditorGenerator : EditorWindow
             }
             
             var gameObject = (GameObject) AssetDatabase.LoadAssetAtPath(fileName, typeof(GameObject));
+            gameObject.AddComponent<MeshCollider>();
             _lastGameObject = Instantiate(gameObject);
         }
     }
