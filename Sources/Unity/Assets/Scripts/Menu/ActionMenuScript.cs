@@ -11,6 +11,21 @@ public class ActionMenuScript : MonoBehaviour
 
     public int dest = 0;
 
+
+  // private void Start()
+  //   {
+  //     if (PlayerPrefs.HasKey("musicVolume"))
+  //     {
+  //       MusicVolume.instance.sliderM.value = PlayerPrefs.GetFloat("musicVolume");
+  //     }
+  //     if (PlayerPrefs.HasKey("soundVolume"))
+  //     {
+  //       SoundVolume.instance.sliderS.value = PlayerPrefs.GetFloat("soundVolume");
+  //     }
+  //   }
+
+
+
     private void CurrentPanelClose()
     {
         currentPanel.SetActive(false);

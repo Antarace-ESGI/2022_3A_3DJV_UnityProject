@@ -439,8 +439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb3f68b60edf1a4493f82c5a552304b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuMoveSound: {fileID: 0}
-  audioSource: {fileID: 0}
 --- !u!1 &3751514668045519903
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,6 +1546,8 @@ MonoBehaviour:
   haveBonus: 0
   bonusIndex: -1
   bonus: {fileID: 8392480832157804155}
+  DeathSound: {fileID: 8300000, guid: 1d6aa6cadfe6ad246882a4ef4786c81c, type: 3}
+  audioSource: {fileID: 1565964364258905575}
 --- !u!114 &2599530809406207042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1578,7 +1578,6 @@ MonoBehaviour:
   _blaster: {fileID: 8392480834229186757}
   _uiHUD: {fileID: 8392480833032017551}
   waitingScreen: {fileID: 5044850262733073706}
-  _camera: {fileID: 8392480833037856033}
   completePlayer: {fileID: 8392480833456586576}
 --- !u!114 &7292246443510697947
 MonoBehaviour:
