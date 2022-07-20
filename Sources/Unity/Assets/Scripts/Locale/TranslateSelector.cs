@@ -58,7 +58,7 @@ public class TranslateSelector : MonoBehaviour
     {
         if (_loaded) return;
 
-        var path = $"{Application.dataPath}/translation.json";
+        var path = $"{Application.dataPath}/StreamingAssets/translation.json";
         var rawJson = File.ReadAllText(path);
 
         _translation ??= JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(rawJson);
