@@ -37,7 +37,8 @@
 	"end_race": "Terminer la course",
 	"bad_creds": "Mauvais identifiants",
 	"ai": "Ordinateur",
-	"player": "Joueur"
+	"player": "Joueur",
+	"curve_tracks": "Circourbes"
   },
   "en": {
 	"game_title": "Antarace",
@@ -77,6 +78,7 @@
 	"end_race": "End race",
 	"bad_creds": "Bad credentials",
 	"ai": "Computer",
-	"player": "Player"
+	"player": "Player",
+	"curve_tracks": "Curvtracks"
   }
 }

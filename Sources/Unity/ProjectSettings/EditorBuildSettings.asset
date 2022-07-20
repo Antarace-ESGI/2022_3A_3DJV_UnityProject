@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayerSelectionScene.unity
     guid: 49119d1e9c356e34eaeb79975d965734
+  - enabled: 1
+    path: Assets/Scenes/Tracks/CurveTrack.unity
+    guid: 327bcb6b500532844b4fa48989f6f04d
+  - enabled: 1
+    path: Assets/Scenes/Tracks/RandomTrack1.unity
+    guid: 30af92bdb97ddc04faf4a39de6377fd3
   m_configObjects: {}

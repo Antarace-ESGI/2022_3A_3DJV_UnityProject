@@ -12,35 +12,35 @@ public class Leaderboard : MonoBehaviour
     private Text _text;
     private float _lastExecution;
     private List<CheckpointController> _checkpointControllers;
-    public int _rank;
+    public int rank;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         _checkpointControllers = FindObjectsOfType<CheckpointController>().ToList();
 
         _text = GetComponent<Text>();
-        _rank = _checkpointControllers.Count;
+        rank = _checkpointControllers.Count;
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    private void LateUpdate()
     {
         if (_lastExecution > 1)
         {
-            _rank = CalculatePosition() + 1;
-            _text.text = $"{_rank} / {_checkpointControllers.Count}";
+            rank = CalculatePosition() + 1;
+            _text.text = $"{rank} / {_checkpointControllers.Count}";
         }
         _lastExecution += Time.deltaTime;
     }
 
-    int CalculatePosition()
+    private int CalculatePosition()
     {
         _checkpointControllers.Sort(Comparison);
         return _checkpointControllers.FindIndex(controller => self == controller);
     }
 
-    private int Comparison(CheckpointController x, CheckpointController y)
+    private static int Comparison(CheckpointController x, CheckpointController y)
     {
         try
         {
@@ -50,10 +50,5 @@ public class Leaderboard : MonoBehaviour
         {
             return 0;
         }
-    }
-
-    public int GetRank()
-    {
-        return _rank;
     }
 }

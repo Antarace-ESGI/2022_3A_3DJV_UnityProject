@@ -38,6 +38,7 @@ namespace Checkpoints
             if (manager != null)
             {
                 _checkpoints = manager.checkpoints;
+                Debug.Log($"Loaded {_checkpoints.Length}");
             }
         }
 
