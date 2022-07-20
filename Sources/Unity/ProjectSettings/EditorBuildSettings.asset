@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tracks/RandomTrack1.unity
     guid: 30af92bdb97ddc04faf4a39de6377fd3
+  - enabled: 1
+    path: Assets/Scenes/Tracks/Jormungandr.unity
+    guid: a52936fd2d0c9044eb238693ad0f6f54
   m_configObjects: {}
