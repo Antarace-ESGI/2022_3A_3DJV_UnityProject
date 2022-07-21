@@ -4,6 +4,7 @@ using System.Linq;
 using Checkpoints;
 using Player;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class EndRaceScript : MonoBehaviour
@@ -149,7 +150,8 @@ public class EndRaceScript : MonoBehaviour
         String rankString = "";
         if (text)
         {
-            foreach (var rank in _rank)
+            var ranks = _rank.ToList();
+            foreach (var rank in ranks.OrderBy(key => key.Value))
             {
                 rankString += $"{rank.Value}e - {rank.Key}\n";
             }
